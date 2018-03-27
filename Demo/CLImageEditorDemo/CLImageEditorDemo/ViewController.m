@@ -74,6 +74,16 @@
 {
     if(_imageView.image){
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self];
+
+
+        for (CLImageToolInfo *tool in [editor.toolInfo subtools]){
+            if(tool.dockedNumber != 1){
+                [tool setAvailable:NO];
+            }
+        }
+
+        //CLImageToolInfo *tool = [editor.toolInfo subToolInfoWithToolName:@"CLToneCurveTool" recursive:NO];
+
         //CLImageEditor *editor = [[CLImageEditor alloc] initWithDelegate:self];
         
         /*
