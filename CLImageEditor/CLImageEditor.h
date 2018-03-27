@@ -1,6 +1,6 @@
 //
 //  CLImageEditor.h
-//
+//  Danish 
 //  Created by sho yakushiji on 2013/10/17.
 //  Copyright (c) 2013年 CALACULU. All rights reserved.
 //
