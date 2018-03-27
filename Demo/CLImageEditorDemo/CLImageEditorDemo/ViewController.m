@@ -75,10 +75,13 @@
     if(_imageView.image){
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self];
 
-
+        float i = 0.0;
         for (CLImageToolInfo *tool in [editor.toolInfo subtools]){
+            NSLog(@"%@", tool.title);
+            NSLog(@"%f", tool.dockedNumber);
+            tool.dockedNumber = i++;
             if(tool.dockedNumber != 1){
-                [tool setAvailable:NO];
+              //  [tool setAvailable:NO];
             }
         }
 
