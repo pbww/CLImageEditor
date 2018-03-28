@@ -27,7 +27,9 @@
 
 - (void)showInViewController:(UIViewController<CLImageEditorTransitionDelegate>*)controller withImageView:(UIImageView*)imageView;
 
-- (void)refreshToolSettings;
+-(void)showOptions:(NSDictionary*)dic withToolInfo:(NSArray*)subtool;
+
+-(void)showOptions:(NSDictionary*)dic;
 
 @end
 

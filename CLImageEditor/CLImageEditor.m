@@ -51,5 +51,20 @@
     return [CLImageEditorTheme theme];
 }
 
+-(void)showOptions:(NSDictionary*)dic withToolInfo:(NSArray*)subtool
+{
+   NSArray *keys = dic.allKeys;
+    for (CLImageToolInfo *tool in subtool){
+
+        if([keys containsObject:tool.title]){
+            [tool setAvailable:YES];
+            tool.dockedNumber = [[dic objectForKey:tool.title] floatValue];
+        }
+        else{
+             [tool setAvailable:NO];
+        }
+    }
+}
+
 @end
 

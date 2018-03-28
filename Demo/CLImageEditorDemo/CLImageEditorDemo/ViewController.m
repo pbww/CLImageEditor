@@ -75,23 +75,31 @@
     if(_imageView.image){
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self];
 
-        float i = 2.0;
-        for (CLImageToolInfo *tool in [editor.toolInfo subtools]){
-            NSLog(@"%@", tool.title);
-            NSLog(@"%f", tool.dockedNumber);
-            tool.dockedNumber = i++;
-            if([tool.title isEqualToString:@"Rotate"]){
-                [tool setAvailable:YES];
-                tool.dockedNumber = 1.0;
-            }
-            else if ([tool.title isEqualToString:@"Crop"]){
-                [tool setAvailable:YES];
-                tool.dockedNumber = 0.0;
-            }
-            else{
-                [tool setAvailable:NO];
-            }
-        }
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+        [dic setValue:[[NSNumber alloc] initWithDouble:0.0] forKey:@"Crop"];
+        [dic setValue:[[NSNumber alloc] initWithDouble:1.0] forKey:@"Rotate"];
+       // [dic setValue:[[NSNumber alloc] initWithDouble:2.0] forKey:@"Sticker"];
+
+        [editor showOptions:dic withToolInfo:[editor.toolInfo subtools]];
+
+
+       // float i = 0.0;
+//        for (CLImageToolInfo *tool in [editor.toolInfo subtools]){
+//            NSLog(@"%@", tool.title);
+//            NSLog(@"%f", tool.dockedNumber);
+//           // tool.dockedNumber = i++;
+//            if([tool.title isEqualToString:@"Rotate"]){
+//                [tool setAvailable:YES];
+//                tool.dockedNumber = 1.0;
+//            }
+//            else if ([tool.title isEqualToString:@"Crop"]){
+//                [tool setAvailable:YES];
+//                tool.dockedNumber = 0.0;
+//            }
+//            else{
+//                [tool setAvailable:NO];
+//            }
+//        }
 
         //CLImageToolInfo *tool = [editor.toolInfo subToolInfoWithToolName:@"CLToneCurveTool" recursive:NO];
 

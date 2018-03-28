@@ -158,7 +158,17 @@ static const CGFloat kMenuBarHeight = 80.0f;
     }
     self.menuView.backgroundColor = [CLImageEditorTheme toolbarColor];
     // -- Danish
-    self.menuView.scrollEnabled = false;
+
+    int i = 0;
+    for(CLImageToolInfo *tool in self.toolInfo.subtools){
+        if(tool.available){
+            i++;
+        }
+    }
+
+    if(i < 3){
+        self.menuView.scrollEnabled = false;
+    }
 }
 
 - (void)initImageScrollView
@@ -565,7 +575,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     CLToolbarMenuItem *resetView = [CLImageEditorTheme menuItemWithFrame:CGRectMake(x+padding, 0, W, H) target:self action:@selector(resetOrignalImage:) toolInfo:info];
     [_menuView addSubview:resetView];
 
-    _menuView.contentSize = CGSizeMake(MAX(x, _menuView.frame.size.width+1), 0);
+    _menuView.contentSize = CGSizeMake(MAX(x, _menuView.frame.size.width+85), 0);
 }
 
 - (void)resetImageViewFrame
