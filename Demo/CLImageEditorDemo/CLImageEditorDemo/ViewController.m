@@ -75,13 +75,21 @@
     if(_imageView.image){
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self];
 
-        float i = 0.0;
+        float i = 2.0;
         for (CLImageToolInfo *tool in [editor.toolInfo subtools]){
             NSLog(@"%@", tool.title);
             NSLog(@"%f", tool.dockedNumber);
             tool.dockedNumber = i++;
-            if(tool.dockedNumber != 1){
-              //  [tool setAvailable:NO];
+            if([tool.title isEqualToString:@"Rotate"]){
+                [tool setAvailable:YES];
+                tool.dockedNumber = 1.0;
+            }
+            else if ([tool.title isEqualToString:@"Crop"]){
+                [tool setAvailable:YES];
+                tool.dockedNumber = 0.0;
+            }
+            else{
+                [tool setAvailable:NO];
             }
         }
 

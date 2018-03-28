@@ -28,7 +28,7 @@
         _iconView.contentMode = self.iconImageContentMode;
         [self addSubview:_iconView];
         
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _iconView.bottom + 5, W, 15)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _iconView.bottom+5, W, 15)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = [CLImageEditorTheme toolbarTextColor];
         _titleLabel.font = [CLImageEditorTheme toolbarTextFont];

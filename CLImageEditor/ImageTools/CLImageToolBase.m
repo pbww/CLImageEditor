@@ -30,7 +30,7 @@
     // Image tools are sorted according to the dockedNumber in tool bar.
     // Override point for tool bar customization
     NSArray *tools = @[
-                       @"CLFilterTool",
+                       @"CLCropTool",
                        @"CLAdjustmentTool",
                        @"CLEffectTool",
                        @"CLBlurTool",

@@ -87,6 +87,7 @@
         else if(dockedNum1 > dockedNum2){ return NSOrderedDescending; }
         return NSOrderedSame;
     }];
+
     return self.subtools;
 }
 

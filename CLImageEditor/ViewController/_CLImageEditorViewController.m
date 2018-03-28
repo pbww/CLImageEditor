@@ -25,6 +25,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 @implementation _CLImageEditorViewController
 {
+    UIImage *_originalImageReset;
     UIImage *_originalImage;
     UIView *_bgView;
 }
@@ -58,6 +59,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     self = [self init];
     if (self){
         _originalImage = [image deepCopy];
+        _originalImageReset = [image deepCopy];
         self.delegate = delegate;
     }
     return self;
@@ -155,6 +157,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
         [_CLImageEditorViewController setConstraintsLeading:@0 trailing:@0 top:nil bottom:@0 height:@(menuScroll.height) width:nil parent:self.view child:menuScroll peer:nil];
     }
     self.menuView.backgroundColor = [CLImageEditorTheme toolbarColor];
+    // -- Danish
+    self.menuView.scrollEnabled = false;
 }
 
 - (void)initImageScrollView
@@ -524,8 +528,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
 - (void)refreshToolSettings
 {
     for(UIView *sub in _menuView.subviews){ [sub removeFromSuperview]; }
-    
-    CGFloat x = 0;
+
+    // -- Danish
+    CGFloat x = 20;
     CGFloat W = 70;
     CGFloat H = _menuView.height;
     
@@ -549,8 +554,17 @@ static const CGFloat kMenuBarHeight = 80.0f;
         
         CLToolbarMenuItem *view = [CLImageEditorTheme menuItemWithFrame:CGRectMake(x+padding, 0, W, H) target:self action:@selector(tappedMenuView:) toolInfo:info];
         [_menuView addSubview:view];
-        x += W+padding;
+        x += (_menuView.width/3);
     }
+
+    // -- Danish -- Reset
+    CLImageEditorTheme *theme = [CLImageEditorTheme theme];
+    CLImageToolInfo *info = [[CLImageToolInfo alloc] init];
+    info.title = @"Reset";
+    info.iconImagePath = [NSString stringWithFormat:@"%@/%@/%@/icon.png", CLImageEditorTheme.bundle.bundlePath, @"CLFilterTool", theme.toolIconColor];
+    CLToolbarMenuItem *resetView = [CLImageEditorTheme menuItemWithFrame:CGRectMake(x+padding, 0, W, H) target:self action:@selector(resetOrignalImage:) toolInfo:info];
+    [_menuView addSubview:resetView];
+
     _menuView.contentSize = CGSizeMake(MAX(x, _menuView.frame.size.width+1), 0);
 }
 
@@ -827,6 +841,15 @@ static const CGFloat kMenuBarHeight = 80.0f;
     rct.origin.x = MAX((Ws-W)/2, 0);
     rct.origin.y = MAX((Hs-H)/2, 0);
     _imageView.frame = rct;
+}
+
+// -- Danish
+- (void)resetOrignalImage:(UITapGestureRecognizer*)sender
+{
+    _imageView.image = _originalImageReset;
+    _originalImage = _originalImageReset;
+    [self resetImageViewFrame];
+    self.currentTool = nil;
 }
 
 @end
