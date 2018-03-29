@@ -240,6 +240,11 @@
 		1C85E154206BA0F600CB2CD5 /* CLTextLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5A033A1897528000347C57 /* CLTextLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C85E155206BA0F600CB2CD5 /* CLTextSettingView.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5A033C1897528000347C57 /* CLTextSettingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C85E156206BA0F600CB2CD5 /* CLTextTool.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5A033E1897528000347C57 /* CLTextTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C85E15A206C89FF00CB2CD5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD85D68818457394003106A3 /* CoreImage.framework */; };
+		1C85E15B206C89FF00CB2CD5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD85D68618457388003106A3 /* Accelerate.framework */; };
+		1C85E15C206C89FF00CB2CD5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5C1E0318350DC400790989 /* Foundation.framework */; };
+		1C85E15D206C89FF00CB2CD5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5C1E0518350DC400790989 /* CoreGraphics.framework */; };
+		1C85E15E206C89FF00CB2CD5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5C1E0718350DC400790989 /* UIKit.framework */; };
 		AD1D2C6B1897538900752339 /* CLGPUImageVignetteFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1D2C6A1897538900752339 /* CLGPUImageVignetteFilter.m */; };
 		AD29BB5D18EA471A0084D3D6 /* CLEmoticonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD29BB5C18EA471A0084D3D6 /* CLEmoticonTool.m */; };
 		AD359C321954FB4D00B763CF /* CLSplashTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD359C311954FB4D00B763CF /* CLSplashTool.m */; };
@@ -461,6 +466,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C85E15A206C89FF00CB2CD5 /* CoreImage.framework in Frameworks */,
+				1C85E15B206C89FF00CB2CD5 /* Accelerate.framework in Frameworks */,
+				1C85E15C206C89FF00CB2CD5 /* Foundation.framework in Frameworks */,
+				1C85E15D206C89FF00CB2CD5 /* CoreGraphics.framework in Frameworks */,
+				1C85E15E206C89FF00CB2CD5 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1354,7 +1364,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = rxswift.com.ImageEditor;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1401,7 +1411,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = rxswift.com.ImageEditor;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
