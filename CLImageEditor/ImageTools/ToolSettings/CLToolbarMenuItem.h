@@ -21,6 +21,7 @@
 @property (nonatomic, assign) BOOL selected;
 @property (nonatomic, readonly) UIImageView *iconView;
 
- - (id)initWithFrame:(CGRect)frame target:(id)target action:(SEL)action toolInfo:(CLImageToolInfo*)toolInfo;
-
+- (id)initWithFrame:(CGRect)frame target:(id)target action:(SEL)action toolInfo:(CLImageToolInfo*)toolInfo;
+- (void)setTitleFrame:(CGRect)labelFrame;
+- (CGRect)getTitleFrame;
 @end

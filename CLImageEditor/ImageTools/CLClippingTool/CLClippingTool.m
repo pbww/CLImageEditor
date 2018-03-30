@@ -110,16 +110,17 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     _menuContainer = [[UIView alloc] initWithFrame:self.editor.menuView.frame];
     _menuContainer.backgroundColor = self.editor.menuView.backgroundColor;
     [self.editor.view addSubview:_menuContainer];
-    
-    _menuScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _menuContainer.width - buttonWidth, _menuContainer.height)];
+
+    // -- Danish
+    _menuScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(buttonWidth+15, 0, _menuContainer.width - (buttonWidth+15), _menuContainer.height)];
     _menuScroll.backgroundColor = [UIColor clearColor];
     _menuScroll.showsHorizontalScrollIndicator = NO;
     _menuScroll.clipsToBounds = NO;
     [_menuContainer addSubview:_menuScroll];
     
     if(!swapBtnHidden){
-        UIView *btnPanel = [[UIView alloc] initWithFrame:CGRectMake(_menuScroll.right, 0, buttonWidth, _menuContainer.height)];
-        btnPanel.backgroundColor = [_menuContainer.backgroundColor colorWithAlphaComponent:0.9];
+        UIView *btnPanel = [[UIView alloc] initWithFrame:CGRectMake(5, 0.5, buttonWidth+10, _menuContainer.height)];
+        btnPanel.backgroundColor = [_menuContainer.backgroundColor colorWithAlphaComponent:1.0];
         [_menuContainer addSubview:btnPanel];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -128,13 +129,22 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         [btn addTarget:self action:@selector(pushedRotateBtn:) forControlEvents:UIControlEventTouchUpInside];
         [btn setImage:[self imageForKey:kCLClippingToolRotateIconName defaultImageName:@"btn_rotate.png"] forState:UIControlStateNormal];
         btn.adjustsImageWhenHighlighted = YES;
+
+        UILabel* _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, btn.bottom, buttonWidth, 15)];
+        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.textColor = [CLImageEditorTheme toolbarTextColor];
+        _titleLabel.font = [UIFont fontWithName:@"ProximaNova-Bold" size:10];
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.text = @"ORIENTATION";
         [btnPanel addSubview:btn];
+        [btnPanel addSubview:_titleLabel];
     }
     
     _gridView = [[CLClippingPanel alloc] initWithSuperview:self.editor.imageView.superview frame:self.editor.imageView.frame];
     _gridView.backgroundColor = [UIColor clearColor];
     _gridView.bgColor = [self.editor.view.backgroundColor colorWithAlphaComponent:0.8];
-    _gridView.gridColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.8];
+    // -- Danish
+    _gridView.gridColor = [UIColor colorWithRed:236.0/255.0 green:242.0/255.0 blue:246.0/255.0 alpha:0.8];
     _gridView.clipsToBounds = NO;
     
     [self setCropMenu];
@@ -202,8 +212,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         }
         
         CLRatioMenuItem *view = [[CLRatioMenuItem alloc] initWithFrame:CGRectMake(x, 0, W, _menuScroll.height) target:self action:@selector(tappedMenu:) toolInfo:nil];
+
         view.iconImage = iconImage;
         view.ratio = ratio;
+        [view setTitleFrame:CGRectMake(view.getTitleFrame.origin.x, view.getTitleFrame.origin.y+12, view.getTitleFrame.size.width, view.getTitleFrame.size.height)];
         
         if(ratios.count>1 || !swapBtnHidden){
             [_menuScroll addSubview:view];

@@ -92,8 +92,10 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     float sliderMaxima = _fineRotationEnabled ? 0.5 : 1;
     _rotateSlider = [self sliderWithValue:0 minimumValue:-sliderMaxima maximumValue:sliderMaxima];
     _rotateSlider.superview.center = CGPointMake(self.editor.view.width/2, self.editor.menuView.top-30);
-    
+    // -- Danish
+    [_rotateSlider setHidden:YES];
     _menuScroll = [[UIScrollView alloc] initWithFrame:self.editor.menuView.frame];
+    [_menuScroll setFrame:CGRectMake(_menuScroll.frame.size.width/2-40, _menuScroll.frame.origin.y+1, _menuScroll.frame.size.width, _menuScroll.frame.size.height)];
     _menuScroll.backgroundColor = self.editor.menuView.backgroundColor;
     _menuScroll.showsHorizontalScrollIndicator = NO;
     [self.editor.view addSubview:_menuScroll];
@@ -169,11 +171,12 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     CGFloat W = 70;
     CGFloat H = _menuScroll.height;
     CGFloat x = 0;
-	
+
+    // -- Danish
     NSArray *_menu = @[
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLRotateTool_MenuItemRotateTitle" withDefault:@" "], @"icon":[self imageForKey:kCLRotateToolRotateIconName defaultImageName:@"btn_rotate.png"]},
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLRotateTool_MenuItemFlipTitle1" withDefault:@" "], @"icon":[self imageForKey:kCLRotateToolFlipHorizontalIconName defaultImageName:@"btn_flip1.png"]},
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLRotateTool_MenuItemFlipTitle2" withDefault:@" "], @"icon":[self imageForKey:kCLRotateToolFlipVerticalIconName defaultImageName:@"btn_flip2.png"]},
+                       @{@"title":@"CLOCKWISE", @"icon":[self imageForKey:kCLRotateToolRotateIconName defaultImageName:@"icon.png"]}
+//                       @{@"title":[CLImageEditorTheme localizedString:@"CLRotateTool_MenuItemFlipTitle1" withDefault:@" "], @"icon":[self imageForKey:kCLRotateToolFlipHorizontalIconName defaultImageName:@"btn_flip1.png"]},
+//                       @{@"title":[CLImageEditorTheme localizedString:@"CLRotateTool_MenuItemFlipTitle2" withDefault:@" "], @"icon":[self imageForKey:kCLRotateToolFlipVerticalIconName defaultImageName:@"btn_flip2.png"]},
                        ];
     
     NSInteger tag = 0;
@@ -186,6 +189,7 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
         [_menuScroll addSubview:view];
         x += W;
     }
+    _menuScroll.scrollEnabled = NO;
     _menuScroll.contentSize = CGSizeMake(MAX(x, _menuScroll.frame.size.width+1), 0);
 }
 
@@ -240,6 +244,8 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, slider.height)];
     container.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     container.layer.cornerRadius = slider.height/2;
+    // -- Danish
+    [container setHidden:YES];
     
     slider.continuous = YES;
     [slider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];

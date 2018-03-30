@@ -139,6 +139,10 @@ static const CGFloat kMenuBarHeight = 80.0f;
 - (void)initMenuScrollView
 {
     if(self.menuView==nil){
+
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1)];
+        lineView.backgroundColor = [UIColor colorWithRed:204.0/255.0 green:203.0/255.0 blue:203.0/255.0 alpha:1.0];
+
         UIScrollView *menuScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kMenuBarHeight)];
         
         // Adjust for iPhone X
@@ -151,10 +155,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
         menuScroll.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
         menuScroll.showsHorizontalScrollIndicator = NO;
         menuScroll.showsVerticalScrollIndicator = NO;
-        
+
         [self.view addSubview:menuScroll];
         self.menuView = menuScroll;
         [_CLImageEditorViewController setConstraintsLeading:@0 trailing:@0 top:nil bottom:@0 height:@(menuScroll.height) width:nil parent:self.view child:menuScroll peer:nil];
+
+        [self.view addSubview:lineView];
+        [_CLImageEditorViewController setConstraintsLeading:@0 trailing:@0 top:nil bottom:@-79 height:@(lineView.height) width:nil parent:self.view child:lineView peer:nil];
     }
     self.menuView.backgroundColor = [CLImageEditorTheme toolbarColor];
     // -- Danish
@@ -568,10 +575,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
     }
 
     // -- Danish -- Reset
-    CLImageEditorTheme *theme = [CLImageEditorTheme theme];
     CLImageToolInfo *info = [[CLImageToolInfo alloc] init];
-    info.title = @"Reset";
-    info.iconImagePath = [NSString stringWithFormat:@"%@/%@/%@/icon.png", CLImageEditorTheme.bundle.bundlePath, @"CLFilterTool", theme.toolIconColor];
+    info.title = [@"Reset" uppercaseString];
+    info.iconImagePath = [NSString stringWithFormat:@"%@/%@/resetbutton.png", CLImageEditorTheme.bundle.bundlePath, @"ResetTool"];
     CLToolbarMenuItem *resetView = [CLImageEditorTheme menuItemWithFrame:CGRectMake(x+padding, 0, W, H) target:self action:@selector(resetOrignalImage:) toolInfo:info];
     [_menuView addSubview:resetView];
 
@@ -727,7 +733,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     
     if(self.currentTool){
         UINavigationItem *item  = [[UINavigationItem alloc] initWithTitle:self.currentTool.toolInfo.title];
-        item.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[CLImageEditorTheme localizedString:@"CLImageEditor_OKBtnTitle" withDefault:@"OK"] style:UIBarButtonItemStyleDone target:self action:@selector(pushedDoneBtn:)];
+        item.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStyleDone target:self action:@selector(pushedDoneBtn:)];
         item.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:[CLImageEditorTheme localizedString:@"CLImageEditor_BackBtnTitle" withDefault:@"Back"] style:UIBarButtonItemStylePlain target:self action:@selector(pushedCancelBtn:)];
         
         [_navigationBar pushNavigationItem:item animated:(self.navigationController==nil)];

@@ -76,8 +76,8 @@
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self];
 
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-        [dic setValue:[[NSNumber alloc] initWithDouble:0.0] forKey:@"Crop"];
-        [dic setValue:[[NSNumber alloc] initWithDouble:1.0] forKey:@"Rotate"];
+        [dic setValue:[[NSNumber alloc] initWithDouble:0.0] forKey:@"CROP"];
+        [dic setValue:[[NSNumber alloc] initWithDouble:1.0] forKey:@"ROTATE"];
        // [dic setValue:[[NSNumber alloc] initWithDouble:2.0] forKey:@"Sticker"];
 
         [editor showOptions:dic withToolInfo:[editor.toolInfo subtools]];

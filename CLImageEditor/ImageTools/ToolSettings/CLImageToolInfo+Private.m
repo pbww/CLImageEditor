@@ -23,7 +23,7 @@
     if([(Class)toolClass conformsToProtocol:@protocol(CLImageToolProtocol)] && [toolClass isAvailable]){
         CLImageToolInfo *info = [CLImageToolInfo new];
         info.toolName  = NSStringFromClass(toolClass);
-        info.title     = [toolClass defaultTitle];
+        info.title     = [[toolClass defaultTitle] uppercaseString];
         info.available = YES;
         info.dockedNumber = [toolClass defaultDockedNumber];
         info.iconImagePath = [toolClass defaultIconImagePath];

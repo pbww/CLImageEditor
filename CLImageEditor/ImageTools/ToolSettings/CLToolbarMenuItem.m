@@ -21,14 +21,15 @@
     if (self) {
         self.iconImageContentMode = UIViewContentModeScaleAspectFill;
         CGFloat W = frame.size.width;
-        
-        _iconView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, W-20, W-20)];
+
+        // -- Danish
+        _iconView = [[UIImageView alloc] initWithFrame:CGRectMake(25, 20, W-50, W-50)];
         _iconView.clipsToBounds = YES;
         _iconView.layer.cornerRadius = 5;
         _iconView.contentMode = self.iconImageContentMode;
         [self addSubview:_iconView];
         
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _iconView.bottom+5, W, 15)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _iconView.bottom+4, W, 15)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = [CLImageEditorTheme toolbarTextColor];
         _titleLabel.font = [CLImageEditorTheme toolbarTextFont];
@@ -110,6 +111,17 @@
             self.backgroundColor = [UIColor clearColor];
         }
     }
+}
+
+- (void)setTitleFrame:(CGRect)labelFrame
+{
+    [_titleLabel setFrame:labelFrame];
+    [_titleLabel setText:[_titleLabel.text uppercaseString]];
+}
+
+- (CGRect)getTitleFrame
+{
+    return _titleLabel.frame;
 }
 
 @end
