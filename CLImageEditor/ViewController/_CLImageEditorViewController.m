@@ -44,13 +44,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self){
-//        NSDictionary *barButtonAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:@"ProximaNova-Regular" size:18.0], NSForegroundColorAttributeName: [UIColor colorWithRed:68.0/255.0 green:128.0/255.0 blue:170.0/255.0 alpha:1.0]};
-//        [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonAppearanceDict forState:UIControlStateNormal];
-//
-//        [[UINavigationBar appearance] setTitleTextAttributes:@{
-//                                                               NSForegroundColorAttributeName: [UIColor colorWithRed:74.0/255.0  green:74.0/255.0  blue:74.0/255.0  alpha:1.0],
-//                                                               NSFontAttributeName: [UIFont fontWithName:@"ProximaNova-Bold" size:18.0f]
-//                                                               }];
+        NSDictionary *barButtonAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:@"ProximaNova-Regular" size:18.0], NSForegroundColorAttributeName: [UIColor colorWithRed:68.0/255.0 green:128.0/255.0 blue:170.0/255.0 alpha:1.0]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonAppearanceDict forState:UIControlStateNormal];
+
+        [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                               NSForegroundColorAttributeName: [UIColor colorWithRed:74.0/255.0  green:74.0/255.0  blue:74.0/255.0  alpha:1.0],
+                                                               NSFontAttributeName: [UIFont fontWithName:@"ProximaNova-Bold" size:18.0f]
+                                                               }];
     }
     return self;
 }

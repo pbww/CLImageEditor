@@ -101,6 +101,14 @@
 		1C85E179206DE6DA00CB2CD5 /* CLImageEditor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AD5A02DC1897528000347C57 /* CLImageEditor.bundle */; };
 		1C85E18A2071D6A100CB2CD5 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C85E1882071D6A100CB2CD5 /* Utilities.h */; };
 		1C85E18B2071D6A100CB2CD5 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C85E1892071D6A100CB2CD5 /* Utilities.m */; };
+		1C8FA135207219E2003212B7 /* Proxima-Nova-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C8FA131207219E2003212B7 /* Proxima-Nova-Bold.ttf */; };
+		1C8FA136207219E2003212B7 /* Proxima-Nova-Reg-It.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */; };
+		1C8FA137207219E2003212B7 /* Proxima-Nova-Bold-It.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C8FA133207219E2003212B7 /* Proxima-Nova-Bold-It.ttf */; };
+		1C8FA138207219E2003212B7 /* Proxima-Nova-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C8FA134207219E2003212B7 /* Proxima-Nova-Reg.ttf */; };
+		1C8FA13920721A0B003212B7 /* Proxima-Nova-Bold-It.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA133207219E2003212B7 /* Proxima-Nova-Bold-It.ttf */; };
+		1C8FA13A20721A0B003212B7 /* Proxima-Nova-Bold.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA131207219E2003212B7 /* Proxima-Nova-Bold.ttf */; };
+		1C8FA13B20721A0B003212B7 /* Proxima-Nova-Reg-It.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */; };
+		1C8FA13C20721A0B003212B7 /* Proxima-Nova-Reg.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA134207219E2003212B7 /* Proxima-Nova-Reg.ttf */; };
 		AD1D2C6B1897538900752339 /* CLGPUImageVignetteFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1D2C6A1897538900752339 /* CLGPUImageVignetteFilter.m */; };
 		AD29BB5D18EA471A0084D3D6 /* CLEmoticonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD29BB5C18EA471A0084D3D6 /* CLEmoticonTool.m */; };
 		AD359C321954FB4D00B763CF /* CLSplashTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD359C311954FB4D00B763CF /* CLSplashTool.m */; };
@@ -179,6 +187,10 @@
 		1C85DDE8206B8CE600CB2CD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C85E1882071D6A100CB2CD5 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		1C85E1892071D6A100CB2CD5 /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		1C8FA131207219E2003212B7 /* Proxima-Nova-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima-Nova-Bold.ttf"; sourceTree = "<group>"; };
+		1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima-Nova-Reg-It.ttf"; sourceTree = "<group>"; };
+		1C8FA133207219E2003212B7 /* Proxima-Nova-Bold-It.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima-Nova-Bold-It.ttf"; sourceTree = "<group>"; };
+		1C8FA134207219E2003212B7 /* Proxima-Nova-Reg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima-Nova-Reg.ttf"; sourceTree = "<group>"; };
 		AD13E67C1850F7C8009B12AD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AD1D2C691897538900752339 /* CLGPUImageVignetteFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLGPUImageVignetteFilter.h; path = CLGPUImageFilters/CLGPUImageVignetteFilter.h; sourceTree = "<group>"; };
 		AD1D2C6A1897538900752339 /* CLGPUImageVignetteFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLGPUImageVignetteFilter.m; path = CLGPUImageFilters/CLGPUImageVignetteFilter.m; sourceTree = "<group>"; };
@@ -328,6 +340,10 @@
 		1C85E17F206E282000CB2CD5 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				1C8FA133207219E2003212B7 /* Proxima-Nova-Bold-It.ttf */,
+				1C8FA131207219E2003212B7 /* Proxima-Nova-Bold.ttf */,
+				1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */,
+				1C8FA134207219E2003212B7 /* Proxima-Nova-Reg.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -661,6 +677,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C8FA13920721A0B003212B7 /* Proxima-Nova-Bold-It.ttf in Headers */,
+				1C8FA13A20721A0B003212B7 /* Proxima-Nova-Bold.ttf in Headers */,
+				1C8FA13B20721A0B003212B7 /* Proxima-Nova-Reg-It.ttf in Headers */,
+				1C8FA13C20721A0B003212B7 /* Proxima-Nova-Reg.ttf in Headers */,
 				1C85DEB3206B92E600CB2CD5 /* CLImageEditor.bundle in Headers */,
 				1C85DEB4206B92E600CB2CD5 /* CLImageEditor.h in Headers */,
 				1C85DEB5206B92E600CB2CD5 /* CLImageEditor.m in Headers */,
@@ -820,10 +840,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C8FA136207219E2003212B7 /* Proxima-Nova-Reg-It.ttf in Resources */,
 				1C85E179206DE6DA00CB2CD5 /* CLImageEditor.bundle in Resources */,
 				AD5C1E1C18350DC400790989 /* Images.xcassets in Resources */,
 				AD5C1E0E18350DC400790989 /* InfoPlist.strings in Resources */,
+				1C8FA138207219E2003212B7 /* Proxima-Nova-Reg.ttf in Resources */,
 				AD5C1E1718350DC400790989 /* Main.storyboard in Resources */,
+				1C8FA137207219E2003212B7 /* Proxima-Nova-Bold-It.ttf in Resources */,
+				1C8FA135207219E2003212B7 /* Proxima-Nova-Bold.ttf in Resources */,
 				AD5C1E8A18350F1800790989 /* default.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
