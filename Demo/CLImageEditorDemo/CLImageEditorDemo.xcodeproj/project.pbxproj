@@ -109,6 +109,10 @@
 		1C8FA13A20721A0B003212B7 /* Proxima-Nova-Bold.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA131207219E2003212B7 /* Proxima-Nova-Bold.ttf */; };
 		1C8FA13B20721A0B003212B7 /* Proxima-Nova-Reg-It.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */; };
 		1C8FA13C20721A0B003212B7 /* Proxima-Nova-Reg.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA134207219E2003212B7 /* Proxima-Nova-Reg.ttf */; };
+		1C8FA13D20721BF9003212B7 /* Proxima-Nova-Bold-It.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FA133207219E2003212B7 /* Proxima-Nova-Bold-It.ttf */; };
+		1C8FA13E20721BF9003212B7 /* Proxima-Nova-Bold.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FA131207219E2003212B7 /* Proxima-Nova-Bold.ttf */; };
+		1C8FA13F20721BF9003212B7 /* Proxima-Nova-Reg-It.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */; };
+		1C8FA14020721BF9003212B7 /* Proxima-Nova-Reg.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FA134207219E2003212B7 /* Proxima-Nova-Reg.ttf */; };
 		AD1D2C6B1897538900752339 /* CLGPUImageVignetteFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1D2C6A1897538900752339 /* CLGPUImageVignetteFilter.m */; };
 		AD29BB5D18EA471A0084D3D6 /* CLEmoticonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD29BB5C18EA471A0084D3D6 /* CLEmoticonTool.m */; };
 		AD359C321954FB4D00B763CF /* CLSplashTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD359C311954FB4D00B763CF /* CLSplashTool.m */; };
@@ -859,6 +863,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C8FA13D20721BF9003212B7 /* Proxima-Nova-Bold-It.ttf in Sources */,
+				1C8FA13E20721BF9003212B7 /* Proxima-Nova-Bold.ttf in Sources */,
+				1C8FA13F20721BF9003212B7 /* Proxima-Nova-Reg-It.ttf in Sources */,
+				1C8FA14020721BF9003212B7 /* Proxima-Nova-Reg.ttf in Sources */,
 				AD5A03501897528000347C57 /* CLFilterBase.m in Sources */,
 				AD5A03661897528000347C57 /* CLPickerView.m in Sources */,
 				AD5A03431897528000347C57 /* CLImageToolInfo.m in Sources */,
