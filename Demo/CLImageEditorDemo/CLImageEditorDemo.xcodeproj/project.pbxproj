@@ -105,10 +105,10 @@
 		1C8FA136207219E2003212B7 /* Proxima-Nova-Reg-It.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */; };
 		1C8FA137207219E2003212B7 /* Proxima-Nova-Bold-It.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C8FA133207219E2003212B7 /* Proxima-Nova-Bold-It.ttf */; };
 		1C8FA138207219E2003212B7 /* Proxima-Nova-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C8FA134207219E2003212B7 /* Proxima-Nova-Reg.ttf */; };
-		1C8FA13920721A0B003212B7 /* Proxima-Nova-Bold-It.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA133207219E2003212B7 /* Proxima-Nova-Bold-It.ttf */; };
-		1C8FA13A20721A0B003212B7 /* Proxima-Nova-Bold.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA131207219E2003212B7 /* Proxima-Nova-Bold.ttf */; };
-		1C8FA13B20721A0B003212B7 /* Proxima-Nova-Reg-It.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */; };
-		1C8FA13C20721A0B003212B7 /* Proxima-Nova-Reg.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA134207219E2003212B7 /* Proxima-Nova-Reg.ttf */; };
+		1C8FA13920721A0B003212B7 /* Proxima-Nova-Bold-It.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA133207219E2003212B7 /* Proxima-Nova-Bold-It.ttf */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C8FA13A20721A0B003212B7 /* Proxima-Nova-Bold.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA131207219E2003212B7 /* Proxima-Nova-Bold.ttf */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C8FA13B20721A0B003212B7 /* Proxima-Nova-Reg-It.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C8FA13C20721A0B003212B7 /* Proxima-Nova-Reg.ttf in Headers */ = {isa = PBXBuildFile; fileRef = 1C8FA134207219E2003212B7 /* Proxima-Nova-Reg.ttf */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C8FA13D20721BF9003212B7 /* Proxima-Nova-Bold-It.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FA133207219E2003212B7 /* Proxima-Nova-Bold-It.ttf */; };
 		1C8FA13E20721BF9003212B7 /* Proxima-Nova-Bold.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FA131207219E2003212B7 /* Proxima-Nova-Bold.ttf */; };
 		1C8FA13F20721BF9003212B7 /* Proxima-Nova-Reg-It.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FA132207219E2003212B7 /* Proxima-Nova-Reg-It.ttf */; };
