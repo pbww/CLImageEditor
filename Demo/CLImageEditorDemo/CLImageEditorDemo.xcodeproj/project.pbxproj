@@ -105,6 +105,10 @@
 		1C85E187206E282000CB2CD5 /* Proxima-Nova-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C85E183206E282000CB2CD5 /* Proxima-Nova-Reg.ttf */; };
 		1C85E18A2071D6A100CB2CD5 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C85E1882071D6A100CB2CD5 /* Utilities.h */; };
 		1C85E18B2071D6A100CB2CD5 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C85E1892071D6A100CB2CD5 /* Utilities.m */; };
+		1C85E190207214B600CB2CD5 /* Proxima-Nova-Bold.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C85E180206E282000CB2CD5 /* Proxima-Nova-Bold.ttf */; };
+		1C85E191207214B700CB2CD5 /* Proxima-Nova-Reg-It.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C85E181206E282000CB2CD5 /* Proxima-Nova-Reg-It.ttf */; };
+		1C85E192207214B700CB2CD5 /* Proxima-Nova-Bold-It.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C85E182206E282000CB2CD5 /* Proxima-Nova-Bold-It.ttf */; };
+		1C85E193207214B700CB2CD5 /* Proxima-Nova-Reg.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 1C85E183206E282000CB2CD5 /* Proxima-Nova-Reg.ttf */; };
 		AD1D2C6B1897538900752339 /* CLGPUImageVignetteFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1D2C6A1897538900752339 /* CLGPUImageVignetteFilter.m */; };
 		AD29BB5D18EA471A0084D3D6 /* CLEmoticonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD29BB5C18EA471A0084D3D6 /* CLEmoticonTool.m */; };
 		AD359C321954FB4D00B763CF /* CLSplashTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD359C311954FB4D00B763CF /* CLSplashTool.m */; };
@@ -851,6 +855,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C85E190207214B600CB2CD5 /* Proxima-Nova-Bold.ttf in Sources */,
+				1C85E191207214B700CB2CD5 /* Proxima-Nova-Reg-It.ttf in Sources */,
+				1C85E192207214B700CB2CD5 /* Proxima-Nova-Bold-It.ttf in Sources */,
+				1C85E193207214B700CB2CD5 /* Proxima-Nova-Reg.ttf in Sources */,
 				AD5A03501897528000347C57 /* CLFilterBase.m in Sources */,
 				AD5A03661897528000347C57 /* CLPickerView.m in Sources */,
 				AD5A03431897528000347C57 /* CLImageToolInfo.m in Sources */,
