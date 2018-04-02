@@ -189,6 +189,15 @@
     [self refreshImageView];
 }
 
+- (void)imageEditor:(CLImageEditor*)editor didFinishEditingWithImage:(UIImage*)image withImageOptions:(NSDictionary*)imageProperty
+{
+    CGRect rect9 = CGRectFromString([imageProperty objectForKey:@"cropRect"]);
+    float angle = [[imageProperty objectForKey:@"angle"] floatValue];
+    _imageView.image = image;
+    [self refreshImageView];
+
+    [editor dismissViewControllerAnimated:YES completion:nil];
+}
 #pragma mark- Tapbar delegate
 
 - (void)deselectTabBarItem:(UITabBar*)tabBar

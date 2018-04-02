@@ -41,6 +41,9 @@
 - (void)imageEditor:(CLImageEditor*)editor didFinishEditingWithImage:(UIImage*)image;
 - (void)imageEditorDidCancel:(CLImageEditor*)editor;
 
+// --Danish
+- (void)imageEditor:(CLImageEditor*)editor didFinishEditingWithImage:(UIImage*)image withImageOptions:(NSDictionary*)imageProperty;
+
 @end
 
 

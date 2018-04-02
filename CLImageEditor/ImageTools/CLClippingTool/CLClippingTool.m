@@ -6,7 +6,7 @@
 //
 
 #import "CLClippingTool.h"
-
+#import "Utilities.h"
 
 static NSString* const kCLClippingToolRatios = @"ratios";
 static NSString* const kCLClippingToolSwapButtonHidden = @"swapButtonHidden";
@@ -178,7 +178,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     rct.size.height /= zoomScale;
     rct.origin.x    /= zoomScale;
     rct.origin.y    /= zoomScale;
-    
+
+    Utilities *utilities = [Utilities sharedUtilities];
+    utilities.cropRect = rct;
+
     UIImage *result = [self.editor.imageView.image crop:rct];
     completionBlock(result, nil, nil);
 }

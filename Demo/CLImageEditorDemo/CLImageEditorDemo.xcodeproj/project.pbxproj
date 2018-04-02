@@ -103,6 +103,8 @@
 		1C85E185206E282000CB2CD5 /* Proxima-Nova-Reg-It.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C85E181206E282000CB2CD5 /* Proxima-Nova-Reg-It.ttf */; };
 		1C85E186206E282000CB2CD5 /* Proxima-Nova-Bold-It.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C85E182206E282000CB2CD5 /* Proxima-Nova-Bold-It.ttf */; };
 		1C85E187206E282000CB2CD5 /* Proxima-Nova-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C85E183206E282000CB2CD5 /* Proxima-Nova-Reg.ttf */; };
+		1C85E18A2071D6A100CB2CD5 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C85E1882071D6A100CB2CD5 /* Utilities.h */; };
+		1C85E18B2071D6A100CB2CD5 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C85E1892071D6A100CB2CD5 /* Utilities.m */; };
 		AD1D2C6B1897538900752339 /* CLGPUImageVignetteFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1D2C6A1897538900752339 /* CLGPUImageVignetteFilter.m */; };
 		AD29BB5D18EA471A0084D3D6 /* CLEmoticonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD29BB5C18EA471A0084D3D6 /* CLEmoticonTool.m */; };
 		AD359C321954FB4D00B763CF /* CLSplashTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AD359C311954FB4D00B763CF /* CLSplashTool.m */; };
@@ -183,6 +185,8 @@
 		1C85E181206E282000CB2CD5 /* Proxima-Nova-Reg-It.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima-Nova-Reg-It.ttf"; sourceTree = "<group>"; };
 		1C85E182206E282000CB2CD5 /* Proxima-Nova-Bold-It.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima-Nova-Bold-It.ttf"; sourceTree = "<group>"; };
 		1C85E183206E282000CB2CD5 /* Proxima-Nova-Reg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima-Nova-Reg.ttf"; sourceTree = "<group>"; };
+		1C85E1882071D6A100CB2CD5 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		1C85E1892071D6A100CB2CD5 /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		AD13E67C1850F7C8009B12AD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AD1D2C691897538900752339 /* CLGPUImageVignetteFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLGPUImageVignetteFilter.h; path = CLGPUImageFilters/CLGPUImageVignetteFilter.h; sourceTree = "<group>"; };
 		AD1D2C6A1897538900752339 /* CLGPUImageVignetteFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLGPUImageVignetteFilter.m; path = CLGPUImageFilters/CLGPUImageVignetteFilter.m; sourceTree = "<group>"; };
@@ -527,6 +531,8 @@
 				AD5A03251897528000347C57 /* UIImage+Utility.m */,
 				AD5A03261897528000347C57 /* UIView+Frame.h */,
 				AD5A03271897528000347C57 /* UIView+Frame.m */,
+				1C85E1882071D6A100CB2CD5 /* Utilities.h */,
+				1C85E1892071D6A100CB2CD5 /* Utilities.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -732,6 +738,7 @@
 				1C85DEF1206B92E600CB2CD5 /* UIDevice+SystemVersion.m in Headers */,
 				1C85DEF2206B92E600CB2CD5 /* UIImage+Utility.h in Headers */,
 				1C85DEF3206B92E600CB2CD5 /* UIImage+Utility.m in Headers */,
+				1C85E18A2071D6A100CB2CD5 /* Utilities.h in Headers */,
 				1C85DEF4206B92E600CB2CD5 /* UIView+Frame.h in Headers */,
 				1C85DEF5206B92E600CB2CD5 /* UIView+Frame.m in Headers */,
 				1C85DEF6206B92E600CB2CD5 /* _CLImageEditorViewController.h in Headers */,
@@ -862,6 +869,7 @@
 				AD5A03521897528000347C57 /* CLImageToolBase.m in Sources */,
 				AD5A03651897528000347C57 /* CLPickerDrum.m in Sources */,
 				AD5A03471897528000347C57 /* CLBloomEffect.m in Sources */,
+				1C85E18B2071D6A100CB2CD5 /* Utilities.m in Sources */,
 				AD5A03461897528000347C57 /* CLClippingTool.m in Sources */,
 				AD5A035F1897528000347C57 /* UIView+Frame.m in Sources */,
 				AD5A03571897528000347C57 /* CLImageEditorTheme+Private.m in Sources */,

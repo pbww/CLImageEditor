@@ -8,7 +8,7 @@
 #import "_CLImageEditorViewController.h"
 
 #import "CLImageToolBase.h"
-
+#import "Utilities.h"
 
 #pragma mark- _CLImageEditorViewController
 
@@ -28,6 +28,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     UIImage *_originalImageReset;
     UIImage *_originalImage;
     UIView *_bgView;
+    double angle;
 }
 @synthesize toolInfo = _toolInfo;
 
@@ -42,9 +43,16 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (id)init
 {
+    angle = 0.0;
     self = [self initWithNibName:nil bundle:nil];
     if (self){
-        
+        NSDictionary *barButtonAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:@"ProximaNova-Regular" size:18.0], NSForegroundColorAttributeName: [UIColor colorWithRed:68.0/255.0 green:128.0/255.0 blue:170.0/255.0 alpha:1.0]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonAppearanceDict forState:UIControlStateNormal];
+
+        [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                               NSForegroundColorAttributeName: [UIColor colorWithRed:74.0/255.0  green:74.0/255.0  blue:74.0/255.0  alpha:1.0],
+                                                               NSFontAttributeName: [UIFont fontWithName:@"ProximaNova-Bold" size:18.0f]
+                                                               }];
     }
     return self;
 }
@@ -820,7 +828,15 @@ static const CGFloat kMenuBarHeight = 80.0f;
 - (void)pushedFinishBtn:(id)sender
 {
     if(self.targetImageView==nil){
-        if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEditingWithImage:)]){
+        // --Danish
+        if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEditingWithImage:withImageOptions:)]){
+            Utilities *utilities = [Utilities sharedUtilities];
+            NSMutableDictionary *imageProperty = [[NSMutableDictionary alloc]init];
+            [imageProperty setObject:NSStringFromCGRect(utilities.cropRect) forKey:@"cropRect"];
+            [imageProperty setObject:[NSNumber numberWithFloat:utilities.angle] forKey:@"angle"];
+            [self.delegate imageEditor:self didFinishEditingWithImage:_originalImage withImageOptions:imageProperty];
+        }
+        else if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEditingWithImage:)]){
             [self.delegate imageEditor:self didFinishEditingWithImage:_originalImage];
         }
         else if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEdittingWithImage:)]){
@@ -862,8 +878,20 @@ static const CGFloat kMenuBarHeight = 80.0f;
 // -- Danish
 - (void)resetOrignalImage:(UITapGestureRecognizer*)sender
 {
-    _imageView.image = _originalImageReset;
+   // _imageView.image = _originalImageReset;
+   // _imageView.contentMode = UIViewContentModeScaleAspectFit;
+   // _imageView.layer.contentsGravity = kCAGravityTopLeft;
+
+  //  Utilities *utilities = [Utilities sharedUtilities];
+
+
+    //[_imageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/_originalImageReset.size.width, utilities.cropRect.origin.y/_originalImageReset.size.height,utilities.cropRect.size.width/_originalImageReset.size.width, utilities.cropRect.size.height/_originalImageReset.size.height)];
+
+    Utilities *utilities = [Utilities sharedUtilities];
+    [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,  _originalImageReset.size.height)];
+    utilities.angle = 0.0;
     _originalImage = _originalImageReset;
+    _imageView.image = _originalImageReset;
     [self resetImageViewFrame];
     self.currentTool = nil;
 }

@@ -6,6 +6,7 @@
 //
 
 #import "CLRotateTool.h"
+#import "Utilities.h"
 
 static NSString* const kCLRotateToolRotateIconName = @"rotateIconAssetsName";
 static NSString* const kCLRotateToolFlipHorizontalIconName = @"flipHorizontalIconAssetsName";
@@ -277,7 +278,9 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     if(!clockwise){
         _rotationArg *= -1;
     }
-    
+
+    Utilities *utilities = [Utilities sharedUtilities];
+    [utilities setImageAngle:rotateValue];
     CATransform3D transform = initialTransform;
     transform = CATransform3DRotate(transform, _rotationArg, 0, 0, 1);
     transform = CATransform3DRotate(transform, _flipState1*M_PI, 0, 1, 0);
