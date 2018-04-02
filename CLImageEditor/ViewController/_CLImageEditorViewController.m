@@ -878,15 +878,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
 // -- Danish
 - (void)resetOrignalImage:(UITapGestureRecognizer*)sender
 {
-   // _imageView.image = _originalImageReset;
-   // _imageView.contentMode = UIViewContentModeScaleAspectFit;
-   // _imageView.layer.contentsGravity = kCAGravityTopLeft;
-
-  //  Utilities *utilities = [Utilities sharedUtilities];
-
-
-    //[_imageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/_originalImageReset.size.width, utilities.cropRect.origin.y/_originalImageReset.size.height,utilities.cropRect.size.width/_originalImageReset.size.width, utilities.cropRect.size.height/_originalImageReset.size.height)];
-
     Utilities *utilities = [Utilities sharedUtilities];
     [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,  _originalImageReset.size.height)];
     utilities.angle = 0.0;

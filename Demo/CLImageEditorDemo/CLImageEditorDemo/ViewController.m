@@ -191,6 +191,16 @@
 
 - (void)imageEditor:(CLImageEditor*)editor didFinishEditingWithImage:(UIImage*)image withImageOptions:(NSDictionary*)imageProperty
 {
+
+    // _imageView.image = _originalImageReset;
+    // _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    // _imageView.layer.contentsGravity = kCAGravityTopLeft;
+
+    //  Utilities *utilities = [Utilities sharedUtilities];
+
+
+    //[_imageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/_originalImageReset.size.width, utilities.cropRect.origin.y/_originalImageReset.size.height,utilities.cropRect.size.width/_originalImageReset.size.width, utilities.cropRect.size.height/_originalImageReset.size.height)];
+    
     CGRect rect9 = CGRectFromString([imageProperty objectForKey:@"cropRect"]);
     float angle = [[imageProperty objectForKey:@"angle"] floatValue];
     _imageView.image = image;
