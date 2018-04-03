@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1C85DDD6206B8CE500CB2CD5"
-               BuildableName = "ImageEditor.framework"
-               BlueprintName = "ImageEditor"
+               BlueprintIdentifier = "B896A6F32073591600DC84A6"
+               BuildableName = "CLImageEditor.framework"
+               BlueprintName = "CLImageEditor"
                ReferencedContainer = "container:CLImageEditorDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1C85DDD6206B8CE500CB2CD5"
-            BuildableName = "ImageEditor.framework"
-            BlueprintName = "ImageEditor"
+            BlueprintIdentifier = "B896A6F32073591600DC84A6"
+            BuildableName = "CLImageEditor.framework"
+            BlueprintName = "CLImageEditor"
             ReferencedContainer = "container:CLImageEditorDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,9 +65,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1C85DDD6206B8CE500CB2CD5"
-            BuildableName = "ImageEditor.framework"
-            BlueprintName = "ImageEditor"
+            BlueprintIdentifier = "B896A6F32073591600DC84A6"
+            BuildableName = "CLImageEditor.framework"
+            BlueprintName = "CLImageEditor"
             ReferencedContainer = "container:CLImageEditorDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

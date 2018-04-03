@@ -2,7 +2,7 @@
 //  ImageEditor.h
 //  ImageEditor
 //
-//  Created by Danish on 28/03/2018.
+//  Created by Maail on 03/04/2018.
 //  Copyright © 2018 CALACULU. All rights reserved.
 //
 
@@ -16,4 +16,4 @@ FOUNDATION_EXPORT const unsigned char ImageEditorVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ImageEditor/PublicHeader.h>
 
-#import <ImageEditor/CLImageEditor.h>
+
