@@ -170,8 +170,6 @@
 		AD85D68718457388003106A3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD85D68618457388003106A3 /* Accelerate.framework */; };
 		AD85D68918457394003106A3 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD85D68818457394003106A3 /* CoreImage.framework */; };
 		B896A77F2073680C00DC84A6 /* ImageEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = B896A77D2073680C00DC84A6 /* ImageEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B896A7822073680C00DC84A6 /* ImageEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B896A77B2073680C00DC84A6 /* ImageEditor.framework */; };
-		B896A7832073680C00DC84A6 /* ImageEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B896A77B2073680C00DC84A6 /* ImageEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B896A7872073684200DC84A6 /* CLImageEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5A02DD1897528000347C57 /* CLImageEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B896A7882073684200DC84A6 /* CLImageEditorTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5A02DF1897528000347C57 /* CLImageEditorTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B896A7892073684200DC84A6 /* CLImageToolInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5A02E11897528000347C57 /* CLImageToolInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -267,16 +265,6 @@
 		B896A7E42073685700DC84A6 /* CLImageEditor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AD5A02DC1897528000347C57 /* CLImageEditor.bundle */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		B896A7802073680C00DC84A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD5C1DF818350DC400790989 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B896A77A2073680C00DC84A6;
-			remoteInfo = ImageEditor;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		1C85DDF3206B8CE600CB2CD5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -284,7 +272,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B896A7832073680C00DC84A6 /* ImageEditor.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,7 +406,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD85D68918457394003106A3 /* CoreImage.framework in Frameworks */,
-				B896A7822073680C00DC84A6 /* ImageEditor.framework in Frameworks */,
 				AD85D68718457388003106A3 /* Accelerate.framework in Frameworks */,
 				AD5C1E0618350DC400790989 /* CoreGraphics.framework in Frameworks */,
 				AD5C1E0818350DC400790989 /* UIKit.framework in Frameworks */,
@@ -956,7 +942,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				B896A7812073680C00DC84A6 /* PBXTargetDependency */,
 			);
 			name = CLImageEditorDemo;
 			productName = CLImageEditorDemo;
@@ -1181,14 +1166,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B896A7812073680C00DC84A6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B896A77A2073680C00DC84A6 /* ImageEditor */;
-			targetProxy = B896A7802073680C00DC84A6 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AD5C1E0C18350DC400790989 /* InfoPlist.strings */ = {
