@@ -109,7 +109,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     
     if(_navigationBar==nil){
         UINavigationItem *navigationItem  = [[UINavigationItem alloc] init];
-        navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(pushedCloseBtn:)];
+        navigationItem.leftBarButtonItem  =  [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@/%@/backbutton.png", CLImageEditorTheme.bundle.bundlePath, @"Back"]] style:UIBarButtonItemStylePlain target:self action:@selector(pushedCloseBtn:)];
         navigationItem.rightBarButtonItem = [self createDoneButton];
         
         CGFloat dy = ([UIDevice iosVersion]<7) ? 0 : MIN([UIApplication sharedApplication].statusBarFrame.size.height, [UIApplication sharedApplication].statusBarFrame.size.width);
@@ -741,7 +741,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     if(self.currentTool){
         UINavigationItem *item  = [[UINavigationItem alloc] initWithTitle:self.currentTool.toolInfo.title];
         item.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStyleDone target:self action:@selector(pushedDoneBtn:)];
-        item.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:[CLImageEditorTheme localizedString:@"CLImageEditor_BackBtnTitle" withDefault:@"Back"] style:UIBarButtonItemStylePlain target:self action:@selector(pushedCancelBtn:)];
+        item.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@/%@/backbutton.png", CLImageEditorTheme.bundle.bundlePath, @"Back"]] style:UIBarButtonItemStylePlain target:self action:@selector(pushedCancelBtn:)];
         
         [_navigationBar pushNavigationItem:item animated:(self.navigationController==nil)];
     }
