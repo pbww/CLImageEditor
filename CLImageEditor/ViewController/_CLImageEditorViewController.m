@@ -168,7 +168,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
         [_CLImageEditorViewController setConstraintsLeading:@0 trailing:@0 top:nil bottom:@0 height:@(menuScroll.height) width:nil parent:self.view child:menuScroll peer:nil];
 
         [self.view addSubview:lineView];
-        [_CLImageEditorViewController setConstraintsLeading:@0 trailing:@0 top:nil bottom:@-79 height:@(lineView.height) width:nil parent:self.view child:lineView peer:nil];
+        [_CLImageEditorViewController setConstraintsLeading:@0 trailing:@0 top:nil bottom:@(-menuScroll.height) height:@(lineView.height) width:nil parent:self.view child:lineView peer:nil];
     }
     self.menuView.backgroundColor = [CLImageEditorTheme toolbarColor];
     // -- Danish
