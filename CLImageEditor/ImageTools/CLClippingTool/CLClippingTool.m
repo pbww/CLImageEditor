@@ -154,6 +154,21 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
                      animations:^{
                          _menuContainer.transform = CGAffineTransformIdentity;
                      }];
+
+    [self setCropRect];
+}
+
+- (void)setCropRect
+{
+    Utilities *utilities = [Utilities sharedUtilities];
+    CGFloat zoomScale = self.editor.imageView.width / self.editor.imageView.image.size.width;
+    CGRect rct = utilities.cropRect;
+    rct.size.width  *= zoomScale;
+    rct.size.height *= zoomScale;
+    rct.origin.x    *= zoomScale;
+    rct.origin.y    *= zoomScale;
+
+    _gridView.clippingRect = rct;
 }
 
 - (void)cleanup

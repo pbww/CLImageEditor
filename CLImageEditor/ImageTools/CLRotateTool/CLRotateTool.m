@@ -43,6 +43,8 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     CGFloat _orientation;
     NSInteger _flipState1;
     NSInteger _flipState2;
+    CGFloat rotationValue;
+
 }
 
 + (NSString*)defaultTitle
@@ -72,6 +74,7 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
 
 - (void)setup
 {
+    rotationValue = 0;
     _executed = NO;
 
     _fineRotationEnabled = [self.toolInfo.optionalInfo[kCLRotateToolFineRotationEnabled] boolValue];
@@ -87,7 +90,7 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     _gridView = [[CLRotatePanel alloc] initWithSuperview:self.editor.imageView.superview frame:self.editor.imageView.frame];
     _gridView.backgroundColor = [UIColor clearColor];
     _gridView.bgColor = [self.editor.view.backgroundColor colorWithAlphaComponent:0.8];
-    _gridView.gridColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.8];
+    _gridView.gridColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.0];
     _gridView.clipsToBounds = NO;
 
     float sliderMaxima = _fineRotationEnabled ? 0.5 : 1;
@@ -112,7 +115,14 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
                          _rotateImageView.image = self.editor.imageView.image;
                          [_gridView.superview insertSubview:_rotateImageView belowSubview:_gridView];
                          self.editor.imageView.hidden = YES;
+
+                         Utilities *utilities = [Utilities sharedUtilities];
+                         _rotateImageView.contentMode = UIViewContentModeScaleAspectFit;
+                         UIImage *originalImage = self.editor.imageView.image;
+                         [_rotateImageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/originalImage.size.width, utilities.cropRect.origin.y/originalImage.size.height,utilities.cropRect.size.width/originalImage.size.width, utilities.cropRect.size.height/originalImage.size.height)];
+                         
                      }];
+
 }
 
 - (void)cleanup
@@ -160,6 +170,8 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
         
         dispatch_async(dispatch_get_main_queue(), ^{
             _executed = YES;
+            Utilities *utilities = [Utilities sharedUtilities];
+            [utilities setImageAngle:rotationValue];
             completionBlock(image, nil, nil);
         });
     });
@@ -279,8 +291,8 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
         _rotationArg *= -1;
     }
 
-    Utilities *utilities = [Utilities sharedUtilities];
-    [utilities setImageAngle:rotateValue];
+    rotationValue = rotateValue;
+
     CATransform3D transform = initialTransform;
     transform = CATransform3DRotate(transform, _rotationArg, 0, 0, 1);
     transform = CATransform3DRotate(transform, _flipState1*M_PI, 0, 1, 0);

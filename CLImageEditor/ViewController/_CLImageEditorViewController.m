@@ -68,6 +68,11 @@ static const CGFloat kMenuBarHeight = 80.0f;
         _originalImage = [image deepCopy];
         _originalImageReset = [image deepCopy];
         self.delegate = delegate;
+
+        Utilities *utilities = [Utilities sharedUtilities];
+        utilities.angle = 0.0;
+        [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height)];
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return self;
 }
@@ -777,6 +782,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
      ];
     
     [self setupToolWithToolInfo:view.toolInfo];
+
+    if ([((CLToolbarMenuItem*)view).title isEqualToString:@"CROP"]) {
+         [_imageView.layer setContentsRect:CGRectMake(0, 0, 1, 1)];
+
+    }
+
+    // [self setRotation];
 }
 
 - (IBAction)pushedCancelBtn:(id)sender
@@ -785,6 +797,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     [self resetImageViewFrame];
     
     self.currentTool = nil;
+    [self setLayerContent];
 }
 
 - (IBAction)pushedDoneBtn:(id)sender
@@ -798,11 +811,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
             [self presentViewController:alert animated:YES completion:nil];
         }
         else if(image){
-            _originalImage = image;
-            _imageView.image = image;
+           // _originalImage = image;
+           // _imageView.image = image;
             
             [self resetImageViewFrame];
             self.currentTool = nil;
+            [self setLayerContent];
+           // [self setRotation];
         }
         self.view.userInteractionEnabled = YES;
     }];
@@ -884,6 +899,29 @@ static const CGFloat kMenuBarHeight = 80.0f;
     _imageView.image = _originalImageReset;
     [self resetImageViewFrame];
     self.currentTool = nil;
+
+    [self setLayerContent];
+}
+
+// -- Danish
+-(void)setLayerContent
+{
+    Utilities *utilities = [Utilities sharedUtilities];
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [_imageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/_originalImageReset.size.width, utilities.cropRect.origin.y/_originalImageReset.size.height,utilities.cropRect.size.width/_originalImageReset.size.width, utilities.cropRect.size.height/_originalImageReset.size.height)];
+}
+
+-(void)setRotation
+{
+    CATransform3D transform = CATransform3DIdentity;
+    CGFloat rotateValue = -1.0;
+    CGFloat _rotationArg = rotateValue * M_PI;
+    CGFloat scale = 0.5;
+    transform = CATransform3DRotate(transform, _rotationArg, 0, 0, 1);
+    transform = CATransform3DRotate(transform, 0, 0, 1, 0);
+    transform = CATransform3DRotate(transform, 0, 1, 0, 0);
+    transform = CATransform3DScale(transform, scale, scale, 1);
+    _imageView.layer.transform = transform;
 }
 
 @end
