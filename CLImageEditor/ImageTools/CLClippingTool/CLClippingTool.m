@@ -98,8 +98,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
 - (void)setup
 {
-    [self.editor fixZoomScaleWithAnimated:YES];
-    
+    [self.editor fixZoomScaleWithAnimated:NO];
+
     if(!self.toolInfo.optionalInfo){
         self.toolInfo.optionalInfo = [[self.class optionalInfo] mutableCopy];
     }
@@ -167,8 +167,15 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     rct.size.height *= zoomScale;
     rct.origin.x    *= zoomScale;
     rct.origin.y    *= zoomScale;
-
     _gridView.clippingRect = rct;
+
+    //[self performSelector:@selector(rotate) withObject:nil afterDelay:0.4];
+}
+
+-(void)rotate
+{
+    Utilities *utilities = [Utilities sharedUtilities];
+    self.editor.imageView.layer.transform =  utilities.transform;
 }
 
 - (void)cleanup
@@ -198,7 +205,11 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     utilities.cropRect = rct;
 
     UIImage *result = [self.editor.imageView.image crop:rct];
-    completionBlock(result, nil, nil);
+
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:[NSNumber numberWithBool:YES] forKey:@"Crop"];
+
+    completionBlock(result, nil, dic);
 }
 
 #pragma mark-

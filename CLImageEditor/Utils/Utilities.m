@@ -36,4 +36,19 @@
     }
 }
 
+-(void)getImageAngle:(double)angle {
+    if (angle == 0.5) {
+        self.angle = 90.0;
+    }
+    else if (angle == 1.0) {
+        self.angle = 180.0;
+    }
+    else if (angle == -0.5) {
+        self.angle = 270;
+    }
+    else {
+        self.angle = 0.0;
+    }
+}
+
 @end

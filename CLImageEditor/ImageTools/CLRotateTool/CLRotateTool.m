@@ -120,7 +120,7 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
                          _rotateImageView.contentMode = UIViewContentModeScaleAspectFit;
                          UIImage *originalImage = self.editor.imageView.image;
                          [_rotateImageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/originalImage.size.width, utilities.cropRect.origin.y/originalImage.size.height,utilities.cropRect.size.width/originalImage.size.width, utilities.cropRect.size.height/originalImage.size.height)];
-                         
+                             //_rotateImageView.layer.transform =  utilities.transform;
                      }];
 
 }
@@ -172,7 +172,9 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
             _executed = YES;
             Utilities *utilities = [Utilities sharedUtilities];
             [utilities setImageAngle:rotationValue];
-            completionBlock(image, nil, nil);
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:[NSNumber numberWithBool:YES] forKey:@"Rotate"];
+            completionBlock(image, nil, dic);
         });
     });
 }
@@ -317,9 +319,13 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
         scale = 1 / MIN(Rw, Rh);
     }
 
+
     
     transform = CATransform3DScale(transform, scale, scale, 1);
     _rotateImageView.layer.transform = transform;
+
+    Utilities *utilites = [Utilities sharedUtilities];
+    utilites.transform = transform;
 
     if (!cropRotateEnabled) {
         _gridView.gridRect = _rotateImageView.frame;

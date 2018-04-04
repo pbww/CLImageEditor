@@ -15,6 +15,7 @@
 @property (nonatomic, assign) double angle;
 @property (nonatomic, assign) BOOL isCrop;
 @property (nonatomic, assign) BOOL isRotate;
+@property (nonatomic, assign) CATransform3D transform;
 
 + (id)sharedUtilities;
 

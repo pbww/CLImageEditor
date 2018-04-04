@@ -51,7 +51,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
                                                                NSForegroundColorAttributeName: [UIColor colorWithRed:74.0/255.0  green:74.0/255.0  blue:74.0/255.0  alpha:1.0],
                                                                NSFontAttributeName: [UIFont fontWithName:@"ProximaNova-Bold" size:18.0f]
                                                                }];
-
     }
     return self;
 }   
@@ -71,6 +70,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
         Utilities *utilities = [Utilities sharedUtilities];
         utilities.angle = 0.0;
+        utilities.transform = CATransform3DIdentity;
         [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height)];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
@@ -628,7 +628,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     
     _scrollView.contentSize = _imageView.frame.size;
     _scrollView.minimumZoomScale = 1;
-    _scrollView.maximumZoomScale = MAX(MAX(Rw, Rh), 1);
+    _scrollView.maximumZoomScale = 1;//MAX(MAX(Rw, Rh), 1);
     
     [_scrollView setZoomScale:_scrollView.minimumZoomScale animated:animated];
 }
@@ -785,10 +785,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
     if ([((CLToolbarMenuItem*)view).title isEqualToString:@"CROP"]) {
          [_imageView.layer setContentsRect:CGRectMake(0, 0, 1, 1)];
-
+        // [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
     }
-
-    // [self setRotation];
 }
 
 - (IBAction)pushedCancelBtn:(id)sender
@@ -798,6 +796,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
     
     self.currentTool = nil;
     [self setLayerContent];
+    [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
+
 }
 
 - (IBAction)pushedDoneBtn:(id)sender
@@ -813,11 +813,19 @@ static const CGFloat kMenuBarHeight = 80.0f;
         else if(image){
            // _originalImage = image;
            // _imageView.image = image;
-            
+
             [self resetImageViewFrame];
             self.currentTool = nil;
-            [self setLayerContent];
-           // [self setRotation];
+
+            if (userInfo) {
+                if([[userInfo objectForKey:@"Crop"] boolValue]){
+                    [self setLayerContent];
+                    [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
+                }
+                else if([[userInfo objectForKey:@"Rotate"] boolValue]){
+                    [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
+                }
+            }
         }
         self.view.userInteractionEnabled = YES;
     }];
@@ -873,6 +881,10 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
+    //Utilities *utilities = [Utilities sharedUtilities];
+   // _imageView.contentMode = UIViewContentModeScaleAspectFit;
+   // [_imageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/_originalImageReset.size.width, utilities.cropRect.origin.y/_originalImageReset.size.height,utilities.cropRect.size.width/_originalImageReset.size.width, utilities.cropRect.size.height/_originalImageReset.size.height)];
+    //_imageView.layer.transform =  utilities.transform;
     return _imageView;
 }
 
@@ -892,15 +904,17 @@ static const CGFloat kMenuBarHeight = 80.0f;
 // -- Danish
 - (void)resetOrignalImage:(UITapGestureRecognizer*)sender
 {
-    Utilities *utilities = [Utilities sharedUtilities];
-    [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,  _originalImageReset.size.height)];
-    utilities.angle = 0.0;
-    _originalImage = _originalImageReset;
-    _imageView.image = _originalImageReset;
-    [self resetImageViewFrame];
-    self.currentTool = nil;
+//    Utilities *utilities = [Utilities sharedUtilities];
+//    [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,  _originalImageReset.size.height)];
+//    utilities.angle = 0.0;
+//    _originalImage = _originalImageReset;
+//    _imageView.image = _originalImageReset;
+//    [self resetImageViewFrame];
+//    self.currentTool = nil;
 
     [self setLayerContent];
+
+   // [self setRotation];
 }
 
 // -- Danish
@@ -909,19 +923,32 @@ static const CGFloat kMenuBarHeight = 80.0f;
     Utilities *utilities = [Utilities sharedUtilities];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     [_imageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/_originalImageReset.size.width, utilities.cropRect.origin.y/_originalImageReset.size.height,utilities.cropRect.size.width/_originalImageReset.size.width, utilities.cropRect.size.height/_originalImageReset.size.height)];
+   // [_imageView.layer setGeometryFlipped:YES];
 }
 
 -(void)setRotation
 {
-    CATransform3D transform = CATransform3DIdentity;
-    CGFloat rotateValue = -1.0;
-    CGFloat _rotationArg = rotateValue * M_PI;
-    CGFloat scale = 0.5;
-    transform = CATransform3DRotate(transform, _rotationArg, 0, 0, 1);
-    transform = CATransform3DRotate(transform, 0, 0, 1, 0);
-    transform = CATransform3DRotate(transform, 0, 1, 0, 0);
-    transform = CATransform3DScale(transform, scale, scale, 1);
-    _imageView.layer.transform = transform;
+    [UIView animateWithDuration:kCLImageToolAnimationDuration
+         animations:^{
+             Utilities *utilites = [Utilities sharedUtilities];
+             CATransform3D transform = CATransform3DIdentity;
+             transform = CATransform3DRotate(transform, (utilites.angle * M_PI / 180), 0, 0, 1);
+             CGFloat scale = 1.0;
+
+             if(utilites.angle == 90.0 || utilites.angle == 270.0){
+                 scale = 0.72;
+             }
+
+             transform = CATransform3DScale(transform, scale, scale, 1);
+             _imageView.layer.transform = transform;
+
+             //Utilities *utilities = [Utilities sharedUtilities];
+             //_imageView.layer.transform =  utilities.transform;
+         }
+         completion:^(BOOL finished) {
+
+         }
+     ];
 }
 
 @end
