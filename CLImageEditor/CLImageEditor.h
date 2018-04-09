@@ -24,12 +24,13 @@
 - (id)initWithImage:(UIImage*)image;
 - (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate;
 - (id)initWithDelegate:(id<CLImageEditorDelegate>)delegate;
-
 - (void)showInViewController:(UIViewController<CLImageEditorTransitionDelegate>*)controller withImageView:(UIImageView*)imageView;
 
+//-- Danish
 -(void)showOptions:(NSDictionary*)dic withToolInfo:(NSArray*)subtool;
-
 -(void)showOptions:(NSDictionary*)dic;
+- (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty;
+
 
 @end
 

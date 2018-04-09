@@ -31,6 +31,12 @@
     return [[_CLImageEditorViewController alloc] initWithImage:image delegate:delegate];
 }
 
+//-- Danish
+- (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty
+{
+    return [[_CLImageEditorViewController alloc] initWithImage:image delegate:delegate withOptions:imageProperty];
+}
+
 - (id)initWithDelegate:(id<CLImageEditorDelegate>)delegate
 {
     return [[_CLImageEditorViewController alloc] initWithDelegate:delegate];

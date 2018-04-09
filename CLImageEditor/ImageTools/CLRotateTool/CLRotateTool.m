@@ -74,12 +74,13 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
 
 - (void)setup
 {
+    Utilities *utilities = [Utilities sharedUtilities];
     rotationValue = 0;
     _executed = NO;
 
     _fineRotationEnabled = [self.toolInfo.optionalInfo[kCLRotateToolFineRotationEnabled] boolValue];
 
-    [self.editor fixZoomScaleWithAnimated:YES];
+   // [self.editor fixZoomScaleWithAnimated:YES];
     
     _initialRect = self.editor.imageView.frame;
 
@@ -94,7 +95,9 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     _gridView.clipsToBounds = NO;
 
     float sliderMaxima = _fineRotationEnabled ? 0.5 : 1;
+
     _rotateSlider = [self sliderWithValue:0 minimumValue:-sliderMaxima maximumValue:sliderMaxima];
+    //_rotateSlider.value = [utilities getImageAngle:utilities.angle];
     _rotateSlider.superview.center = CGPointMake(self.editor.view.width/2, self.editor.menuView.top-30);
     // -- Danish
     [_rotateSlider setHidden:YES];
@@ -111,18 +114,32 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
                          _menuScroll.transform = CGAffineTransformIdentity;
                      }
                      completion:^(BOOL finished) {
-                         _rotateImageView = [[UIImageView alloc] initWithFrame:_initialRect];
-                         _rotateImageView.image = self.editor.imageView.image;
-                         [_gridView.superview insertSubview:_rotateImageView belowSubview:_gridView];
-                         self.editor.imageView.hidden = YES;
+                        // _rotateImageView = self.editor.imageView;//x///[[UIImageView alloc] initWithFrame:_initialRect];
 
-                         Utilities *utilities = [Utilities sharedUtilities];
-                         _rotateImageView.contentMode = UIViewContentModeScaleAspectFit;
-                         UIImage *originalImage = self.editor.imageView.image;
-                         [_rotateImageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/originalImage.size.width, utilities.cropRect.origin.y/originalImage.size.height,utilities.cropRect.size.width/originalImage.size.width, utilities.cropRect.size.height/originalImage.size.height)];
+//                         _rotateImageView = [[UIImageView alloc] initWithFrame:_initialRect];
+//                         _rotateScrollView = self.editor.scrollView;
+//                         _rotateImageView.image = self.editor.imageView.image;
+//                         self.editor.imageView.hidden = YES;
+
+                        // [_gridView.superview insertSubview:_rotateImageView belowSubview:_gridView];
+
+
+                        // Utilities *utilities = [Utilities sharedUtilities];
+                        // _rotateImageView.contentMode = UIViewContentModeScaleAspectFit;
+                       //  UIImage *originalImage = self.editor.imageView.image;
+                        // [_rotateImageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/originalImage.size.width, utilities.cropRect.origin.y/originalImage.size.height,utilities.cropRect.size.width/originalImage.size.width, utilities.cropRect.size.height/originalImage.size.height)];
                              //_rotateImageView.layer.transform =  utilities.transform;
                      }];
 
+    [self performSelector:@selector(updateRotation) withObject:nil afterDelay:0.2];
+
+}
+
+-(void)updateRotation
+{
+    Utilities *utilities = [Utilities sharedUtilities];
+    _rotateSlider.value = [utilities getImageAngle:utilities.angle];
+ //  [self rotateStateDidChange];
 }
 
 - (void)cleanup
@@ -134,23 +151,23 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
         [self.editor resetZoomScaleWithAnimated:NO];
         [self.editor fixZoomScaleWithAnimated:NO];
         
-        _rotateImageView.transform = CGAffineTransformIdentity;
-        _rotateImageView.frame = self.editor.imageView.frame;
-        _rotateImageView.image = self.editor.imageView.image;
+      //  _rotateImageView.transform = CGAffineTransformIdentity;
+      //  _rotateImageView.frame = self.editor.imageView.frame;
+      //  _rotateImageView.image = self.editor.imageView.image;
     }
-    [self.editor resetZoomScaleWithAnimated:NO];
+   // [self.editor resetZoomScaleWithAnimated:NO];
     
     [UIView animateWithDuration:kCLImageToolAnimationDuration
                      animations:^{
                          _menuScroll.transform = CGAffineTransformMakeTranslation(0, self.editor.view.height-_menuScroll.top);
                          
-                         _rotateImageView.transform = CGAffineTransformIdentity;
-                         _rotateImageView.frame = self.editor.imageView.frame;
+                        // _rotateImageView.transform = CGAffineTransformIdentity;
+                        // _rotateImageView.frame = self.editor.imageView.frame;
                      }
                      completion:^(BOOL finished) {
                          [_menuScroll removeFromSuperview];
-                         [_rotateImageView removeFromSuperview];
-                         self.editor.imageView.hidden = NO;
+                        // [_rotateImageView removeFromSuperview];
+                       //  self.editor.imageView.hidden = NO;
                      }];
 }
 
@@ -171,6 +188,7 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
         dispatch_async(dispatch_get_main_queue(), ^{
             _executed = YES;
             Utilities *utilities = [Utilities sharedUtilities];
+            utilities.isRotate = YES;
             [utilities setImageAngle:rotationValue];
             NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
             [dic setObject:[NSNumber numberWithBool:YES] forKey:@"Rotate"];
@@ -319,13 +337,12 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
         scale = 1 / MIN(Rw, Rh);
     }
 
-
-    
     transform = CATransform3DScale(transform, scale, scale, 1);
-    _rotateImageView.layer.transform = transform;
+    self.editor.imageView.layer.transform = transform;
 
     Utilities *utilites = [Utilities sharedUtilities];
     utilites.transform = transform;
+    utilites.scale = scale;
 
     if (!cropRotateEnabled) {
         _gridView.gridRect = _rotateImageView.frame;
@@ -380,12 +397,6 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
 }
 
 @end
-
-
-
-
-
-
 
 @implementation CLRotatePanel
 

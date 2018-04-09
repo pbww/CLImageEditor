@@ -8,6 +8,7 @@
 #import "_CLImageEditorViewController.h"
 
 #import "CLImageToolBase.h"
+#import "CLClippingTool.h"
 #import "Utilities.h"
 
 #pragma mark- _CLImageEditorViewController
@@ -27,6 +28,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 {
     UIImage *_originalImageReset;
     UIImage *_originalImage;
+    UIImage *_tempImage;
     UIView *_bgView;
 }
 @synthesize toolInfo = _toolInfo;
@@ -72,6 +74,26 @@ static const CGFloat kMenuBarHeight = 80.0f;
         utilities.angle = 0.0;
         utilities.transform = CATransform3DIdentity;
         [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height)];
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return self;
+}
+
+- (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty
+{
+    self = [self init];
+    if (self){
+        _originalImage = [image deepCopy];
+        _originalImageReset = [image deepCopy];
+        self.delegate = delegate;
+        
+        CGRect rect9 = CGRectFromString([imageProperty objectForKey:@"cropRect"]);
+        float angle = [[imageProperty objectForKey:@"angle"] floatValue];
+
+        Utilities *utilities = [Utilities sharedUtilities];
+        utilities.angle = angle;
+        utilities.transform = CATransform3DIdentity;
+        [utilities setCropRect:rect9];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return self;
@@ -357,6 +379,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
         [_scrollView addSubview:_imageView];
         [self refreshImageView];
     }
+
+     [self setLayerContent];
 }
 
 - (void)didReceiveMemoryWarning
@@ -603,7 +627,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
         CGFloat ratio = MIN(_scrollView.frame.size.width / size.width, _scrollView.frame.size.height / size.height);
         CGFloat W = ratio * size.width * _scrollView.zoomScale;
         CGFloat H = ratio * size.height * _scrollView.zoomScale;
-        
+
         _imageView.frame = CGRectMake(MAX(0, (_scrollView.width-W)/2), MAX(0, (_scrollView.height-H)/2), W, H);
     }
 }
@@ -635,6 +659,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (void)refreshImageView
 {
+    NSLog(@"refreshImageView");
     _imageView.image = _originalImage;
     
     [self resetImageViewFrame];
@@ -683,6 +708,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 - (void)setCurrentTool:(CLImageToolBase *)currentTool
 {
     if(currentTool != _currentTool){
+
         [_currentTool cleanup];
         _currentTool = currentTool;
         [_currentTool setup];
@@ -772,7 +798,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (void)tappedMenuView:(UITapGestureRecognizer*)sender
 {
-    UIView *view = sender.view;
+     UIView *view = sender.view;
+
+    // -- Danish
+    if ([((CLToolbarMenuItem*)view).title isEqualToString:@"CROP"]) {
+        [_imageView.layer setContentsRect:CGRectMake(0, 0, 1, 1)];
+        // [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
+    }
     
     view.alpha = 0.2;
     [UIView animateWithDuration:kCLImageToolAnimationDuration
@@ -783,10 +815,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
     
     [self setupToolWithToolInfo:view.toolInfo];
 
-    if ([((CLToolbarMenuItem*)view).title isEqualToString:@"CROP"]) {
-         [_imageView.layer setContentsRect:CGRectMake(0, 0, 1, 1)];
-        // [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
-    }
 }
 
 - (IBAction)pushedCancelBtn:(id)sender
@@ -796,7 +824,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     
     self.currentTool = nil;
     [self setLayerContent];
-    [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
+    //[self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
 
 }
 
@@ -811,20 +839,27 @@ static const CGFloat kMenuBarHeight = 80.0f;
             [self presentViewController:alert animated:YES completion:nil];
         }
         else if(image){
-           // _originalImage = image;
-           // _imageView.image = image;
+            //_originalImage = image;
+            //_imageView.image = image;
 
-            [self resetImageViewFrame];
+           // [self resetImageViewFrame];
+            //_imageView =  self.currentTool.editor.imageView;
             self.currentTool = nil;
+
+
 
             if (userInfo) {
                 if([[userInfo objectForKey:@"Crop"] boolValue]){
                     [self setLayerContent];
-                    [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
+                    //[self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
                 }
                 else if([[userInfo objectForKey:@"Rotate"] boolValue]){
-                    [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
+                   //  _originalImage = image;
+                   //  _imageView.image = image;
+                   // [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
                 }
+               // Utilities *utilities = [Utilities sharedUtilities];
+               // _imageView.layer.transform = utilities.transform;
             }
         }
         self.view.userInteractionEnabled = YES;
@@ -879,14 +914,15 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 #pragma mark- ScrollView delegate
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    //Utilities *utilities = [Utilities sharedUtilities];
-   // _imageView.contentMode = UIViewContentModeScaleAspectFit;
-   // [_imageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/_originalImageReset.size.width, utilities.cropRect.origin.y/_originalImageReset.size.height,utilities.cropRect.size.width/_originalImageReset.size.width, utilities.cropRect.size.height/_originalImageReset.size.height)];
-    //_imageView.layer.transform =  utilities.transform;
-    return _imageView;
-}
+//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+//{
+//    Utilities *ut = [Utilities sharedUtilities];
+//    if (!ut.isCrop) {
+//        ut.isCrop = true;
+//        return _imageView;
+//    }
+//    return nil;
+//}
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
@@ -904,6 +940,19 @@ static const CGFloat kMenuBarHeight = 80.0f;
 // -- Danish
 - (void)resetOrignalImage:(UITapGestureRecognizer*)sender
 {
+//     Utilities *utilities1 = [Utilities sharedUtilities];
+//
+//    CGAffineTransform transform = CGAffineTransformMakeRotation((180) * M_PI/180);
+//
+//     CGAffineTransform t3 = CGAffineTransformConcat(CGAffineTransformMakeScale(0.72, 0.72), CGAffineTransformMakeRotation((180) * M_PI/180));
+//
+//    transform = CGAffineTransformMakeScale(0.72, 0.72);
+//    self.scrollView.transform = t3;
+
+    //self.scrollView.layer.transform = utilities1.transform;
+
+    return;
+
 //    Utilities *utilities = [Utilities sharedUtilities];
 //    [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,  _originalImageReset.size.height)];
 //    utilities.angle = 0.0;
@@ -912,9 +961,83 @@ static const CGFloat kMenuBarHeight = 80.0f;
 //    [self resetImageViewFrame];
 //    self.currentTool = nil;
 
-    [self setLayerContent];
+
+   // [self setLayerContent];
 
    // [self setRotation];
+
+
+    Utilities *utilities = [Utilities sharedUtilities];
+
+    float x = utilities.cropRect.origin.x;
+    float y = utilities.cropRect.origin.y;
+
+    if (utilities.angle == 180 || utilities.angle == 0) {
+         x = self.imageView.image.size.width - utilities.cropRect.origin.x -  utilities.cropRect.size.width;
+         y = self.imageView.image.size.height - utilities.cropRect.size.height - utilities.cropRect.origin.y;
+    }
+
+
+    //anti clock wise
+//    float xr = (utilities.cropRect.origin.x - utilities.cropRect.size.width) * cos(-90 * M_PI / 180) - (utilities.cropRect.origin.y - utilities.cropRect.size.height) * sin(-90 * M_PI / 180) + utilities.cropRect.size.width;
+//
+//    float yr = (utilities.cropRect.origin.x - utilities.cropRect.size.width) * sin(-90 * M_PI / 180) + (utilities.cropRect.origin.y - utilities.cropRect.size.height) * cos(-90 * M_PI / 180) + utilities.cropRect.size.height;
+
+    //clockwise
+//    float xr = (utilities.cropRect.origin.x - utilities.cropRect.size.width) * cos(utilities.angle * M_PI / 180) + (utilities.cropRect.origin.y - utilities.cropRect.size.height) * sin(utilities.angle * M_PI / 180) + utilities.cropRect.size.width;
+//
+//    float yr = -(utilities.cropRect.origin.x - utilities.cropRect.size.width) * sin(utilities.angle * M_PI / 180) + (utilities.cropRect.origin.y - utilities.cropRect.size.height) * cos(utilities.angle * M_PI / 180) + utilities.cropRect.size.height;
+
+
+//    CGFloat zoomScale = self.imageView.width / self.imageView.image.size.width;
+//    CGRect rct = utilities.cropRect;
+//    rct.size.width  *= zoomScale;
+//    rct.size.height *= zoomScale;
+//    rct.origin.x    *= zoomScale;
+//    rct.origin.y    *= zoomScale;
+//    utilities.cropRect = rct;
+
+//    float xr = (rct.origin.x  - rct.size.width) * cos(utilities.angle * M_PI / 180) + (rct.origin.y - rct.size.height) * sin(utilities.angle * M_PI / 180) + rct.size.width;
+//
+//    float yr = -(rct.origin.x - rct.size.width) * sin(utilities.angle * M_PI / 180) + (rct.origin.y - rct.size.height ) * cos(utilities.angle * M_PI / 180) + rct.size.height;
+//
+//    CGRect newCorp = CGRectMake(fabs(xr), fabs(yr), rct.size.width, rct.size.height);
+//
+
+
+
+    float xr = (utilities.cropRect.origin.x - utilities.cropRect.size.width) * cos(utilities.angle * M_PI / 180) + (utilities.cropRect.origin.y - utilities.cropRect.size.height) * sin(utilities.angle * M_PI / 180) + utilities.cropRect.size.width;
+
+    float yr = -(utilities.cropRect.origin.x - utilities.cropRect.size.width) * sin(utilities.angle * M_PI / 180) + (utilities.cropRect.origin.y - utilities.cropRect.size.height) * cos(utilities.angle * M_PI / 180) + utilities.cropRect.size.height;
+
+
+    CGRect newCorp = CGRectMake(xr, yr, utilities.cropRect.size.width,  utilities.cropRect.size.height);
+
+//    rct = newCorp;
+//    rct.size.width  /= zoomScale;
+//    rct.size.height /= zoomScale;
+//    rct.origin.x    /= zoomScale;
+//    rct.origin.y    /= zoomScale;
+//
+//    utilities.cropRect = rct;
+
+    utilities.cropRect = newCorp;
+
+    float x1 = utilities.cropRect.origin.x/_originalImageReset.size.width;
+    float y1 = utilities.cropRect.origin.y/_originalImageReset.size.height;
+    float x2 = utilities.cropRect.size.width/_originalImageReset.size.width;
+    float y2 = utilities.cropRect.size.height/_originalImageReset.size.height;
+
+   // float x = utilities.cropRect.origin.x, y = utilities.cropRect.origin.y, xm = utilities.cropRect.size.width, ym = utilities.cropRect.size.height, a = 180 * M_PI / 180;
+
+    //  xr = (x - xm) * cos(a) - (y - ym) * sin(a)   + xm,
+    //yr = (x - xm) * sin(a) + (y - ym) * cos(a)   + ym;
+
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [_imageView.layer setContentsRect:CGRectMake(x1, y1, y2, x2)];
+
+
+
 }
 
 // -- Danish

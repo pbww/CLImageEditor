@@ -148,7 +148,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     _gridView.clipsToBounds = NO;
     
     [self setCropMenu];
-    
+
     _menuContainer.transform = CGAffineTransformMakeTranslation(0, self.editor.view.height-_menuScroll.top);
     [UIView animateWithDuration:kCLImageToolAnimationDuration
                      animations:^{
@@ -167,15 +167,18 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     rct.size.height *= zoomScale;
     rct.origin.x    *= zoomScale;
     rct.origin.y    *= zoomScale;
-    _gridView.clippingRect = rct;
+   // _gridView.clippingRect = rct;
 
-    //[self performSelector:@selector(rotate) withObject:nil afterDelay:0.4];
-}
+    [_gridView setClippingRect:rct];
 
--(void)rotate
-{
-    Utilities *utilities = [Utilities sharedUtilities];
-    self.editor.imageView.layer.transform =  utilities.transform;
+   // _gridView.layer.transform = utilities.transform;
+    //if (utilities.isRotate) {
+         CGRect rotatedRect = CGRectApplyAffineTransform(rct, CGAffineTransformMakeRotation((180) * M_PI/180));
+      //  CGAffineTransform transform = CGAffineTransformMakeRotation((90) * M_PI/180);
+       // _gridView.transform = transform;
+       // _gridView.layer.transform = utilities.transform;
+       // [_gridView clippingRatioDidChange];
+    //}
 }
 
 - (void)cleanup
@@ -417,7 +420,13 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 {
     self = [super initWithFrame:frame];
     if(self){
-        [superview addSubview:self];
+
+        Utilities *utilities = [Utilities sharedUtilities];
+      //  self.layer.transform = [utilities getTransfromImage];
+
+         [superview addSubview:self];
+
+        self.transform = CGAffineTransformMakeRotation((utilities.angle) * M_PI/180);
         
         _gridLayer = [[CLGridLayar alloc] init];
         _gridLayer.frame = self.bounds;
@@ -469,6 +478,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     _rbView.center = [self.superview convertPoint:CGPointMake(_clippingRect.origin.x+_clippingRect.size.width, _clippingRect.origin.y+_clippingRect.size.height) fromView:self];
     
     _gridLayer.clippingRect = clippingRect;
+
     [self setNeedsDisplay];
 }
 
