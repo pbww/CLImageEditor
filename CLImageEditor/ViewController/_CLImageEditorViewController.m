@@ -628,7 +628,10 @@ static const CGFloat kMenuBarHeight = 80.0f;
         CGFloat W = ratio * size.width * _scrollView.zoomScale;
         CGFloat H = ratio * size.height * _scrollView.zoomScale;
 
+       // _imageView.frame = CGRectMake(_scrollView.frame.origin.x, 0, _scrollView.frame.size.width, _scrollView.frame.size.height); // _scrollView.frame;
         _imageView.frame = CGRectMake(MAX(0, (_scrollView.width-W)/2), MAX(0, (_scrollView.height-H)/2), W, H);
+
+        _imageWidth = _imageView.frame.size.width;
     }
 }
 
@@ -637,7 +640,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     CGFloat minZoomScale = _scrollView.minimumZoomScale;
     _scrollView.maximumZoomScale = 0.95*minZoomScale;
     _scrollView.minimumZoomScale = 0.95*minZoomScale;
-    [_scrollView setZoomScale:_scrollView.minimumZoomScale animated:animated];
+    //[_scrollView setZoomScale:_scrollView.minimumZoomScale animated:animated];
 }
 
 - (void)resetZoomScaleWithAnimated:(BOOL)animated
@@ -654,7 +657,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     _scrollView.minimumZoomScale = 1;
     _scrollView.maximumZoomScale = 1;//MAX(MAX(Rw, Rh), 1);
     
-    [_scrollView setZoomScale:_scrollView.minimumZoomScale animated:animated];
+    //[_scrollView setZoomScale:_scrollView.minimumZoomScale animated:animated];
 }
 
 - (void)refreshImageView
@@ -688,9 +691,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [self resetImageViewFrame];
+   // [self resetImageViewFrame];
     [self refreshToolSettings];
-    [self scrollViewDidZoom:_scrollView];
+   // [self scrollViewDidZoom:_scrollView];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -820,7 +823,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 - (IBAction)pushedCancelBtn:(id)sender
 {
     _imageView.image = _originalImage;
-    [self resetImageViewFrame];
+   // [self resetImageViewFrame];
     
     self.currentTool = nil;
     [self setLayerContent];
@@ -926,15 +929,15 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
-    CGFloat Ws = _scrollView.frame.size.width - _scrollView.contentInset.left - _scrollView.contentInset.right;
-    CGFloat Hs = _scrollView.frame.size.height - _scrollView.contentInset.top - _scrollView.contentInset.bottom;
-    CGFloat W = _imageView.frame.size.width;
-    CGFloat H = _imageView.frame.size.height;
-    
-    CGRect rct = _imageView.frame;
-    rct.origin.x = MAX((Ws-W)/2, 0);
-    rct.origin.y = MAX((Hs-H)/2, 0);
-    _imageView.frame = rct;
+//    CGFloat Ws = _scrollView.frame.size.width - _scrollView.contentInset.left - _scrollView.contentInset.right;
+//    CGFloat Hs = _scrollView.frame.size.height - _scrollView.contentInset.top - _scrollView.contentInset.bottom;
+//    CGFloat W = _imageView.frame.size.width;
+//    CGFloat H = _imageView.frame.size.height;
+//
+//    CGRect rct = _imageView.frame;
+//    rct.origin.x = MAX((Ws-W)/2, 0);
+//    rct.origin.y = MAX((Hs-H)/2, 0);
+//    _imageView.frame = rct;
 }
 
 // -- Danish

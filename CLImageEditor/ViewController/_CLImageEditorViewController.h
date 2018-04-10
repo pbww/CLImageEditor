@@ -14,6 +14,7 @@
     IBOutlet __weak UIScrollView *_scrollView;
 }
 @property (nonatomic, strong) UIImageView  *imageView;
+@property (nonatomic, assign) float imageWidth;
 @property (nonatomic, weak) IBOutlet UIScrollView *menuView;
 @property (nonatomic, readonly) UIScrollView *scrollView;
 

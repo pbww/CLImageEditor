@@ -35,8 +35,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
 @interface CLClippingPanel : UIView
 @property (nonatomic, assign) CGRect clippingRect;
+@property (nonatomic, weak) _CLImageEditorViewController *editor;
 @property (nonatomic, strong) CLRatio *clippingRatio;
 - (id)initWithSuperview:(UIView*)superview frame:(CGRect)frame;
+- (void)setNewGridFrame:(UIView*)superview frame:(CGRect)frame;
 - (void)setBgColor:(UIColor*)bgColor;
 - (void)setGridColor:(UIColor*)gridColor;
 - (void)clippingRatioDidChange;
@@ -98,7 +100,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
 - (void)setup
 {
-    [self.editor fixZoomScaleWithAnimated:NO];
+    //[self.editor fixZoomScaleWithAnimated:NO];
 
     if(!self.toolInfo.optionalInfo){
         self.toolInfo.optionalInfo = [[self.class optionalInfo] mutableCopy];
@@ -139,13 +141,23 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         [btnPanel addSubview:btn];
         [btnPanel addSubview:_titleLabel];
     }
-    
-    _gridView = [[CLClippingPanel alloc] initWithSuperview:self.editor.imageView.superview frame:self.editor.imageView.frame];
+
+//    if ([self.editor.imageView subviews].count > 0) {
+//        _gridView = [[self.editor.imageView subviews] objectAtIndex:0];
+//        [_gridView setHidden:NO];
+//
+//        [_gridView setNewGridFrame:self.editor.imageView frame:self.editor.imageView.bounds];
+//    }
+//    else{
+        _gridView = [[CLClippingPanel alloc] initWithSuperview:self.editor.imageView frame:self.editor.imageView.bounds];
+        _gridView.editor = self.editor;
+   // }
+
     _gridView.backgroundColor = [UIColor clearColor];
     _gridView.bgColor = [self.editor.view.backgroundColor colorWithAlphaComponent:0.8];
     // -- Danish
     _gridView.gridColor = [UIColor colorWithRed:236.0/255.0 green:242.0/255.0 blue:246.0/255.0 alpha:0.8];
-    _gridView.clipsToBounds = NO;
+    _gridView.clipsToBounds = YES;
     
     [self setCropMenu];
 
@@ -161,31 +173,31 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 - (void)setCropRect
 {
     Utilities *utilities = [Utilities sharedUtilities];
-    CGFloat zoomScale = self.editor.imageView.width / self.editor.imageView.image.size.width;
+    CGFloat zoomScale = self.editor.imageWidth / self.editor.imageView.image.size.width; //self.editor.imageView.width
     CGRect rct = utilities.cropRect;
     rct.size.width  *= zoomScale;
     rct.size.height *= zoomScale;
     rct.origin.x    *= zoomScale;
     rct.origin.y    *= zoomScale;
-   // _gridView.clippingRect = rct;
 
     [_gridView setClippingRect:rct];
 
-   // _gridView.layer.transform = utilities.transform;
-    //if (utilities.isRotate) {
-         CGRect rotatedRect = CGRectApplyAffineTransform(rct, CGAffineTransformMakeRotation((180) * M_PI/180));
-      //  CGAffineTransform transform = CGAffineTransformMakeRotation((90) * M_PI/180);
-       // _gridView.transform = transform;
-       // _gridView.layer.transform = utilities.transform;
-       // [_gridView clippingRatioDidChange];
-    //}
+//    CATransform3D transform = CATransform3DIdentity;
+//     transform = CATransform3DRotate(transform, (utilities.angle * M_PI / 180), 0, 0, 1);
+//    CGFloat scale = 1.0;
+//
+//    if(utilities.angle == 90.0 || utilities.angle == 270.0){
+//        scale = 0.72;
+//    }
+//    transform = CATransform3DScale(transform, scale, scale, 1);
+//    self.editor.imageView.layer.transform = transform;
 }
 
 - (void)cleanup
 {
-    [self.editor resetZoomScaleWithAnimated:YES];
+   // [self.editor resetZoomScaleWithAnimated:YES];
     [_gridView removeFromSuperview];
-    
+     //   [_gridView setHidden:YES];
     [UIView animateWithDuration:kCLImageToolAnimationDuration
                      animations:^{
                          _menuContainer.transform = CGAffineTransformMakeTranslation(0, self.editor.view.height-_menuScroll.top);
@@ -197,7 +209,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
 - (void)executeWithCompletionBlock:(void (^)(UIImage *, NSError *, NSDictionary *))completionBlock
 {
-    CGFloat zoomScale = self.editor.imageView.width / self.editor.imageView.image.size.width;
+    CGFloat zoomScale = self.editor.imageWidth / self.editor.imageView.image.size.width;
     CGRect rct = _gridView.clippingRect;
     rct.size.width  /= zoomScale;
     rct.size.height /= zoomScale;
@@ -421,12 +433,13 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     self = [super initWithFrame:frame];
     if(self){
 
-        Utilities *utilities = [Utilities sharedUtilities];
-      //  self.layer.transform = [utilities getTransfromImage];
+        superview.userInteractionEnabled = YES;
+        //Utilities *utilities = [Utilities sharedUtilities];
+       // self.layer.transform = [utilities getTransfromImage];
 
          [superview addSubview:self];
 
-        self.transform = CGAffineTransformMakeRotation((utilities.angle) * M_PI/180);
+      //  self.transform = CGAffineTransformMakeRotation((utilities.angle) * M_PI/180);
         
         _gridLayer = [[CLGridLayar alloc] init];
         _gridLayer.frame = self.bounds;
@@ -445,6 +458,17 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         self.clippingRect = self.bounds;
     }
     return self;
+}
+
+-(void)setNewGridFrame:(UIView*)superview frame:(CGRect)frame
+{
+        superview.userInteractionEnabled = YES;
+
+        self.frame = frame;
+        //_gridLayer.frame = self.bounds;
+    
+        //self.clippingRect = self.bounds;
+
 }
 
 - (void)removeFromSuperview

@@ -148,8 +148,8 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     [_gridView removeFromSuperview];
     
     if(_executed){
-        [self.editor resetZoomScaleWithAnimated:NO];
-        [self.editor fixZoomScaleWithAnimated:NO];
+       // [self.editor resetZoomScaleWithAnimated:NO];
+       // [self.editor fixZoomScaleWithAnimated:NO];
         
       //  _rotateImageView.transform = CGAffineTransformIdentity;
       //  _rotateImageView.frame = self.editor.imageView.frame;
@@ -336,6 +336,8 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
         Rh = _initialRect.size.height / Hnew;
         scale = 1 / MIN(Rw, Rh);
     }
+
+    //scale = 1.0;
 
     transform = CATransform3DScale(transform, scale, scale, 1);
     self.editor.imageView.layer.transform = transform;
