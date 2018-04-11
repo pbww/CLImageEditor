@@ -44,7 +44,7 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     NSInteger _flipState1;
     NSInteger _flipState2;
     CGFloat rotationValue;
-
+    CATransform3D oldTransform;
 }
 
 + (NSString*)defaultTitle
@@ -133,6 +133,13 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
 
     Utilities *utilities = [[Utilities alloc] init];
     _rotateSlider.value = [utilities getImageAngle:angle];
+
+    oldTransform = self.editor.imageView.layer.transform;
+}
+
+-(void)applyOldTransform
+{
+    self.editor.imageView.layer.transform = oldTransform;
 }
 
 - (void)cleanup

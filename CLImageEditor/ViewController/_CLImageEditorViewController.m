@@ -836,9 +836,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (IBAction)pushedCancelBtn:(id)sender
 {
-    _imageView.image = _originalImage;
+    //_imageView.image = _originalImage;
    // [self resetImageViewFrame];
-    
+
+    // -- Danish : apply previous transfrom to imageview while cancel order.
+    if ([self.currentTool.toolInfo.toolName isEqualToString:@"CLRotateTool"]) {
+        [((CLRotateTool*)_currentTool) applyOldTransform];
+    }
     self.currentTool = nil;
     [self setLayerContent];
 

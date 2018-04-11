@@ -9,4 +9,6 @@
 
 @interface CLRotateTool : CLImageToolBase
 
+-(void)applyOldTransform;
+
 @end
