@@ -13,10 +13,15 @@
 @protocol CLImageEditorDelegate;
 @protocol CLImageEditorTransitionDelegate;
 
+
 @interface CLImageEditor : UIViewController
 {
-    
+
 }
+
+extern NSString * const CROP;
+extern NSString * const ROTATE;
+
 @property (nonatomic, weak) id<CLImageEditorDelegate> delegate;
 @property (nonatomic, readonly) CLImageEditorTheme *theme;
 @property (nonatomic, readonly) CLImageToolInfo *toolInfo;
@@ -28,7 +33,6 @@
 
 //-- Danish
 -(void)showOptions:(NSDictionary*)dic withToolInfo:(NSArray*)subtool;
--(void)showOptions:(NSDictionary*)dic;
 - (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty;
 
 

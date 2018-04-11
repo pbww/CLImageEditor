@@ -13,8 +13,10 @@
 
 @end
 
-
 @implementation CLImageEditor
+
+NSString * const CROP = @"CROP";
+NSString * const ROTATE = @"ROTATE";
 
 - (id)init
 {

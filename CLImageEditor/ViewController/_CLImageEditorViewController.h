@@ -14,10 +14,16 @@
     IBOutlet __weak UIScrollView *_scrollView;
 }
 @property (nonatomic, strong) UIImageView  *imageView;
-@property (nonatomic, assign) float imageWidth;
-@property (nonatomic, assign) CGRect imageFrame;
 @property (nonatomic, weak) IBOutlet UIScrollView *menuView;
 @property (nonatomic, readonly) UIScrollView *scrollView;
+
+// -- Danish : orignal Image width and image frame
+@property (nonatomic, assign) float imageWidth;
+@property (nonatomic, assign) CGRect imageFrame;
+
+// Crop Rect and angle
+@property (nonatomic, assign) CGRect cropRect;
+@property (nonatomic, assign) double angle;
 
 - (IBAction)pushedCloseBtn:(id)sender;
 - (IBAction)pushedFinishBtn:(id)sender;

@@ -172,31 +172,14 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
 - (void)setCropRect
 {
-    Utilities *utilities = [Utilities sharedUtilities];
     CGFloat zoomScale = self.editor.imageWidth / self.editor.imageView.image.size.width; //self.editor.imageView.width
-    CGRect rct = utilities.cropRect;
+    CGRect rct = self.editor.cropRect;//utilities.cropRect;
     rct.size.width  *= zoomScale;
     rct.size.height *= zoomScale;
     rct.origin.x    *= zoomScale;
     rct.origin.y    *= zoomScale;
 
     [_gridView setClippingRect:rct];
-
-//    CGFloat angle = [(NSNumber *)[self.editor.imageView valueForKeyPath:@"layer.transform.rotation.z"] doubleValue];
-//
-//
-//    CATransform3D transform = CATransform3DIdentity;
-//    transform = CATransform3DRotate(transform, angle, 0, 0, 1);
-//    CGFloat scale = 1.0;
-//
-//    if(utilities.angle == 90.0 || utilities.angle == 270.0){
-//        scale = 0.72;
-//    }
-//    transform = CATransform3DScale(transform, scale, scale, 1);
-//    self.editor.imageView.layer.transform = transform;
-
-
-
 }
 
 - (void)cleanup
@@ -222,9 +205,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     rct.origin.x    /= zoomScale;
     rct.origin.y    /= zoomScale;
 
-    Utilities *utilities = [Utilities sharedUtilities];
-    utilities.cropRect = rct;
-
+    self.editor.cropRect = rct;
+    
     UIImage *result = [self.editor.imageView.image crop:rct];
 
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];

@@ -69,11 +69,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
         _originalImage = [image deepCopy];
         _originalImageReset = [image deepCopy];
         self.delegate = delegate;
-
-        Utilities *utilities = [Utilities sharedUtilities];
-        utilities.angle = 0.0;
-        utilities.transform = CATransform3DIdentity;
-        [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height)];
+        _angle = 0.0;
+        _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height);
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return self;
@@ -86,14 +83,23 @@ static const CGFloat kMenuBarHeight = 80.0f;
         _originalImage = [image deepCopy];
         _originalImageReset = [image deepCopy];
         self.delegate = delegate;
-        
-        CGRect rect9 = CGRectFromString([imageProperty objectForKey:@"cropRect"]);
-        float angle = [[imageProperty objectForKey:@"angle"] floatValue];
 
-        Utilities *utilities = [Utilities sharedUtilities];
-        utilities.angle = angle;
-        utilities.transform = CATransform3DIdentity;
-        [utilities setCropRect:rect9];
+        if ([imageProperty objectForKey:@"cropRect"] != nil) {
+             CGRect cropRectCoordinate = CGRectFromString([imageProperty objectForKey:@"cropRect"]);
+             _cropRect = cropRectCoordinate;
+        }
+        else{
+            _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height);
+        }
+
+        if ([imageProperty objectForKey:@"angle"] != nil) {
+            float angle = [[imageProperty objectForKey:@"angle"] floatValue];
+            _angle = angle;
+        }
+        else{
+             _angle = 0.0;
+        }
+
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return self;
@@ -381,6 +387,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
     }
 
      [self setLayerContent];
+
+    //[self setRotation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -805,10 +813,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
 {
      UIView *view = sender.view;
 
-    // -- Danish
+    // -- Danish : set image crop rect to identical value so it will show full image while doing crop
     if ([((CLToolbarMenuItem*)view).title isEqualToString:@"CROP"]) {
         [_imageView.layer setContentsRect:CGRectMake(0, 0, 1, 1)];
-        // [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
     }
     
     view.alpha = 0.2;
@@ -829,7 +836,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
     
     self.currentTool = nil;
     [self setLayerContent];
-    //[self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
 
 }
 
@@ -848,23 +854,16 @@ static const CGFloat kMenuBarHeight = 80.0f;
             //_imageView.image = image;
 
            // [self resetImageViewFrame];
-            //_imageView =  self.currentTool.editor.imageView;
+
             self.currentTool = nil;
-
-
 
             if (userInfo) {
                 if([[userInfo objectForKey:@"Crop"] boolValue]){
                     [self setLayerContent];
-                    //[self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
                 }
                 else if([[userInfo objectForKey:@"Rotate"] boolValue]){
-                   //  _originalImage = image;
-                   //  _imageView.image = image;
-                   // [self performSelector:@selector(setRotation) withObject:nil afterDelay:0.4];
+
                 }
-               // Utilities *utilities = [Utilities sharedUtilities];
-               // _imageView.layer.transform = utilities.transform;
             }
         }
         self.view.userInteractionEnabled = YES;
@@ -892,10 +891,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
     if(self.targetImageView==nil){
         // --Danish
         if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEditingWithImage:withImageOptions:)]){
-            Utilities *utilities = [Utilities sharedUtilities];
             NSMutableDictionary *imageProperty = [[NSMutableDictionary alloc]init];
-            [imageProperty setObject:NSStringFromCGRect(utilities.cropRect) forKey:@"cropRect"];
-            [imageProperty setObject:[NSNumber numberWithFloat:utilities.angle] forKey:@"angle"];
+            [imageProperty setObject:NSStringFromCGRect(_cropRect) forKey:@"cropRect"];
+            [imageProperty setObject:[NSNumber numberWithFloat:_angle] forKey:@"angle"];
             [self.delegate imageEditor:self didFinishEditingWithImage:_originalImage withImageOptions:imageProperty];
         }
         else if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEditingWithImage:)]){
@@ -942,46 +940,44 @@ static const CGFloat kMenuBarHeight = 80.0f;
 //    _imageView.frame = rct;
 }
 
-// -- Danish
+// -- Danish : reset to orignal image form
 - (void)resetOrignalImage:(UITapGestureRecognizer*)sender
 {
     CATransform3D transform = CATransform3DIdentity;
     _imageView.layer.transform = transform;
     [_imageView.layer setContentsRect:CGRectMake(0, 0, 1, 1)];
-    Utilities *utilities = [Utilities sharedUtilities];
-    [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,  _originalImageReset.size.height)];
-    utilities.angle = 0.0;
+    _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,  _originalImageReset.size.height);
+    _angle = 0.0;
     self.currentTool = nil;
     [self setLayerContent];
 }
 
-// -- Danish
+// -- Danish :  set crop rect on image layer
 -(void)setLayerContent
 {
-    Utilities *utilities = [Utilities sharedUtilities];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [_imageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/_originalImageReset.size.width, utilities.cropRect.origin.y/_originalImageReset.size.height,utilities.cropRect.size.width/_originalImageReset.size.width, utilities.cropRect.size.height/_originalImageReset.size.height)];
-   // [_imageView.layer setGeometryFlipped:YES];
+    [_imageView.layer setContentsRect:CGRectMake(_cropRect.origin.x/_originalImageReset.size.width, _cropRect.origin.y/_originalImageReset.size.height,_cropRect.size.width/_originalImageReset.size.width, _cropRect.size.height/_originalImageReset.size.height)];
 }
 
 -(void)setRotation
 {
     [UIView animateWithDuration:kCLImageToolAnimationDuration
          animations:^{
-             Utilities *utilites = [Utilities sharedUtilities];
              CATransform3D transform = CATransform3DIdentity;
-             transform = CATransform3DRotate(transform, (utilites.angle * M_PI / 180), 0, 0, 1);
+             transform = CATransform3DRotate(transform, (_angle * M_PI / 180), 0, 0, 1);
              CGFloat scale = 1.0;
 
-             if(utilites.angle == 90.0 || utilites.angle == 270.0){
-                 scale = 0.72;
-             }
+             Utilities *utilities = [[Utilities alloc]init];
+
+             CGFloat Wnew = fabs(_imageFrame.size.width * cos([utilities getImageAngle:_angle] * M_PI)) + fabs(_imageFrame.size.height * sin([utilities getImageAngle:_angle] * M_PI));
+             CGFloat Hnew = fabs(_imageFrame.size.width * sin([utilities getImageAngle:_angle] * M_PI)) + fabs(_imageFrame.size.height * cos([utilities getImageAngle:_angle] * M_PI));
+
+             CGFloat Rw = _scrollView.frame.size.width / Wnew;
+             CGFloat Rh = _scrollView.frame.size.height / Hnew;
+             scale = MIN(Rw, Rh) * 0.95;
 
              transform = CATransform3DScale(transform, scale, scale, 1);
              _imageView.layer.transform = transform;
-
-             //Utilities *utilities = [Utilities sharedUtilities];
-             //_imageView.layer.transform =  utilities.transform;
          }
          completion:^(BOOL finished) {
 
