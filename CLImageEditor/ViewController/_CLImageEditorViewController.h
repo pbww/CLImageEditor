@@ -15,6 +15,7 @@
 }
 @property (nonatomic, strong) UIImageView  *imageView;
 @property (nonatomic, assign) float imageWidth;
+@property (nonatomic, assign) CGRect imageFrame;
 @property (nonatomic, weak) IBOutlet UIScrollView *menuView;
 @property (nonatomic, readonly) UIScrollView *scrollView;
 

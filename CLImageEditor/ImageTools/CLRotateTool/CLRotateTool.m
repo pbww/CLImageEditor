@@ -74,15 +74,14 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
 
 - (void)setup
 {
-    Utilities *utilities = [Utilities sharedUtilities];
-    rotationValue = 0;
+     rotationValue = 0;
     _executed = NO;
 
     _fineRotationEnabled = [self.toolInfo.optionalInfo[kCLRotateToolFineRotationEnabled] boolValue];
 
    // [self.editor fixZoomScaleWithAnimated:YES];
     
-    _initialRect = self.editor.imageView.frame;
+    _initialRect = self.editor.imageFrame;//self.editor.imageView.frame;
 
     _rotationArg = 0;
     _flipState1 = 0;
@@ -137,9 +136,11 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
 
 -(void)updateRotation
 {
+    CGFloat angle = (([(NSNumber *)[self.editor.imageView valueForKeyPath:@"layer.transform.rotation.z"] doubleValue]) * 180) / M_PI;
+    //  NSLog(@"%f", angle);
+
     Utilities *utilities = [Utilities sharedUtilities];
-    _rotateSlider.value = [utilities getImageAngle:utilities.angle];
- //  [self rotateStateDidChange];
+    _rotateSlider.value = [utilities getImageAngle:angle];
 }
 
 - (void)cleanup

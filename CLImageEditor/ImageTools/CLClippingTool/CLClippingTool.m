@@ -182,8 +182,11 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
     [_gridView setClippingRect:rct];
 
+//    CGFloat angle = [(NSNumber *)[self.editor.imageView valueForKeyPath:@"layer.transform.rotation.z"] doubleValue];
+//
+//
 //    CATransform3D transform = CATransform3DIdentity;
-//     transform = CATransform3DRotate(transform, (utilities.angle * M_PI / 180), 0, 0, 1);
+//    transform = CATransform3DRotate(transform, angle, 0, 0, 1);
 //    CGFloat scale = 1.0;
 //
 //    if(utilities.angle == 90.0 || utilities.angle == 270.0){
@@ -191,6 +194,9 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 //    }
 //    transform = CATransform3DScale(transform, scale, scale, 1);
 //    self.editor.imageView.layer.transform = transform;
+
+
+
 }
 
 - (void)cleanup

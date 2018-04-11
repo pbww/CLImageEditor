@@ -163,9 +163,19 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+
     
     CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:image];
-    
+
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setValue:[[NSNumber alloc] initWithDouble:0.0] forKey:@"CROP"];
+    [dic setValue:[[NSNumber alloc] initWithDouble:1.0] forKey:@"ROTATE"];
+    // [dic setValue:[[NSNumber alloc] initWithDouble:2.0] forKey:@"Sticker"];
+
+    [editor showOptions:dic withToolInfo:[editor.toolInfo subtools]];
+
+
     editor.delegate = self;
     
     [picker pushViewController:editor animated:YES];

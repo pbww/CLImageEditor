@@ -78,7 +78,7 @@
     else if (angle == 180.0) {
         return 1.0;
     }
-    else if (angle == 270) {
+    else if (angle == 270.0 || angle == -90.0) {
         return -0.5;
     }
 
