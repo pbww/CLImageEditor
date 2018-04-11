@@ -78,8 +78,8 @@
 
         // (origin = (x = 205.26114521485363, y = 281.47328167454947), size = (width = 825.19875213847229, height = 595.75324544631167))
         NSMutableDictionary *imageProperty = [[NSMutableDictionary alloc]init];
-        [imageProperty setObject:NSStringFromCGRect(CGRectMake(205.26114521485363, 281.47328167454947, 825.19875213847229, 595.75324544631167)) forKey:@"cropRect"];
-        [imageProperty setObject:[NSNumber numberWithFloat:180.0] forKey:@"angle"];
+       // [imageProperty setObject:NSStringFromCGRect(CGRectMake(205.26114521485363, 281.47328167454947, 825.19875213847229, 595.75324544631167)) forKey:@"cropRect"];
+      //  [imageProperty setObject:[NSNumber numberWithFloat:180.0] forKey:@"angle"];
 
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
 
