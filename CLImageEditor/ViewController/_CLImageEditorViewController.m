@@ -945,14 +945,14 @@ static const CGFloat kMenuBarHeight = 80.0f;
 // -- Danish
 - (void)resetOrignalImage:(UITapGestureRecognizer*)sender
 {
+    CATransform3D transform = CATransform3DIdentity;
+    _imageView.layer.transform = transform;
+    [_imageView.layer setContentsRect:CGRectMake(0, 0, 1, 1)];
     Utilities *utilities = [Utilities sharedUtilities];
     [utilities setCropRect:CGRectMake(0, 0, _originalImageReset.size.width,  _originalImageReset.size.height)];
     utilities.angle = 0.0;
-    _originalImage = _originalImageReset;
-    _imageView.image = _originalImageReset;
-    [self resetImageViewFrame];
     self.currentTool = nil;
-    
+    [self setLayerContent];
 }
 
 // -- Danish
