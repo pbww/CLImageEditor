@@ -10,6 +10,7 @@
 #import "CLImageToolBase.h"
 #import "CLClippingTool.h"
 #import "Utilities.h"
+#import "CLRotateTool.h"
 
 #pragma mark- _CLImageEditorViewController
 
@@ -386,9 +387,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
         [self refreshImageView];
     }
 
-     [self setLayerContent];
+    // [self setLayerContent];
 
-    //[self setRotation];
+    // [self setRotation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -407,6 +408,10 @@ static const CGFloat kMenuBarHeight = 80.0f;
     else{
         [self refreshImageView];
     }
+
+    [self setLayerContent];
+    [self setRotation];
+
 }
 
 #pragma mark- View transition
@@ -893,6 +898,11 @@ static const CGFloat kMenuBarHeight = 80.0f;
         if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEditingWithImage:withImageOptions:)]){
             NSMutableDictionary *imageProperty = [[NSMutableDictionary alloc]init];
             [imageProperty setObject:NSStringFromCGRect(_cropRect) forKey:@"cropRect"];
+
+            if (_angle == -90.0) {
+                _angle = 270.0;
+            }
+
             [imageProperty setObject:[NSNumber numberWithFloat:_angle] forKey:@"angle"];
             [self.delegate imageEditor:self didFinishEditingWithImage:_originalImage withImageOptions:imageProperty];
         }
@@ -959,30 +969,24 @@ static const CGFloat kMenuBarHeight = 80.0f;
     [_imageView.layer setContentsRect:CGRectMake(_cropRect.origin.x/_originalImageReset.size.width, _cropRect.origin.y/_originalImageReset.size.height,_cropRect.size.width/_originalImageReset.size.width, _cropRect.size.height/_originalImageReset.size.height)];
 }
 
+// -- Danish : Set Rotation
 -(void)setRotation
 {
-    [UIView animateWithDuration:kCLImageToolAnimationDuration
-         animations:^{
-             CATransform3D transform = CATransform3DIdentity;
-             transform = CATransform3DRotate(transform, (_angle * M_PI / 180), 0, 0, 1);
-             CGFloat scale = 1.0;
+    CATransform3D transform = CATransform3DIdentity;
+    transform = CATransform3DRotate(transform, (_angle * M_PI / 180), 0, 0, 1);
+    CGFloat scale = 1.0;
 
-             Utilities *utilities = [[Utilities alloc]init];
+    Utilities *utilities = [[Utilities alloc]init];
 
-             CGFloat Wnew = fabs(_imageFrame.size.width * cos([utilities getImageAngle:_angle] * M_PI)) + fabs(_imageFrame.size.height * sin([utilities getImageAngle:_angle] * M_PI));
-             CGFloat Hnew = fabs(_imageFrame.size.width * sin([utilities getImageAngle:_angle] * M_PI)) + fabs(_imageFrame.size.height * cos([utilities getImageAngle:_angle] * M_PI));
+    CGFloat Wnew = fabs(_imageView.bounds.size.width * cos([utilities getImageAngle:_angle] * M_PI)) + fabs(_imageView.bounds.size.height * sin([utilities getImageAngle:_angle] * M_PI));
+    CGFloat Hnew = fabs(_imageView.bounds.size.width * sin([utilities getImageAngle:_angle] * M_PI)) + fabs(_imageView.bounds.size.height * cos([utilities getImageAngle:_angle] * M_PI));
 
-             CGFloat Rw = _scrollView.frame.size.width / Wnew;
-             CGFloat Rh = _scrollView.frame.size.height / Hnew;
-             scale = MIN(Rw, Rh) * 0.95;
+    CGFloat Rw = _scrollView.bounds.size.width / Wnew;
+    CGFloat Rh = _scrollView.bounds.size.height / Hnew;
+    scale = MIN(Rw, Rh) * 0.95;
 
-             transform = CATransform3DScale(transform, scale, scale, 1);
-             _imageView.layer.transform = transform;
-         }
-         completion:^(BOOL finished) {
-
-         }
-     ];
+    transform = CATransform3DScale(transform, scale, scale, 1);
+    _imageView.layer.transform = transform;
 }
 
 @end

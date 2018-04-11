@@ -79,7 +79,7 @@
         // (origin = (x = 205.26114521485363, y = 281.47328167454947), size = (width = 825.19875213847229, height = 595.75324544631167))
         NSMutableDictionary *imageProperty = [[NSMutableDictionary alloc]init];
         [imageProperty setObject:NSStringFromCGRect(CGRectMake(205.26114521485363, 281.47328167454947, 825.19875213847229, 595.75324544631167)) forKey:@"cropRect"];
-        [imageProperty setObject:[NSNumber numberWithFloat:0.0] forKey:@"angle"];
+        [imageProperty setObject:[NSNumber numberWithFloat:180.0] forKey:@"angle"];
 
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
 
@@ -168,8 +168,8 @@
     
     CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:image];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    [dic setValue:[[NSNumber alloc] initWithDouble:0.0] forKey:@"CROP"];
-    [dic setValue:[[NSNumber alloc] initWithDouble:1.0] forKey:@"ROTATE"];
+    [dic setValue:[[NSNumber alloc] initWithDouble:0.0] forKey:CROP];
+    [dic setValue:[[NSNumber alloc] initWithDouble:1.0] forKey:ROTATE];
     // [dic setValue:[[NSNumber alloc] initWithDouble:2.0] forKey:@"Sticker"];
 
     [editor showOptions:dic withToolInfo:[editor.toolInfo subtools]];
