@@ -25,6 +25,9 @@
 @property (nonatomic, assign) CGRect cropRect;
 @property (nonatomic, assign) double angle;
 
+// font
+@property (nonatomic, strong) NSString  *font;
+
 - (IBAction)pushedCloseBtn:(id)sender;
 - (IBAction)pushedFinishBtn:(id)sender;
 

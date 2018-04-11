@@ -31,6 +31,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     UIImage *_originalImage;
     UIImage *_tempImage;
     UIView *_bgView;
+   // NSString *_font;
 }
 @synthesize toolInfo = _toolInfo;
 
@@ -47,13 +48,17 @@ static const CGFloat kMenuBarHeight = 80.0f;
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self){
-        NSDictionary *barButtonAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:@"ProximaNova-Regular" size:18.0], NSForegroundColorAttributeName: [UIColor colorWithRed:68.0/255.0 green:128.0/255.0 blue:170.0/255.0 alpha:1.0]};
-        [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonAppearanceDict forState:UIControlStateNormal];
 
-        [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                                               NSForegroundColorAttributeName: [UIColor colorWithRed:74.0/255.0  green:74.0/255.0  blue:74.0/255.0  alpha:1.0],
-                                                               NSFontAttributeName: [UIFont fontWithName:@"ProximaNova-Bold" size:18.0f]
-                                                               }];
+        if ([UIFont fontWithName:[NSString stringWithFormat:@"%@-Regular",_font] size:18] != nil) {
+            [[CLImageEditorTheme theme] setFont:_font];
+            NSDictionary *barButtonAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:[NSString stringWithFormat:@"%@-Regular",_font] size:18.0], NSForegroundColorAttributeName: [UIColor colorWithRed:68.0/255.0 green:128.0/255.0 blue:170.0/255.0 alpha:1.0]};
+            [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonAppearanceDict forState:UIControlStateNormal];
+
+            [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                                   NSForegroundColorAttributeName: [UIColor colorWithRed:74.0/255.0  green:74.0/255.0  blue:74.0/255.0  alpha:1.0],
+                                                                   NSFontAttributeName: [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",_font] size:18.0f]
+                                                                   }];
+        }
     }
     return self;
 }   
@@ -79,6 +84,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty
 {
+    if ([imageProperty objectForKey:@"font"] != nil) {
+        _font = [imageProperty objectForKey:@"font"];
+    }
+    else{
+        _font = @"ProximaNova";
+    }
+
     self = [self init];
     if (self){
         _originalImage = [image deepCopy];
@@ -908,7 +920,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
             }
 
             [imageProperty setObject:[NSNumber numberWithFloat:_angle] forKey:@"angle"];
-            [self.delegate imageEditor:self didFinishEditingWithImage:_originalImage withImageOptions:imageProperty];
+            [self.delegate imageEditor:self didFinishEditingWithImage:[self buildImage:_originalImage]  withImageOptions:imageProperty];
         }
         else if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEditingWithImage:)]){
             [self.delegate imageEditor:self didFinishEditingWithImage:_originalImage];
@@ -991,6 +1003,37 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
     transform = CATransform3DScale(transform, scale, scale, 1);
     _imageView.layer.transform = transform;
+}
+
+// -- Danish : Image Rotate and Crop
+- (UIImage*)buildImage:(UIImage*)image
+{
+    image = [image crop:_cropRect];
+    CIImage *ciImage = [[CIImage alloc] initWithImage:image];
+    CIFilter *filter = [CIFilter filterWithName:@"CIAffineTransform" keysAndValues:kCIInputImageKey, ciImage, nil];
+
+    [filter setDefaults];
+
+    float angle = _angle;
+    if (angle == 90.0) {
+        angle = -90;
+    }
+    else if (angle == 270.0) {
+        angle = 90;
+    }
+
+    CGAffineTransform transform = CGAffineTransformMakeRotation(angle * M_PI/180);//CATransform3DGetAffineTransform(self.imageView.layer.transform);
+    [filter setValue:[NSValue valueWithBytes:&transform objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
+
+    CIContext *context = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer : @(NO)}];
+    CIImage *outputImage = [filter outputImage];
+    CGImageRef cgImage = [context createCGImage:outputImage fromRect:[outputImage extent]];
+
+    UIImage *result = [UIImage imageWithCGImage:cgImage];
+
+    CGImageRelease(cgImage);
+
+    return result;
 }
 
 @end

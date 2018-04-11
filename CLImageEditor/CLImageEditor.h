@@ -22,6 +22,10 @@
 extern NSString * const CROP;
 extern NSString * const ROTATE;
 
+extern NSString * const CROPRECT;
+extern NSString * const ANGLE;
+extern NSString * const FONT;
+
 @property (nonatomic, weak) id<CLImageEditorDelegate> delegate;
 @property (nonatomic, readonly) CLImageEditorTheme *theme;
 @property (nonatomic, readonly) CLImageToolInfo *toolInfo;

@@ -15,8 +15,14 @@
 
 @implementation CLImageEditor
 
+// Danish : Constant for image
 NSString * const CROP = @"CROP";
 NSString * const ROTATE = @"ROTATE";
+
+// Danish : Const for Image property
+NSString * const CROPRECT = @"cropRect";
+NSString * const ANGLE = @"angle";
+NSString * const FONT = @"font";
 
 - (id)init
 {
