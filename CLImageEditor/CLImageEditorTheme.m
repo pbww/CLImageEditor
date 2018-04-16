@@ -55,9 +55,9 @@ static CLImageEditorTheme *_sharedInstance = nil;
     return self;
 }
 
--(void)setFont:(NSString*)font
+-(void)setFont:(UIFont*)font
 {
-     self.toolbarTextFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",font] size:10];
+    self.toolbarTextFont = font;
 }
 
 @end

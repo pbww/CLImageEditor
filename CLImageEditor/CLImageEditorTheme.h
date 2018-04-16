@@ -23,7 +23,7 @@
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
 
 + (CLImageEditorTheme*)theme;
--(void)setFont:(NSString*)font;
+-(void)setFont:(UIFont*)font;
 @end
 
 

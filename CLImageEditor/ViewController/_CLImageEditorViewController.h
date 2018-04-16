@@ -26,7 +26,7 @@
 @property (nonatomic, assign) double angle;
 
 // font
-@property (nonatomic, strong) NSString  *font;
+@property (nonatomic, strong) UIFont *font;
 
 - (IBAction)pushedCloseBtn:(id)sender;
 - (IBAction)pushedFinishBtn:(id)sender;

@@ -31,7 +31,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
     UIImage *_originalImage;
     UIImage *_tempImage;
     UIView *_bgView;
-   // NSString *_font;
 }
 @synthesize toolInfo = _toolInfo;
 
@@ -49,14 +48,14 @@ static const CGFloat kMenuBarHeight = 80.0f;
     self = [self initWithNibName:nil bundle:nil];
     if (self){
 
-        if ([UIFont fontWithName:[NSString stringWithFormat:@"%@-Regular",_font] size:18] != nil) {
+        if (_font != nil) {
             [[CLImageEditorTheme theme] setFont:_font];
-            NSDictionary *barButtonAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:[NSString stringWithFormat:@"%@-Regular",_font] size:18.0], NSForegroundColorAttributeName: [UIColor colorWithRed:68.0/255.0 green:128.0/255.0 blue:170.0/255.0 alpha:1.0]};
+            NSDictionary *barButtonAppearanceDict = @{NSFontAttributeName : _font, NSForegroundColorAttributeName: [UIColor colorWithRed:68.0/255.0 green:128.0/255.0 blue:170.0/255.0 alpha:1.0]};
             [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonAppearanceDict forState:UIControlStateNormal];
 
             [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                                    NSForegroundColorAttributeName: [UIColor colorWithRed:74.0/255.0  green:74.0/255.0  blue:74.0/255.0  alpha:1.0],
-                                                                   NSFontAttributeName: [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",_font] size:18.0f]
+                                                                   NSFontAttributeName: _font
                                                                    }];
         }
     }
@@ -84,11 +83,11 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty
 {
-    if ([imageProperty objectForKey:@"font"] != nil) {
-        _font = [imageProperty objectForKey:@"font"];
+    if ([imageProperty objectForKey:FONT] != nil) {
+        _font = [imageProperty objectForKey:FONT];
     }
     else{
-        _font = @"ProximaNova";
+        _font = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
     }
 
     self = [self init];
@@ -97,16 +96,16 @@ static const CGFloat kMenuBarHeight = 80.0f;
         _originalImageReset = [image deepCopy];
         self.delegate = delegate;
 
-        if ([imageProperty objectForKey:@"cropRect"] != nil) {
-             CGRect cropRectCoordinate = CGRectFromString([imageProperty objectForKey:@"cropRect"]);
+        if ([imageProperty objectForKey:CROPRECT] != nil) {
+             CGRect cropRectCoordinate = CGRectFromString([imageProperty objectForKey:CROPRECT]);
              _cropRect = cropRectCoordinate;
         }
         else{
             _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height);
         }
 
-        if ([imageProperty objectForKey:@"angle"] != nil) {
-            float angle = [[imageProperty objectForKey:@"angle"] floatValue];
+        if ([imageProperty objectForKey:ANGLE] != nil) {
+            float angle = [[imageProperty objectForKey:ANGLE] floatValue];
             _angle = angle;
         }
         else{
@@ -399,9 +398,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
         [self refreshImageView];
     }
 
-    // [self setLayerContent];
-
-    // [self setRotation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -942,16 +938,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
 }
 
 #pragma mark- ScrollView delegate
-
-//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-//{
-//    Utilities *ut = [Utilities sharedUtilities];
-//    if (!ut.isCrop) {
-//        ut.isCrop = true;
-//        return _imageView;
-//    }
-//    return nil;
-//}
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
