@@ -27,6 +27,7 @@
 
 // font
 @property (nonatomic, strong) UIFont *font;
+@property (nonatomic, strong) UIFont *boldFont;
 
 - (IBAction)pushedCloseBtn:(id)sender;
 - (IBAction)pushedFinishBtn:(id)sender;

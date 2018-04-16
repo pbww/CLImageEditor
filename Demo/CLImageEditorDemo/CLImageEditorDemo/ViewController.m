@@ -80,7 +80,12 @@
         NSMutableDictionary *imageProperty = [[NSMutableDictionary alloc]init];
 //        [imageProperty setObject:NSStringFromCGRect(CGRectMake(205.26114521485363, 281.47328167454947, 825.19875213847229, 595.75324544631167)) forKey:CROPRECT];
 //        [imageProperty setObject:[NSNumber numberWithFloat:180.0] forKey:ANGLE];
-//        [imageProperty setObject:@"System" forKey:FONT];
+
+        UIFont * font = [UIFont fontWithName:@"ProximaNova-Regular" size:18.0];
+        [imageProperty setObject:font forKey:FONT];
+
+        UIFont * boldFont = [UIFont fontWithName:@"ProximaNova-Bold" size:16.0];
+        [imageProperty setObject:boldFont forKey:BOLDFONT];
 
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
 
@@ -129,7 +134,6 @@
         */
         
         [self presentViewController:editor animated:YES completion:nil];
-        //[editor showInViewController:self withImageView:_imageView];
     }
     else{
         [self pushedNewBtn];

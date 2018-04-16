@@ -23,6 +23,7 @@ NSString * const ROTATE = @"ROTATE";
 NSString * const CROPRECT = @"cropRect";
 NSString * const ANGLE = @"angle";
 NSString * const FONT = @"font";
+NSString * const BOLDFONT = @"boldFont";
 
 - (id)init
 {

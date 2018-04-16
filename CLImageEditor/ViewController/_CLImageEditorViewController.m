@@ -49,13 +49,15 @@ static const CGFloat kMenuBarHeight = 80.0f;
     if (self){
 
         if (_font != nil) {
-            [[CLImageEditorTheme theme] setFont:_font];
+
+            [[CLImageEditorTheme theme] setFont:_boldFont];
             NSDictionary *barButtonAppearanceDict = @{NSFontAttributeName : _font, NSForegroundColorAttributeName: [UIColor colorWithRed:68.0/255.0 green:128.0/255.0 blue:170.0/255.0 alpha:1.0]};
             [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonAppearanceDict forState:UIControlStateNormal];
 
+
             [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                                    NSForegroundColorAttributeName: [UIColor colorWithRed:74.0/255.0  green:74.0/255.0  blue:74.0/255.0  alpha:1.0],
-                                                                   NSFontAttributeName: _font
+                                                                   NSFontAttributeName: _boldFont
                                                                    }];
         }
     }
@@ -85,9 +87,14 @@ static const CGFloat kMenuBarHeight = 80.0f;
 {
     if ([imageProperty objectForKey:FONT] != nil) {
         _font = [imageProperty objectForKey:FONT];
+    } else {
+        _font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:18.0];
     }
-    else{
-        _font = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
+
+    if ([imageProperty objectForKey:BOLDFONT] != nil) {
+        _boldFont = [imageProperty objectForKey:BOLDFONT];
+    } else {
+        _boldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
     }
 
     self = [self init];
@@ -216,8 +223,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
         [_CLImageEditorViewController setConstraintsLeading:@0 trailing:@0 top:nil bottom:@(-menuScroll.height) height:@(lineView.height) width:nil parent:self.view child:lineView peer:nil];
     }
     self.menuView.backgroundColor = [CLImageEditorTheme toolbarColor];
-    // -- Danish
 
+    // -- Danish
     int i = 0;
     for(CLImageToolInfo *tool in self.toolInfo.subtools){
         if(tool.available){
@@ -827,7 +834,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
      UIView *view = sender.view;
 
     // -- Danish : set image crop rect to identical value so it will show full image while doing crop
-    if ([((CLToolbarMenuItem*)view).title isEqualToString:@"CROP"]) {
+    if ([((CLToolbarMenuItem*)view).title isEqualToString:CROP]) {
         [_imageView.layer setContentsRect:CGRectMake(0, 0, 1, 1)];
     }
     
@@ -938,19 +945,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
 }
 
 #pragma mark- ScrollView delegate
-
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView
-{
-//    CGFloat Ws = _scrollView.frame.size.width - _scrollView.contentInset.left - _scrollView.contentInset.right;
-//    CGFloat Hs = _scrollView.frame.size.height - _scrollView.contentInset.top - _scrollView.contentInset.bottom;
-//    CGFloat W = _imageView.frame.size.width;
-//    CGFloat H = _imageView.frame.size.height;
-//
-//    CGRect rct = _imageView.frame;
-//    rct.origin.x = MAX((Ws-W)/2, 0);
-//    rct.origin.y = MAX((Hs-H)/2, 0);
-//    _imageView.frame = rct;
-}
 
 // -- Danish : reset to orignal image form
 - (void)resetOrignalImage:(UITapGestureRecognizer*)sender

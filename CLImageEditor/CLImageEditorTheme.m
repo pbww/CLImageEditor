@@ -48,7 +48,7 @@ static CLImageEditorTheme *_sharedInstance = nil;
 		self.toolIconColor                  = @"black";
         self.toolbarTextColor               = [UIColor colorWithRed:68.0/255.0 green:128.0/255.0 blue:170.0/255.0 alpha:1.0];
         self.toolbarSelectedButtonColor     = [UIColor colorWithRed:236.0/255.0 green:242.0/255.0 blue:246.0/255.0 alpha:1.0];
-        self.toolbarTextFont                = [UIFont fontWithName:@"ProximaNova-Bold" size:10]; //[UIFont systemFontOfSize:10];
+        self.toolbarTextFont                = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10];
         self.statusBarHidden                = NO;
         self.statusBarStyle                 = UIStatusBarStyleDefault;
     }
@@ -57,7 +57,7 @@ static CLImageEditorTheme *_sharedInstance = nil;
 
 -(void)setFont:(UIFont*)font
 {
-    self.toolbarTextFont = font;
+    self.toolbarTextFont = [font fontWithSize:10.0];
 }
 
 @end

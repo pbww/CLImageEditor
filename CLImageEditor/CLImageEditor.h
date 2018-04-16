@@ -25,6 +25,7 @@ extern NSString * const ROTATE;
 extern NSString * const CROPRECT;
 extern NSString * const ANGLE;
 extern NSString * const FONT;
+extern NSString * const BOLDFONT;
 
 @property (nonatomic, weak) id<CLImageEditorDelegate> delegate;
 @property (nonatomic, readonly) CLImageEditorTheme *theme;

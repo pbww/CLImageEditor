@@ -135,7 +135,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         UILabel* _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, btn.bottom, buttonWidth, 15)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = [CLImageEditorTheme toolbarTextColor];
-        _titleLabel.font = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.editor.font] size:10];
+        _titleLabel.font = [self.editor.boldFont fontWithSize:10.0];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.text = @"ORIENTATION";
         [btnPanel addSubview:btn];
