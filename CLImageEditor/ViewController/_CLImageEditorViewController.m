@@ -31,6 +31,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
     UIImage *_originalImage;
     UIImage *_tempImage;
     UIView *_bgView;
+    CATransform3D _lastTransform;
+
 }
 @synthesize toolInfo = _toolInfo;
 
@@ -426,6 +428,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
     [self setLayerContent];
     [self setRotation];
+
+    _lastTransform = _imageView.layer.transform;
 
 }
 
@@ -949,8 +953,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 // -- Danish : reset to orignal image form
 - (void)resetOrignalImage:(UITapGestureRecognizer*)sender
 {
-    CATransform3D transform = CATransform3DIdentity;
-    _imageView.layer.transform = transform;
+    _imageView.layer.transform = _lastTransform;
     [_imageView.layer setContentsRect:CGRectMake(0, 0, 1, 1)];
     _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,  _originalImageReset.size.height);
     _angle = 0.0;
