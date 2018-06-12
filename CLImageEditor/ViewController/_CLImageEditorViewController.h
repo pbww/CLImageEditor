@@ -29,6 +29,12 @@
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, strong) UIFont *boldFont;
 
+// Content Mode
+@property (nonatomic, assign) UIViewContentMode *contentMode;
+
+// Aspect Ratio
+@property (nonatomic, assign) CGSize aspectRatio;
+
 - (IBAction)pushedCloseBtn:(id)sender;
 - (IBAction)pushedFinishBtn:(id)sender;
 

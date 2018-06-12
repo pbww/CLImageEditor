@@ -24,6 +24,8 @@ NSString * const CROPRECT = @"cropRect";
 NSString * const ANGLE = @"angle";
 NSString * const FONT = @"font";
 NSString * const BOLDFONT = @"boldFont";
+NSString * const ASPECTRATIO = @"aspectRatio";
+NSString * const CONTENTMODE = @"contentMode";
 
 - (id)init
 {

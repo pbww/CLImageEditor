@@ -80,7 +80,14 @@ static const CGFloat kMenuBarHeight = 80.0f;
         self.delegate = delegate;
         _angle = 0.0;
         _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height);
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+        if (_contentMode != NULL){
+            UIViewContentMode contentMode = [[NSNumber numberWithInt:UIViewContentModeScaleAspectFit] intValue];
+            _contentMode = &contentMode;
+        }
+
+        _imageView.contentMode = *(_contentMode);
+
     }
     return self;
 }
@@ -121,7 +128,24 @@ static const CGFloat kMenuBarHeight = 80.0f;
              _angle = 0.0;
         }
 
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        if ([imageProperty objectForKey:CONTENTMODE] != nil) {
+            UIViewContentMode contentMode = [[imageProperty objectForKey:CONTENTMODE] intValue];
+            _contentMode = &contentMode;
+        }
+        else{
+            UIViewContentMode contentMode = [[NSNumber numberWithInt:UIViewContentModeScaleAspectFit] intValue];
+            _contentMode = &contentMode;
+        }
+
+        if ([imageProperty objectForKey:ASPECTRATIO] != nil) {
+            CGSize aspectRatio = CGSizeFromString([imageProperty objectForKey:ASPECTRATIO]);
+            _aspectRatio = aspectRatio;
+        }
+        else{
+            _aspectRatio = CGSizeMake(_originalImageReset.size.width, _originalImageReset.size.height);
+        }
+
+        _imageView.contentMode = *(_contentMode);
     }
     return self;
 }
@@ -964,7 +988,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 // -- Danish :  set crop rect on image layer
 -(void)setLayerContent
 {
-    _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    _imageView.contentMode = *(_contentMode);
     [_imageView.layer setContentsRect:CGRectMake(_cropRect.origin.x/_originalImageReset.size.width, _cropRect.origin.y/_originalImageReset.size.height,_cropRect.size.width/_originalImageReset.size.width, _cropRect.size.height/_originalImageReset.size.height)];
 }
 

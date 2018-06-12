@@ -87,6 +87,10 @@
         UIFont * boldFont = [UIFont fontWithName:@"ProximaNova-Bold" size:16.0];
         [imageProperty setObject:boldFont forKey:BOLDFONT];
 
+      //  [imageProperty setValue:[NSNumber numberWithInt:UIViewContentModeCenter] forKey:CONTENTMODE];
+
+        [imageProperty setValue:NSStringFromCGSize(CGSizeMake(200, 600)) forKey:ASPECTRATIO];
+
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
 
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
@@ -167,22 +171,23 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    _imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
 
+    [self pushedEditBtn];
 
     
-    CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:image];
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    [dic setValue:[[NSNumber alloc] initWithDouble:0.0] forKey:CROP];
-    [dic setValue:[[NSNumber alloc] initWithDouble:1.0] forKey:ROTATE];
-    // [dic setValue:[[NSNumber alloc] initWithDouble:2.0] forKey:@"Sticker"];
-
-    [editor showOptions:dic withToolInfo:[editor.toolInfo subtools]];
-
-
-    editor.delegate = self;
-    
-    [picker pushViewController:editor animated:YES];
+//    CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image];
+//    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+//    [dic setValue:[[NSNumber alloc] initWithDouble:0.0] forKey:CROP];
+//    [dic setValue:[[NSNumber alloc] initWithDouble:1.0] forKey:ROTATE];
+//    // [dic setValue:[[NSNumber alloc] initWithDouble:2.0] forKey:@"Sticker"];
+//
+//    [editor showOptions:dic withToolInfo:[editor.toolInfo subtools]];
+//
+//
+//    editor.delegate = self;
+//
+//    [picker pushViewController:editor animated:YES];
 }
 /*
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated

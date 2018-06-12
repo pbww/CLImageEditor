@@ -42,6 +42,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 - (void)setBgColor:(UIColor*)bgColor;
 - (void)setGridColor:(UIColor*)gridColor;
 - (void)clippingRatioDidChange;
+-(void)setAllViewHidden:(BOOL)hidden;
 @end
 
 
@@ -79,6 +80,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
              @{kCLClippingToolRatioValue1:@4, kCLClippingToolRatioValue2:@3, kCLClippingToolRatioTitleFormat:@"%g : %g"},
              @{kCLClippingToolRatioValue1:@3, kCLClippingToolRatioValue2:@2, kCLClippingToolRatioTitleFormat:@"%g : %g"},
              @{kCLClippingToolRatioValue1:@16, kCLClippingToolRatioValue2:@9, kCLClippingToolRatioTitleFormat:@"%g : %g"},
+              @{kCLClippingToolRatioValue1:@1280, kCLClippingToolRatioValue2:@2000, kCLClippingToolRatioTitleFormat:@"%g : %g"},
              ];
 }
 
@@ -102,6 +104,18 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 {
     //[self.editor fixZoomScaleWithAnimated:NO];
 
+    if(self.editor.cropRect.size.width == self.editor.imageView.image.size.width && self.editor.cropRect.size.height == self.editor.imageView.image.size.height) {
+        self.toolInfo.optionalInfo[kCLClippingToolRatios] = @[@{kCLClippingToolRatioValue1:@(self.editor.aspectRatio.width), kCLClippingToolRatioValue2:@(self.editor.aspectRatio.height), kCLClippingToolRatioTitleFormat:@"%g : %g"},];
+    }
+    else{
+        self.toolInfo.optionalInfo[kCLClippingToolRatios] = @[@{kCLClippingToolRatioValue1:@(self.editor.cropRect.size.width), kCLClippingToolRatioValue2:@(self.editor.cropRect.size.height), kCLClippingToolRatioTitleFormat:@"%g : %g"},];
+    }
+
+
+//
+//    self.toolInfo.optionalInfo[kCLClippingToolRatios] = @[                                                         @{kCLClippingToolRatioValue1:@0, kCLClippingToolRatioValue2:@0, kCLClippingToolRatioTitleFormat:[CLImageEditorTheme localizedString:@"CLClippingTool_ItemMenuCustom" withDefault:@"Custom"]},
+//       @{kCLClippingToolRatioValue1:@(self.editor.aspectRatio.width), kCLClippingToolRatioValue2:@(self.editor.aspectRatio.height), kCLClippingToolRatioTitleFormat:@"%g : %g"},];
+
     if(!self.toolInfo.optionalInfo){
         self.toolInfo.optionalInfo = [[self.class optionalInfo] mutableCopy];
     }
@@ -118,6 +132,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     _menuScroll.backgroundColor = [UIColor clearColor];
     _menuScroll.showsHorizontalScrollIndicator = NO;
     _menuScroll.clipsToBounds = NO;
+    _menuScroll.hidden = YES;
+    _menuContainer.hidden = YES;
     [_menuContainer addSubview:_menuScroll];
     
     if(!swapBtnHidden){
@@ -158,7 +174,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     // -- Danish
     _gridView.gridColor = [UIColor colorWithRed:236.0/255.0 green:242.0/255.0 blue:246.0/255.0 alpha:0.8];
     _gridView.clipsToBounds = YES;
-    
+    [_gridView setAllViewHidden:YES];
+   // _gridView.hidden = YES;
     [self setCropMenu];
 
     _menuContainer.transform = CGAffineTransformMakeTranslation(0, self.editor.view.height-_menuScroll.top);
@@ -167,7 +184,21 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
                          _menuContainer.transform = CGAffineTransformIdentity;
                      }];
 
-    [self setCropRect];
+    [UIView animateWithDuration:kCLImageToolAnimationDuration
+                     animations:^{
+                         if(self.editor.cropRect.size.width != self.editor.imageView.image.size.width && self.editor.cropRect.size.height != self.editor.imageView.image.size.height) {
+                              [self setCropRect];
+                         }
+                         [self performSelector:@selector(showGridView) withObject:nil afterDelay:0.2];
+                     }];
+
+
+}
+
+-(void) showGridView {
+//     _gridView.hidden = NO;
+//    _gridView.clippingRect
+    [_gridView setAllViewHidden:NO];
 }
 
 - (void)setCropRect
@@ -221,7 +252,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 {
     CGFloat W = 70;
     CGFloat x = 0;
-    
+
     NSArray *ratios = self.toolInfo.optionalInfo[kCLClippingToolRatios];
     BOOL swapBtnHidden = [self.toolInfo.optionalInfo[kCLClippingToolSwapButtonHidden] boolValue];
     
@@ -457,6 +488,15 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     
         //self.clippingRect = self.bounds;
 
+}
+
+-(void)setAllViewHidden:(BOOL)hidden
+{
+    _gridLayer.hidden = hidden;
+    _ltView.hidden = hidden;
+    _lbView.hidden = hidden;
+    _rtView.hidden = hidden;
+    _rbView.hidden = hidden;
 }
 
 - (void)removeFromSuperview
