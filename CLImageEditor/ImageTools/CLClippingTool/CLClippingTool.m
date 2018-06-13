@@ -762,8 +762,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 {
     self = [super init];
     if(self){
-        _longSide  = MAX(fabs(value1), fabs(value2));
-        _shortSide = MIN(fabs(value1), fabs(value2));
+        _longSide  = fabs(value1); // MAX(fabs(value1), fabs(value2));
+        _shortSide = fabs(value2); //MIN(fabs(value1), fabs(value2));
     }
     return self;
 }

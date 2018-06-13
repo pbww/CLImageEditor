@@ -89,7 +89,9 @@
 
       //  [imageProperty setValue:[NSNumber numberWithInt:UIViewContentModeCenter] forKey:CONTENTMODE];
 
-        [imageProperty setValue:NSStringFromCGSize(CGSizeMake(200, 600)) forKey:ASPECTRATIO];
+       // [imageProperty setValue:NSStringFromCGSize(CGSizeMake(159.74999576807, 44.1000001877546)) forKey:ASPECTRATIO];
+
+        [imageProperty setValue:NSStringFromCGSize(CGSizeMake(44.1000001877546, 159.74999576807)) forKey:ASPECTRATIO];
 
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
 
