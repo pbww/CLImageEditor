@@ -186,9 +186,9 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
     [UIView animateWithDuration:kCLImageToolAnimationDuration
                      animations:^{
-                         if(self.editor.cropRect.size.width != self.editor.imageView.image.size.width && self.editor.cropRect.size.height != self.editor.imageView.image.size.height) {
+//                         if(self.editor.cropRect.size.width != self.editor.imageView.image.size.width && self.editor.cropRect.size.height != self.editor.imageView.image.size.height) {
                               [self setCropRect];
-                         }
+                       //  }
                          [self performSelector:@selector(showGridView) withObject:nil afterDelay:0.2];
                      }];
 

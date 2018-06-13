@@ -78,7 +78,7 @@
 
         // (origin = (x = 205.26114521485363, y = 281.47328167454947), size = (width = 825.19875213847229, height = 595.75324544631167))
         NSMutableDictionary *imageProperty = [[NSMutableDictionary alloc]init];
-//        [imageProperty setObject:NSStringFromCGRect(CGRectMake(205.26114521485363, 281.47328167454947, 825.19875213847229, 595.75324544631167)) forKey:CROPRECT];
+        [imageProperty setObject:NSStringFromCGRect(CGRectMake(1675.0484210526317,181.08631578947396, 675.785888671875, 2448.0)) forKey:CROPRECT];
 //        [imageProperty setObject:[NSNumber numberWithFloat:180.0] forKey:ANGLE];
 
         UIFont * font = [UIFont fontWithName:@"ProximaNova-Regular" size:18.0];
@@ -91,7 +91,7 @@
 
        // [imageProperty setValue:NSStringFromCGSize(CGSizeMake(159.74999576807, 44.1000001877546)) forKey:ASPECTRATIO];
 
-        [imageProperty setValue:NSStringFromCGSize(CGSizeMake(44.1000001877546, 159.74999576807)) forKey:ASPECTRATIO];
+       // [imageProperty setValue:NSStringFromCGSize(CGSizeMake(44.1000001877546, 159.74999576807)) forKey:ASPECTRATIO];
 
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
 
