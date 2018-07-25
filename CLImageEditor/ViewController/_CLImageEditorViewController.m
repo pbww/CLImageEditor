@@ -86,7 +86,12 @@ static const CGFloat kMenuBarHeight = 80.0f;
             _contentMode = &contentMode;
         }
 
-        _imageView.contentMode = *(_contentMode);
+        if ([_imageProperty objectForKey:CONTENTMODE] != nil) {
+            _imageView.contentMode = [[_imageProperty objectForKey:CONTENTMODE] intValue];
+        }
+        else {
+            _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        }
 
     }
     return self;
@@ -94,6 +99,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty
 {
+    _imageProperty = [[NSMutableDictionary alloc] initWithDictionary: imageProperty];
+
     if ([imageProperty objectForKey:FONT] != nil) {
         _font = [imageProperty objectForKey:FONT];
     } else {
@@ -112,6 +119,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
         _originalImageReset = [image deepCopy];
         self.delegate = delegate;
 
+        _isCropingFirstTime = YES;
+
         if ([imageProperty objectForKey:CROPRECT] != nil) {
              CGRect cropRectCoordinate = CGRectFromString([imageProperty objectForKey:CROPRECT]);
              _cropRect = cropRectCoordinate;
@@ -126,6 +135,24 @@ static const CGFloat kMenuBarHeight = 80.0f;
         }
         else{
              _angle = 0.0;
+        }
+
+        if ([imageProperty objectForKey:BLEEDAREAX] != nil) {
+            float bleedAreaX = [[imageProperty objectForKey:BLEEDAREAX] floatValue];
+            _bleedAreaX = bleedAreaX;
+            _isBleedAreaShow = YES;
+        }
+        else{
+            _bleedAreaX = 0.0;
+        }
+
+        if ([imageProperty objectForKey:BLEEDAREAY] != nil) {
+            float bleedAreaY = [[imageProperty objectForKey:BLEEDAREAY] floatValue];
+            _bleedAreaY = bleedAreaY;
+            _isBleedAreaShow = YES;
+        }
+        else{
+            _bleedAreaY = 0.0;
         }
 
         if ([imageProperty objectForKey:CONTENTMODE] != nil) {
@@ -144,8 +171,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
         else{
             _aspectRatio = CGSizeMake(_originalImageReset.size.width, _originalImageReset.size.height);
         }
-
-        _imageView.contentMode = *(_contentMode);
+        
+        if ([imageProperty objectForKey:CONTENTMODE] != nil) {
+             _imageView.contentMode = [[imageProperty objectForKey:CONTENTMODE] intValue];
+        }
+        else {
+            _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        }
     }
     return self;
 }
@@ -988,7 +1020,12 @@ static const CGFloat kMenuBarHeight = 80.0f;
 // -- Danish :  set crop rect on image layer
 -(void)setLayerContent
 {
-    _imageView.contentMode = *(_contentMode);
+    if ([_imageProperty objectForKey:CONTENTMODE] != nil) {
+        _imageView.contentMode = [[_imageProperty objectForKey:CONTENTMODE] intValue];
+    }
+    else {
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
     [_imageView.layer setContentsRect:CGRectMake(_cropRect.origin.x/_originalImageReset.size.width, _cropRect.origin.y/_originalImageReset.size.height,_cropRect.size.width/_originalImageReset.size.width, _cropRect.size.height/_originalImageReset.size.height)];
 }
 

@@ -28,6 +28,8 @@ extern NSString * const FONT;
 extern NSString * const BOLDFONT;
 extern NSString * const ASPECTRATIO;
 extern NSString * const CONTENTMODE;
+extern NSString * const BLEEDAREAX;
+extern NSString * const BLEEDAREAY;
 
 
 @property (nonatomic, weak) id<CLImageEditorDelegate> delegate;

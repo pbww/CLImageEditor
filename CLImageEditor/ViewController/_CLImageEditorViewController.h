@@ -24,6 +24,13 @@
 // Crop Rect and angle
 @property (nonatomic, assign) CGRect cropRect;
 @property (nonatomic, assign) double angle;
+@property (nonatomic, assign) bool isCropingFirstTime;
+
+// Bleed Area for X and Y
+@property (nonatomic, assign) double bleedAreaX;
+@property (nonatomic, assign) double bleedAreaY;
+@property (nonatomic, assign) double isBleedAreaShow;
+
 
 // font
 @property (nonatomic, strong) UIFont *font;
@@ -34,6 +41,8 @@
 
 // Aspect Ratio
 @property (nonatomic, assign) CGSize aspectRatio;
+
+@property (nonatomic, strong) NSMutableDictionary *imageProperty;
 
 - (IBAction)pushedCloseBtn:(id)sender;
 - (IBAction)pushedFinishBtn:(id)sender;

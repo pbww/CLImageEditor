@@ -229,3 +229,24 @@ Acknowledgments
 ---
 Icons made by [Freepik](http://www.freepik.com "Freepik") from [www.flaticon.com](http://www.flaticon.com "Flaticon") is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/ "Creative Commons BY 3.0")
 
+Extended Development
+---
+Danish Aziz
+
+
+Constant for image
+
+1- CROP
+2- ROTATE
+
+Const for Image property
+
+1- CROPRECT
+2- ANGLE 
+3- FONT 
+4- BOLDFONT 
+5- ASPECTRATIO 
+6- CONTENTMODE
+7- BLEEDAREAX 
+8- BLEEDAREAY 
+
