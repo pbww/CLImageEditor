@@ -30,6 +30,8 @@ extern NSString * const ASPECTRATIO;
 extern NSString * const CONTENTMODE;
 extern NSString * const BLEEDAREAX;
 extern NSString * const BLEEDAREAY;
+extern NSString * const BLEEDCROPRECT;
+
 
 
 @property (nonatomic, weak) id<CLImageEditorDelegate> delegate;

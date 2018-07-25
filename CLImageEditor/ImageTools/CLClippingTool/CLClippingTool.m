@@ -220,10 +220,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
     if (self.editor.isBleedAreaShow) {
         if (!self.editor.isCropingFirstTime) {
-            rct.size.width += (self.editor.bleedAreaX); //80;
-            rct.size.height += (self.editor.bleedAreaY); //80;
-            rct.origin.x -= (self.editor.bleedAreaX / 2); //40;
-            rct.origin.y -= (self.editor.bleedAreaY / 2); //40;
+            rct.size.width += (self.editor.bleedAreaX);
+            rct.size.height += (self.editor.bleedAreaY);
+            rct.origin.x -= (self.editor.bleedAreaX / 2);
+            rct.origin.y -= (self.editor.bleedAreaY / 2);
         }
     }
 
@@ -252,10 +252,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     CGRect rct = _gridView.clippingRect;
     if (self.editor.isBleedAreaShow) {
         self.editor.isCropingFirstTime = NO;
-        rct.size.width -= (self.editor.bleedAreaX); //40;
-        rct.size.height -= (self.editor.bleedAreaY); //40;
-        rct.origin.x += (self.editor.bleedAreaX / 2); //20;
-        rct.origin.y += (self.editor.bleedAreaY / 2); //20;
+        rct.size.width -= (self.editor.bleedAreaX);
+        rct.size.height -= (self.editor.bleedAreaY);
+        rct.origin.x += (self.editor.bleedAreaX / 2);
+        rct.origin.y += (self.editor.bleedAreaY / 2);
     }
     rct.size.width  /= zoomScale;
     rct.size.height /= zoomScale;

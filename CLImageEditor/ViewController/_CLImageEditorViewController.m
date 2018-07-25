@@ -976,13 +976,34 @@ static const CGFloat kMenuBarHeight = 80.0f;
         // --Danish
         if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEditingWithImage:withImageOptions:)]){
             NSMutableDictionary *imageProperty = [[NSMutableDictionary alloc]init];
-            [imageProperty setObject:NSStringFromCGRect(_cropRect) forKey:@"cropRect"];
+
+            [imageProperty setObject:NSStringFromCGRect(_cropRect) forKey:CROPRECT];
 
             if (_angle == -90.0) {
                 _angle = 270.0;
             }
+            [imageProperty setObject:[NSNumber numberWithFloat:_angle] forKey:ANGLE];
 
-            [imageProperty setObject:[NSNumber numberWithFloat:_angle] forKey:@"angle"];
+
+            if (self.isBleedAreaShow) {
+
+                [imageProperty setObject:NSStringFromCGRect(_cropRect) forKey:BLEEDCROPRECT];
+                
+                CGFloat zoomScale = _imageWidth / _imageView.image.size.width;
+                CGRect rct = _cropRect;
+                rct.size.width  *= zoomScale;
+                rct.size.height *= zoomScale;
+                rct.origin.x    *= zoomScale;
+                rct.origin.y    *= zoomScale;
+                rct.size.width += (_bleedAreaX);
+                rct.size.height += (_bleedAreaY);
+                rct.origin.x -= (_bleedAreaX / 2);
+                rct.origin.y -= (_bleedAreaY / 2);
+
+                [imageProperty setObject:NSStringFromCGRect(rct) forKey:CROPRECT];
+            }
+
+
             [self.delegate imageEditor:self didFinishEditingWithImage:[self buildImage:_originalImage]  withImageOptions:imageProperty];
         }
         else if([self.delegate respondsToSelector:@selector(imageEditor:didFinishEditingWithImage:)]){

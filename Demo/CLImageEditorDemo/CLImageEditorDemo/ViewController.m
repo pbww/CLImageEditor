@@ -81,8 +81,8 @@
       //  [imageProperty setObject:NSStringFromCGRect(CGRectMake(0.0, 0.0, 1807.77478027344, 3056.0)) forKey:CROPRECT];
 //        [imageProperty setObject:[NSNumber numberWithFloat:180.0] forKey:ANGLE];
 
-        [imageProperty setObject:[NSNumber numberWithFloat:10.0] forKey:BLEEDAREAX];
-        [imageProperty setObject:[NSNumber numberWithFloat:20.0] forKey:BLEEDAREAY];
+      //  [imageProperty setObject:[NSNumber numberWithFloat:30.0] forKey:BLEEDAREAX];
+       // [imageProperty setObject:[NSNumber numberWithFloat:20.0] forKey:BLEEDAREAY];
 
         UIFont * font = [UIFont fontWithName:@"ProximaNova-Regular" size:18.0];
         [imageProperty setObject:font forKey:FONT];
@@ -233,9 +233,22 @@
 
 
     //[_imageView.layer setContentsRect:CGRectMake(utilities.cropRect.origin.x/_originalImageReset.size.width, utilities.cropRect.origin.y/_originalImageReset.size.height,utilities.cropRect.size.width/_originalImageReset.size.width, utilities.cropRect.size.height/_originalImageReset.size.height)];
-    
-    CGRect rect9 = CGRectFromString([imageProperty objectForKey:@"cropRect"]);
-    float angle = [[imageProperty objectForKey:@"angle"] floatValue];
+
+     if ([imageProperty objectForKey:CROPRECT] != nil) {
+         CGRect rect = CGRectFromString([imageProperty objectForKey:CROPRECT]);
+         NSLog(@"%@", NSStringFromCGRect(rect));
+     }
+
+    if ([imageProperty objectForKey:ANGLE] != nil) {
+        float angle = [[imageProperty objectForKey:ANGLE] floatValue];
+        NSLog(@"%f", angle);
+    }
+
+    if ([imageProperty objectForKey:BLEEDCROPRECT] != nil) {
+        CGRect rect = CGRectFromString([imageProperty objectForKey:BLEEDCROPRECT]);
+        NSLog(@"%@", NSStringFromCGRect(rect));
+    }
+
     _imageView.image = image;
     [self refreshImageView];
 
