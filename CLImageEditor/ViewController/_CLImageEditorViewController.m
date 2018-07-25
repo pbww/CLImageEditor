@@ -995,10 +995,16 @@ static const CGFloat kMenuBarHeight = 80.0f;
                 rct.size.height *= zoomScale;
                 rct.origin.x    *= zoomScale;
                 rct.origin.y    *= zoomScale;
-                rct.size.width += (_bleedAreaX);
-                rct.size.height += (_bleedAreaY);
-                rct.origin.x -= (_bleedAreaX / 2);
-                rct.origin.y -= (_bleedAreaY / 2);
+                if (!self.isCropingFirstTime) {
+                    rct.size.width += (_bleedAreaX);
+                    rct.size.height += (_bleedAreaY);
+                    rct.origin.x -= (_bleedAreaX / 2);
+                    rct.origin.y -= (_bleedAreaY / 2);
+                }
+                rct.size.width  /= zoomScale;
+                rct.size.height /= zoomScale;
+                rct.origin.x    /= zoomScale;
+                rct.origin.y    /= zoomScale;
 
                 [imageProperty setObject:NSStringFromCGRect(rct) forKey:CROPRECT];
             }
