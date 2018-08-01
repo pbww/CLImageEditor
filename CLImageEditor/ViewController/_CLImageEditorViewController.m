@@ -32,7 +32,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
     UIImage *_tempImage;
     UIView *_bgView;
     CATransform3D _lastTransform;
-
 }
 @synthesize toolInfo = _toolInfo;
 
@@ -487,6 +486,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
     _lastTransform = _imageView.layer.transform;
 
+    self.isTranslucent = self.navigationController.navigationBar.isTranslucent;
+    [self.navigationController.navigationBar setTranslucent:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setTranslucent:self.isTranslucent];
 }
 
 #pragma mark- View transition

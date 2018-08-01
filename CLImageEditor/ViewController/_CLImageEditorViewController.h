@@ -42,6 +42,9 @@
 // Aspect Ratio
 @property (nonatomic, assign) CGSize aspectRatio;
 
+// Save Translucent
+@property (nonatomic, assign) bool isTranslucent;
+
 @property (nonatomic, strong) NSMutableDictionary *imageProperty;
 
 - (IBAction)pushedCloseBtn:(id)sender;
