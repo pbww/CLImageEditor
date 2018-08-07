@@ -171,9 +171,9 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
    // }
 
     _gridView.backgroundColor = [UIColor clearColor];
-    _gridView.bgColor = [self.editor.view.backgroundColor colorWithAlphaComponent:0.8];
+    _gridView.bgColor = [self.editor.view.backgroundColor colorWithAlphaComponent:0.7];
     // -- Danish
-    _gridView.gridColor = [UIColor colorWithRed:236.0/255.0 green:242.0/255.0 blue:246.0/255.0 alpha:0.8];
+    _gridView.gridColor = [UIColor colorWithRed:236.0/255.0 green:242.0/255.0 blue:246.0/255.0 alpha:0.7];
 
     _gridView.clipsToBounds = YES;
     [_gridView setAllViewHidden:YES];
