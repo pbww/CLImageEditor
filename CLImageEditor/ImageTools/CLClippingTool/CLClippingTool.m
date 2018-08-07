@@ -179,7 +179,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     [_gridView setAllViewHidden:YES];
 
     if (self.editor.isBleedAreaShow) {
-        [_gridView setBleedArea:self.editor.bleedAreaX withBleedAreaY:self.editor.bleedAreaY];
+        CGFloat zoomScale = self.editor.imageWidth / self.editor.imageView.image.size.width;
+        [_gridView setBleedArea:(self.editor.bleedAreaX * zoomScale) withBleedAreaY:(self.editor.bleedAreaY * zoomScale)];
     }
 
    // _gridView.hidden = YES;
@@ -220,10 +221,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
     if (self.editor.isBleedAreaShow) {
         if (!self.editor.isCropingFirstTime) {
-            rct.size.width += (self.editor.bleedAreaX);
-            rct.size.height += (self.editor.bleedAreaY);
-            rct.origin.x -= (self.editor.bleedAreaX / 2);
-            rct.origin.y -= (self.editor.bleedAreaY / 2);
+            rct.size.width += (self.editor.bleedAreaX * zoomScale);
+            rct.size.height += (self.editor.bleedAreaY * zoomScale);
+            rct.origin.x -= ((self.editor.bleedAreaX * zoomScale) / 2);
+            rct.origin.y -= ((self.editor.bleedAreaY * zoomScale) / 2);
         }
     }
 
@@ -252,10 +253,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     CGRect rct = _gridView.clippingRect;
     if (self.editor.isBleedAreaShow) {
         self.editor.isCropingFirstTime = NO;
-        rct.size.width -= (self.editor.bleedAreaX);
-        rct.size.height -= (self.editor.bleedAreaY);
-        rct.origin.x += (self.editor.bleedAreaX / 2);
-        rct.origin.y += (self.editor.bleedAreaY / 2);
+        rct.size.width -= (self.editor.bleedAreaX * zoomScale);
+        rct.size.height -= (self.editor.bleedAreaY * zoomScale);
+        rct.origin.x += ((self.editor.bleedAreaX * zoomScale) / 2);
+        rct.origin.y += ((self.editor.bleedAreaY * zoomScale) / 2);
     }
     rct.size.width  /= zoomScale;
     rct.size.height /= zoomScale;
