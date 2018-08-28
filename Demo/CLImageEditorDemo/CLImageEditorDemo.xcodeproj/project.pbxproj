@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1C5C4CDC2133E05F009FD73A /* CLBleedArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5C4CDA2133E05E009FD73A /* CLBleedArea.m */; };
 		1C5C4CDD2133E05F009FD73A /* CLBleedArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5C4CDA2133E05E009FD73A /* CLBleedArea.m */; };
+		1C5C4CDE213528F2009FD73A /* CLBleedArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C5C4CDB2133E05F009FD73A /* CLBleedArea.h */; };
+		1C5C4CDF213528FA009FD73A /* CLBleedArea.m in Headers */ = {isa = PBXBuildFile; fileRef = 1C5C4CDA2133E05E009FD73A /* CLBleedArea.m */; };
+		1C5C4CE021352903009FD73A /* Utilities.m in Headers */ = {isa = PBXBuildFile; fileRef = 1C85E1892071D6A100CB2CD5 /* Utilities.m */; };
+		1C5C4CE121352918009FD73A /* CLBleedArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C5C4CDB2133E05F009FD73A /* CLBleedArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C85DEB3206B92E600CB2CD5 /* CLImageEditor.bundle in Headers */ = {isa = PBXBuildFile; fileRef = AD5A02DC1897528000347C57 /* CLImageEditor.bundle */; };
 		1C85DEB4206B92E600CB2CD5 /* CLImageEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5A02DD1897528000347C57 /* CLImageEditor.h */; };
 		1C85DEB5206B92E600CB2CD5 /* CLImageEditor.m in Headers */ = {isa = PBXBuildFile; fileRef = AD5A02DE1897528000347C57 /* CLImageEditor.m */; };
@@ -756,6 +760,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C5C4CE021352903009FD73A /* Utilities.m in Headers */,
+				1C5C4CDF213528FA009FD73A /* CLBleedArea.m in Headers */,
+				1C5C4CDE213528F2009FD73A /* CLBleedArea.h in Headers */,
 				1C85DEB3206B92E600CB2CD5 /* CLImageEditor.bundle in Headers */,
 				1C85DEB4206B92E600CB2CD5 /* CLImageEditor.h in Headers */,
 				1C85DEB5206B92E600CB2CD5 /* CLImageEditor.m in Headers */,
@@ -859,6 +866,7 @@
 				B896A7872073684200DC84A6 /* CLImageEditor.h in Headers */,
 				B896A7882073684200DC84A6 /* CLImageEditorTheme.h in Headers */,
 				B896A7892073684200DC84A6 /* CLImageToolInfo.h in Headers */,
+				1C5C4CE121352918009FD73A /* CLBleedArea.h in Headers */,
 				B896A78A2073684200DC84A6 /* CLImageToolBase.h in Headers */,
 				B896A78B2073684200DC84A6 /* CLAdjustmentTool.h in Headers */,
 				B896A78C2073684200DC84A6 /* CLBlurTool.h in Headers */,
