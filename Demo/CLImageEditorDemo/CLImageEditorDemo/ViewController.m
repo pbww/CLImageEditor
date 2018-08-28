@@ -81,8 +81,8 @@
       //  [imageProperty setObject:NSStringFromCGRect(CGRectMake(0.0, 0.0, 1807.77478027344, 3056.0)) forKey:CROPRECT];
 //        [imageProperty setObject:[NSNumber numberWithFloat:180.0] forKey:ANGLE];
 
-        [imageProperty setObject:[NSNumber numberWithFloat:100.0] forKey:BLEEDAREAX];
-        [imageProperty setObject:[NSNumber numberWithFloat:100.0] forKey:BLEEDAREAY];
+      //  [imageProperty setObject:[NSNumber numberWithFloat:100.0] forKey:BLEEDAREAX];
+     //   [imageProperty setObject:[NSNumber numberWithFloat:100.0] forKey:BLEEDAREAY];
 
         UIFont * font = [UIFont fontWithName:@"ProximaNova-Regular" size:18.0];
         [imageProperty setObject:font forKey:FONT];
@@ -99,6 +99,7 @@
         CLBleedArea *clBleedArea = [[CLBleedArea alloc] init];
 
 
+        clBleedArea.isBleedAreaShow = YES;
         clBleedArea.bleedAreaTop = 100.0;
         clBleedArea.bleedAreaLeft = 100.0;
         clBleedArea.bleedAreaRight = 0.0;

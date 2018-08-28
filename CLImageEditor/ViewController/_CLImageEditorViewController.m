@@ -244,6 +244,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
             }
 
             if (bleedArea != nil) {
+                _isBleedAreaShow = bleedArea.isBleedAreaShow;
                 self.clBleedArea.bleedAreaTop = bleedArea.bleedAreaTop;
                 self.clBleedArea.bleedAreaBottom = bleedArea.bleedAreaBottom;
                 self.clBleedArea.bleedAreaLeft = bleedArea.bleedAreaLeft;
