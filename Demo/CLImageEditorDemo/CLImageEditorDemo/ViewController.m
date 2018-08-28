@@ -81,8 +81,8 @@
       //  [imageProperty setObject:NSStringFromCGRect(CGRectMake(0.0, 0.0, 1807.77478027344, 3056.0)) forKey:CROPRECT];
 //        [imageProperty setObject:[NSNumber numberWithFloat:180.0] forKey:ANGLE];
 
-        [imageProperty setObject:[NSNumber numberWithFloat:188.0] forKey:BLEEDAREAX];
-        [imageProperty setObject:[NSNumber numberWithFloat:188.0] forKey:BLEEDAREAY];
+        [imageProperty setObject:[NSNumber numberWithFloat:100.0] forKey:BLEEDAREAX];
+        [imageProperty setObject:[NSNumber numberWithFloat:100.0] forKey:BLEEDAREAY];
 
         UIFont * font = [UIFont fontWithName:@"ProximaNova-Regular" size:18.0];
         [imageProperty setObject:font forKey:FONT];
@@ -96,13 +96,25 @@
 
        // [imageProperty setValue:NSStringFromCGSize(CGSizeMake(44.1000001877546, 159.74999576807)) forKey:ASPECTRATIO];
 
-        CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
+        CLBleedArea *clBleedArea = [[CLBleedArea alloc] init];
 
+
+        clBleedArea.bleedAreaTop = 100.0;
+        clBleedArea.bleedAreaLeft = 100.0;
+        clBleedArea.bleedAreaRight = 0.0;
+        clBleedArea.bleedAreaBottom = 0.0;
+
+       //  CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
+
+        CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty withBleedArea:clBleedArea];
+
+        
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
         [dic setValue:[[NSNumber alloc] initWithDouble:0.0] forKey:CROP];
         [dic setValue:[[NSNumber alloc] initWithDouble:1.0] forKey:ROTATE];
        // [dic setValue:[[NSNumber alloc] initWithDouble:2.0] forKey:@"Sticker"];
 
+        
         [editor showOptions:dic withToolInfo:[editor.toolInfo subtools]];
 
 

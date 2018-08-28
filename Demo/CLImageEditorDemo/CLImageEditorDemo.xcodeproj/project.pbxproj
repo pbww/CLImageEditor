@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C5C4CDC2133E05F009FD73A /* CLBleedArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5C4CDA2133E05E009FD73A /* CLBleedArea.m */; };
+		1C5C4CDD2133E05F009FD73A /* CLBleedArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5C4CDA2133E05E009FD73A /* CLBleedArea.m */; };
 		1C85DEB3206B92E600CB2CD5 /* CLImageEditor.bundle in Headers */ = {isa = PBXBuildFile; fileRef = AD5A02DC1897528000347C57 /* CLImageEditor.bundle */; };
 		1C85DEB4206B92E600CB2CD5 /* CLImageEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5A02DD1897528000347C57 /* CLImageEditor.h */; };
 		1C85DEB5206B92E600CB2CD5 /* CLImageEditor.m in Headers */ = {isa = PBXBuildFile; fileRef = AD5A02DE1897528000347C57 /* CLImageEditor.m */; };
@@ -269,6 +271,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1C5C4CDA2133E05E009FD73A /* CLBleedArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLBleedArea.m; sourceTree = "<group>"; };
+		1C5C4CDB2133E05F009FD73A /* CLBleedArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLBleedArea.h; sourceTree = "<group>"; };
 		1C85E1882071D6A100CB2CD5 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		1C85E1892071D6A100CB2CD5 /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		30193EAC20849FB800E439C1 /* Proxima-Nova-Reg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Proxima-Nova-Reg.ttf"; path = "../../../CLImageEditor/Fonts/Proxima-Nova-Reg.ttf"; sourceTree = "<group>"; };
@@ -444,6 +448,8 @@
 				AD5A02DC1897528000347C57 /* CLImageEditor.bundle */,
 				AD5A02DD1897528000347C57 /* CLImageEditor.h */,
 				AD5A02DE1897528000347C57 /* CLImageEditor.m */,
+				1C5C4CDB2133E05F009FD73A /* CLBleedArea.h */,
+				1C5C4CDA2133E05E009FD73A /* CLBleedArea.m */,
 				AD5A02DF1897528000347C57 /* CLImageEditorTheme.h */,
 				AD5A02E01897528000347C57 /* CLImageEditorTheme.m */,
 				AD5A02E11897528000347C57 /* CLImageToolInfo.h */,
@@ -1073,6 +1079,7 @@
 				AD5A034D1897528000347C57 /* CLSpotEffect.m in Sources */,
 				AD5A03411897528000347C57 /* CLImageEditor.m in Sources */,
 				AD5A034A1897528000347C57 /* CLHueEffect.m in Sources */,
+				1C5C4CDC2133E05F009FD73A /* CLBleedArea.m in Sources */,
 				AD5A03481897528000347C57 /* CLGloomEffect.m in Sources */,
 				AD5A034C1897528000347C57 /* CLPosterizeEffect.m in Sources */,
 				AD5A035E1897528000347C57 /* UIImage+Utility.m in Sources */,
@@ -1091,6 +1098,7 @@
 				B896A7B92073685300DC84A6 /* CLImageToolBase.m in Sources */,
 				B896A7BA2073685300DC84A6 /* CLAdjustmentTool.m in Sources */,
 				B896A7BB2073685300DC84A6 /* CLBlurTool.m in Sources */,
+				1C5C4CDD2133E05F009FD73A /* CLBleedArea.m in Sources */,
 				B896A7BC2073685300DC84A6 /* CLClippingTool.m in Sources */,
 				B896A7BD2073685300DC84A6 /* CLDrawTool.m in Sources */,
 				B896A7BE2073685300DC84A6 /* CLBloomEffect.m in Sources */,

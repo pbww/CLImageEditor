@@ -43,7 +43,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 - (void)setGridColor:(UIColor*)gridColor;
 - (void)clippingRatioDidChange;
 -(void)setAllViewHidden:(BOOL)hidden;
-- (void)setBleedArea:(double)bleedAreaX withBleedAreaY:(double)bleedAreaY;
+- (void)setBleedArea:(double)bleedAreaTop withBleedAreaBottom:(double)bleedAreaBottom withBleedAreaLeft:(double)bleedAreaLeft withBleedAreaRight:(double)bleedAreaRight;
 @end
 
 
@@ -180,7 +180,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
     if (self.editor.isBleedAreaShow) {
         CGFloat zoomScale = self.editor.imageWidth / self.editor.imageView.image.size.width;
-        [_gridView setBleedArea:(self.editor.bleedAreaX * zoomScale) withBleedAreaY:(self.editor.bleedAreaY * zoomScale)];
+      //  [_gridView setBleedArea:(self.editor.bleedAreaX * zoomScale) withBleedAreaY:(self.editor.bleedAreaY * zoomScale)];
+        [_gridView setBleedArea:(self.editor.clBleedArea.bleedAreaTop * zoomScale) withBleedAreaBottom:(self.editor.clBleedArea.bleedAreaBottom * zoomScale) withBleedAreaLeft:(self.editor.clBleedArea.bleedAreaLeft * zoomScale) withBleedAreaRight:(self.editor.clBleedArea.bleedAreaRight * zoomScale)];
     }
 
    // _gridView.hidden = YES;
@@ -221,10 +222,36 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
     if (self.editor.isBleedAreaShow) {
         if (!self.editor.isCropingFirstTime) {
-            rct.size.width += (self.editor.bleedAreaX * zoomScale);
-            rct.size.height += (self.editor.bleedAreaY * zoomScale);
-            rct.origin.x -= ((self.editor.bleedAreaX * zoomScale) / 2);
-            rct.origin.y -= ((self.editor.bleedAreaY * zoomScale) / 2);
+
+            // Right
+        //    if (self.editor.clBleedArea.bleedAreaRight > 0.0) {
+                rct.size.width += ((self.editor.clBleedArea.bleedAreaLeft * zoomScale) / 2);
+                rct.size.width += ((self.editor.clBleedArea.bleedAreaRight * zoomScale) / 2);
+        //    }
+
+            //Bottom Bleed
+           // if (self.editor.clBleedArea.bleedAreaBottom > 0.0) {
+                rct.size.height += ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2);
+                rct.size.height += ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) / 2);
+//            }
+//            else {
+//                 rct.size.height += ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) + ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2));
+//            }
+
+            // Left
+        //    if (self.editor.clBleedArea.bleedAreaLeft > 0.0) {
+                rct.origin.x -= ((self.editor.clBleedArea.bleedAreaLeft * zoomScale) / 2);
+        //    }
+
+            // Top
+        //    if (self.editor.clBleedArea.bleedAreaTop > 0.0) {
+                rct.origin.y -= ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2);
+          //  }
+
+//            rct.size.width += (self.editor.bleedAreaX * zoomScale);
+//            rct.size.height += (self.editor.bleedAreaY * zoomScale);
+//            rct.origin.x -= ((self.editor.bleedAreaX * zoomScale) / 2);
+//            rct.origin.y -= ((self.editor.bleedAreaY * zoomScale) / 2);
         }
     }
 
@@ -233,30 +260,47 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
 }
 
-- (void)cleanup
-{
-   // [self.editor resetZoomScaleWithAnimated:YES];
-    [_gridView removeFromSuperview];
-     //   [_gridView setHidden:YES];
-    [UIView animateWithDuration:kCLImageToolAnimationDuration
-                     animations:^{
-                         _menuContainer.transform = CGAffineTransformMakeTranslation(0, self.editor.view.height-_menuScroll.top);
-                     }
-                     completion:^(BOOL finished) {
-                         [_menuContainer removeFromSuperview];
-                     }];
-}
-
 - (void)executeWithCompletionBlock:(void (^)(UIImage *, NSError *, NSDictionary *))completionBlock
 {
     CGFloat zoomScale = self.editor.imageWidth / self.editor.imageView.image.size.width;
     CGRect rct = _gridView.clippingRect;
     if (self.editor.isBleedAreaShow) {
         self.editor.isCropingFirstTime = NO;
-        rct.size.width -= (self.editor.bleedAreaX * zoomScale);
-        rct.size.height -= (self.editor.bleedAreaY * zoomScale);
-        rct.origin.x += ((self.editor.bleedAreaX * zoomScale) / 2);
-        rct.origin.y += ((self.editor.bleedAreaY * zoomScale) / 2);
+        //Right Bleed
+       // if (self.editor.clBleedArea.bleedAreaRight > 0.0) {
+             rct.size.width -= ((self.editor.clBleedArea.bleedAreaLeft * zoomScale) / 2);
+             rct.size.width -= ((self.editor.clBleedArea.bleedAreaRight * zoomScale) / 2);
+
+      //  }
+
+        //Bottom Bleed
+     //   if (self.editor.clBleedArea.bleedAreaBottom > 0.0) {
+              rct.size.height -= ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2);
+              rct.size.height -= ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) / 2);
+      //  }
+//        else {
+//              rct.size.height -= ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) + ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2));
+//        }
+
+        // Left
+     //   if (self.editor.clBleedArea.bleedAreaLeft > 0.0) {
+            rct.origin.x += ((self.editor.clBleedArea.bleedAreaLeft * zoomScale) / 2);
+     //   }
+
+        // Top
+      //  if (self.editor.clBleedArea.bleedAreaTop > 0.0) {
+            rct.origin.y += ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2);
+     //   }
+
+
+//         //Right Bleed
+//        rct.size.width -= (self.editor.bleedAreaX * zoomScale);
+//        //Bottom Bleed
+//      //  rct.size.height -= (self.editor.bleedAreaY * zoomScale);
+//        // Left
+//      //  rct.origin.x += ((self.editor.bleedAreaX * zoomScale) / 2);
+//        // Top
+//      //  rct.origin.y += ((self.editor.bleedAreaY * zoomScale) / 2);
     }
     rct.size.width  /= zoomScale;
     rct.size.height /= zoomScale;
@@ -273,6 +317,20 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     self.editor.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
     completionBlock(result, nil, dic);
+}
+
+- (void)cleanup
+{
+    // [self.editor resetZoomScaleWithAnimated:YES];
+    [_gridView removeFromSuperview];
+    //   [_gridView setHidden:YES];
+    [UIView animateWithDuration:kCLImageToolAnimationDuration
+                     animations:^{
+                         _menuContainer.transform = CGAffineTransformMakeTranslation(0, self.editor.view.height-_menuScroll.top);
+                     }
+                     completion:^(BOOL finished) {
+                         [_menuContainer removeFromSuperview];
+                     }];
 }
 
 #pragma mark-
@@ -397,8 +455,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 @property (nonatomic, assign) CGRect clippingRect;
 @property (nonatomic, strong) UIColor *bgColor;
 @property (nonatomic, strong) UIColor *gridColor;
-@property (nonatomic, assign) double bleedAreaX;
-@property (nonatomic, assign) double bleedAreaY;
+@property (nonatomic, assign) double bleedAreaTop;
+@property (nonatomic, assign) double bleedAreaBottom;
+@property (nonatomic, assign) double bleedAreaLeft;
+@property (nonatomic, assign) double bleedAreaRight;
 @property (nonatomic, assign) bool isBleedAreaShow;
 @end
 
@@ -419,8 +479,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         self.bgColor   = ((CLGridLayar*)layer).bgColor;
         self.gridColor = ((CLGridLayar*)layer).gridColor;
         self.clippingRect = ((CLGridLayar*)layer).clippingRect;
-        self.bleedAreaX = 0.0;
-        self.bleedAreaY = 0.0;
+        self.bleedAreaTop = 0.0;
+        self.bleedAreaBottom = 0.0;
+        self.bleedAreaRight = 0.0;
+        self.bleedAreaLeft = 0.0;
         self.isBleedAreaShow = NO;
     }
     return self;
@@ -456,8 +518,6 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     CGContextStrokePath(context);
 
 
-
-
 // TODO - Danish - Bleed Image
 
     if (self.isBleedAreaShow) {
@@ -472,33 +532,60 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         CGContextSetGrayStrokeColor(context, 1.0, 0.5);
         rct = self.clippingRect;
 
-        // For X Bleed Area
-        CGContextSetLineWidth(context, self.bleedAreaX);
+        // For X Bleed Area = LEFT and RIGHT
+
+        CGContextSetLineWidth(context, (self.bleedAreaLeft / 2));
         CGContextBeginPath(context);
         dW = 0;
-        CGContextMoveToPoint(context, rct.origin.x+dW, rct.origin.y);
-        CGContextAddLineToPoint(context, rct.origin.x+dW, rct.origin.y+rct.size.height);
-        for(int i=0;i<3;++i){
-            dW += _clippingRect.size.width/3;
+        //LEFT
+        if (self.bleedAreaLeft > 0.0) {
+            CGContextMoveToPoint(context, rct.origin.x+dW  + (self.bleedAreaLeft/4), rct.origin.y);
+            CGContextAddLineToPoint(context, rct.origin.x+dW  + (self.bleedAreaLeft/4), rct.origin.y+rct.size.height);
         }
-        CGContextMoveToPoint(context, rct.origin.x+dW, rct.origin.y);
-        CGContextAddLineToPoint(context, rct.origin.x+dW, rct.origin.y+rct.size.height);
+        CGContextStrokePath(context);
+        CGContextClosePath(context);
+
+
+         //RIGHT
+        CGContextSetLineWidth(context, (self.bleedAreaRight / 2));
+        CGContextBeginPath(context);
+
+        if (self.bleedAreaRight > 0.0) {
+            for(int i=0;i<3;++i){
+                dW += _clippingRect.size.width/3;
+            }
+            CGContextMoveToPoint(context, rct.origin.x+dW - (self.bleedAreaRight/4), rct.origin.y);
+            CGContextAddLineToPoint(context, rct.origin.x+dW - (self.bleedAreaRight/4), rct.origin.y+rct.size.height);
+        }
 
         CGContextStrokePath(context);
         CGContextClosePath(context);
 
 
-        // For Y Bleed Area
-        CGContextSetLineWidth(context, self.bleedAreaY);
+        // For Y Bleed Area = TOP and BOTTOM
+
+        // TOP
+        CGContextSetLineWidth(context, (self.bleedAreaTop / 2));
         CGContextBeginPath(context);
         dW = 0;
-        CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW);
-        CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW);
-        for(int i=0;i<3;++i){
-            dW += rct.size.height/3;
+        if (self.bleedAreaTop > 0.0) {
+            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW + (self.bleedAreaTop/4));
+            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW +(self.bleedAreaTop/4));
         }
-        CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW);
-        CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW);
+        CGContextStrokePath(context);
+        CGContextClosePath(context);
+
+        // BOTTOM
+        CGContextSetLineWidth(context, (self.bleedAreaBottom / 2));
+        CGContextBeginPath(context);
+
+        if (self.bleedAreaBottom > 0.0) {
+            for(int i=0;i<3;++i){
+                dW += rct.size.height/3;
+            }
+            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW - (self.bleedAreaBottom/4));
+            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW - (self.bleedAreaBottom/4));
+        }
 
         CGContextStrokePath(context);
         CGContextClosePath(context);
@@ -550,8 +637,11 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         _gridLayer.bgColor   = [UIColor colorWithWhite:1 alpha:0.6];
         _gridLayer.gridColor = [UIColor colorWithWhite:0 alpha:0.6];
         _gridLayer.isBleedAreaShow = NO;
-        _gridLayer.bleedAreaX = 0.0;
-        _gridLayer.bleedAreaY = 0.0;
+        _gridLayer.bleedAreaTop = 0.0;
+        _gridLayer.bleedAreaBottom = 0.0;
+        _gridLayer.bleedAreaRight = 0.0;
+        _gridLayer.bleedAreaLeft = 0.0;
+
         [self.layer addSublayer:_gridLayer];
         
         _ltView = [self clippingCircleWithTag:0];
@@ -621,11 +711,14 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
     [self setNeedsDisplay];
 }
-- (void)setBleedArea:(double)bleedAreaX withBleedAreaY:(double)bleedAreaY
+
+- (void)setBleedArea:(double)bleedAreaTop withBleedAreaBottom:(double)bleedAreaBottom withBleedAreaLeft:(double)bleedAreaLeft withBleedAreaRight:(double)bleedAreaRight
 {
     _gridLayer.isBleedAreaShow = YES;
-    _gridLayer.bleedAreaX = bleedAreaX;
-    _gridLayer.bleedAreaY = bleedAreaY;
+    _gridLayer.bleedAreaTop = bleedAreaTop;
+    _gridLayer.bleedAreaBottom = bleedAreaBottom;
+    _gridLayer.bleedAreaRight = bleedAreaRight;
+    _gridLayer.bleedAreaLeft = bleedAreaLeft;
 }
 
 - (void)setClippingRect:(CGRect)clippingRect animated:(BOOL)animated

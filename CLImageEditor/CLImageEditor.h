@@ -9,6 +9,7 @@
 
 #import "CLImageToolInfo.h"
 #import "CLImageEditorTheme.h"
+#import "CLBleedArea.h"
 
 @protocol CLImageEditorDelegate;
 @protocol CLImageEditorTransitionDelegate;
@@ -38,6 +39,7 @@ extern NSString * const BLEEDCROPRECT;
 @property (nonatomic, readonly) CLImageEditorTheme *theme;
 @property (nonatomic, readonly) CLImageToolInfo *toolInfo;
 
+
 - (id)initWithImage:(UIImage*)image;
 - (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate;
 - (id)initWithDelegate:(id<CLImageEditorDelegate>)delegate;
@@ -46,6 +48,7 @@ extern NSString * const BLEEDCROPRECT;
 //-- Danish
 -(void)showOptions:(NSDictionary*)dic withToolInfo:(NSArray*)subtool;
 - (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty;
+- (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty withBleedArea:(CLBleedArea*)bleedArea;
 
 
 @end

@@ -33,7 +33,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
     UIView *_bgView;
     CATransform3D _lastTransform;
 }
-@synthesize toolInfo = _toolInfo;
+@synthesize toolInfo = _toolInfo, clBleedArea = _clBleedArea;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,7 +48,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self){
-
+        self.clBleedArea = [[CLBleedArea alloc] init];
         if (_font != nil) {
 
             [[CLImageEditorTheme theme] setFont:_boldFont];
@@ -140,6 +140,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
             float bleedAreaX = [[imageProperty objectForKey:BLEEDAREAX] floatValue];
             _bleedAreaX = bleedAreaX;
             _isBleedAreaShow = YES;
+            self.clBleedArea.bleedAreaLeft = bleedAreaX;
+            self.clBleedArea.bleedAreaRight  = bleedAreaX;
         }
         else{
             _bleedAreaX = 0.0;
@@ -149,6 +151,8 @@ static const CGFloat kMenuBarHeight = 80.0f;
             float bleedAreaY = [[imageProperty objectForKey:BLEEDAREAY] floatValue];
             _bleedAreaY = bleedAreaY;
             _isBleedAreaShow = YES;
+            self.clBleedArea.bleedAreaTop = bleedAreaY;
+            self.clBleedArea.bleedAreaBottom = bleedAreaY;
         }
         else{
             _bleedAreaY = 0.0;
@@ -179,6 +183,104 @@ static const CGFloat kMenuBarHeight = 80.0f;
         }
     }
     return self;
+}
+
+- (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty withBleedArea:(CLBleedArea*)bleedArea
+    {
+        _imageProperty = [[NSMutableDictionary alloc] initWithDictionary: imageProperty];
+
+        if ([imageProperty objectForKey:FONT] != nil) {
+            _font = [imageProperty objectForKey:FONT];
+        } else {
+            _font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:18.0];
+        }
+
+        if ([imageProperty objectForKey:BOLDFONT] != nil) {
+            _boldFont = [imageProperty objectForKey:BOLDFONT];
+        } else {
+            _boldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+        }
+
+        self = [self init];
+        if (self){
+            _originalImage = [image deepCopy];
+            _originalImageReset = [image deepCopy];
+            self.delegate = delegate;
+
+            _isCropingFirstTime = YES;
+
+            if ([imageProperty objectForKey:CROPRECT] != nil) {
+                CGRect cropRectCoordinate = CGRectFromString([imageProperty objectForKey:CROPRECT]);
+                _cropRect = cropRectCoordinate;
+            }
+            else{
+                _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height);
+            }
+
+            if ([imageProperty objectForKey:ANGLE] != nil) {
+                float angle = [[imageProperty objectForKey:ANGLE] floatValue];
+                _angle = angle;
+            }
+            else{
+                _angle = 0.0;
+            }
+
+            if ([imageProperty objectForKey:BLEEDAREAX] != nil) {
+                float bleedAreaX = [[imageProperty objectForKey:BLEEDAREAX] floatValue];
+                _bleedAreaX = bleedAreaX;
+                _isBleedAreaShow = YES;
+            }
+            else{
+                _bleedAreaX = 0.0;
+            }
+
+            if ([imageProperty objectForKey:BLEEDAREAY] != nil) {
+                float bleedAreaY = [[imageProperty objectForKey:BLEEDAREAY] floatValue];
+                _bleedAreaY = bleedAreaY;
+                _isBleedAreaShow = YES;
+            }
+            else{
+                _bleedAreaY = 0.0;
+            }
+
+            if (bleedArea != nil) {
+                self.clBleedArea.bleedAreaTop = bleedArea.bleedAreaTop;
+                self.clBleedArea.bleedAreaBottom = bleedArea.bleedAreaBottom;
+                self.clBleedArea.bleedAreaLeft = bleedArea.bleedAreaLeft;
+                self.clBleedArea.bleedAreaRight  = bleedArea.bleedAreaRight;
+            }
+            else {
+                self.clBleedArea.bleedAreaTop = 0.0;
+                self.clBleedArea.bleedAreaBottom = 0.0;
+                self.clBleedArea.bleedAreaLeft = 0.0;
+                self.clBleedArea.bleedAreaRight  = 0.0;
+            }
+
+            if ([imageProperty objectForKey:CONTENTMODE] != nil) {
+                UIViewContentMode contentMode = [[imageProperty objectForKey:CONTENTMODE] intValue];
+                _contentMode = &contentMode;
+            }
+            else{
+                UIViewContentMode contentMode = [[NSNumber numberWithInt:UIViewContentModeScaleAspectFit] intValue];
+                _contentMode = &contentMode;
+            }
+
+            if ([imageProperty objectForKey:ASPECTRATIO] != nil) {
+                CGSize aspectRatio = CGSizeFromString([imageProperty objectForKey:ASPECTRATIO]);
+                _aspectRatio = aspectRatio;
+            }
+            else{
+                _aspectRatio = CGSizeMake(_originalImageReset.size.width, _originalImageReset.size.height);
+            }
+
+            if ([imageProperty objectForKey:CONTENTMODE] != nil) {
+                _imageView.contentMode = [[imageProperty objectForKey:CONTENTMODE] intValue];
+            }
+            else {
+                _imageView.contentMode = UIViewContentModeScaleAspectFit;
+            }
+        }
+        return self;
 }
 
 - (id)initWithDelegate:(id<CLImageEditorDelegate>)delegate
@@ -1002,10 +1104,18 @@ static const CGFloat kMenuBarHeight = 80.0f;
                 rct.origin.x    *= zoomScale;
                 rct.origin.y    *= zoomScale;
                 if (!self.isCropingFirstTime) {
-                    rct.size.width += (_bleedAreaX);
-                    rct.size.height += (_bleedAreaY);
-                    rct.origin.x -= (_bleedAreaX / 2);
-                    rct.origin.y -= (_bleedAreaY / 2);
+//                    rct.size.width += (_bleedAreaX);
+//                    rct.size.height += (_bleedAreaY);
+//                    rct.origin.x -= (_bleedAreaX / 2);
+//                    rct.origin.y -= (_bleedAreaY / 2);
+
+                    rct.size.width += ((self.clBleedArea.bleedAreaLeft * zoomScale) / 2);
+                    rct.size.width += ((self.clBleedArea.bleedAreaRight * zoomScale) / 2);
+                    rct.size.height += ((self.clBleedArea.bleedAreaTop * zoomScale) / 2);
+                    rct.size.height += ((self.clBleedArea.bleedAreaBottom * zoomScale) / 2);
+                    rct.origin.x -= ((self.clBleedArea.bleedAreaLeft * zoomScale) / 2);
+                    rct.origin.y -= ((self.clBleedArea.bleedAreaTop * zoomScale) / 2);
+
                 }
                 rct.size.width  /= zoomScale;
                 rct.size.height /= zoomScale;

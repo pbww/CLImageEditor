@@ -6,6 +6,7 @@
 //
 
 #import "CLImageEditor.h"
+#import "CLBleedArea.h"
 
 @interface _CLImageEditorViewController : CLImageEditor
 <UIScrollViewDelegate, UIBarPositioningDelegate>
@@ -30,6 +31,7 @@
 @property (nonatomic, assign) double bleedAreaX;
 @property (nonatomic, assign) double bleedAreaY;
 @property (nonatomic, assign) double isBleedAreaShow;
+@property (nonatomic, strong) CLBleedArea *clBleedArea;
 
 
 // font

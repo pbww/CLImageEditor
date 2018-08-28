@@ -51,6 +51,10 @@ NSString * const BLEEDCROPRECT = @"bleedCropRect";
     return [[_CLImageEditorViewController alloc] initWithImage:image delegate:delegate withOptions:imageProperty];
 }
 
+- (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate withOptions:(NSDictionary*)imageProperty withBleedArea:(CLBleedArea*)bleedArea {
+    return [[_CLImageEditorViewController alloc] initWithImage:image delegate:delegate withOptions:imageProperty withBleedArea:bleedArea];
+}
+
 - (id)initWithDelegate:(id<CLImageEditorDelegate>)delegate
 {
     return [[_CLImageEditorViewController alloc] initWithDelegate:delegate];
