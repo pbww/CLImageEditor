@@ -1100,6 +1100,12 @@ static const CGFloat kMenuBarHeight = 80.0f;
                 
                 CGFloat zoomScale = _imageWidth / _imageView.image.size.width;
                 CGRect rct = _cropRect;
+
+                double bleedAreaLeftByPercentage = (rct.size.height * self.clBleedArea.bleedAreaLeft);
+                double bleedAreaRightByPercentage = (rct.size.height * self.clBleedArea.bleedAreaRight);
+                double bleedAreaTopByPercentage = (rct.size.width * self.clBleedArea.bleedAreaTop);
+                double bleedAreaBottomByPercentage = (rct.size.width * self.clBleedArea.bleedAreaBottom);
+
                 rct.size.width  *= zoomScale;
                 rct.size.height *= zoomScale;
                 rct.origin.x    *= zoomScale;
@@ -1110,12 +1116,12 @@ static const CGFloat kMenuBarHeight = 80.0f;
 //                    rct.origin.x -= (_bleedAreaX / 2);
 //                    rct.origin.y -= (_bleedAreaY / 2);
 
-                    rct.size.width += ((self.clBleedArea.bleedAreaLeft * zoomScale) / 2);
-                    rct.size.width += ((self.clBleedArea.bleedAreaRight * zoomScale) / 2);
-                    rct.size.height += ((self.clBleedArea.bleedAreaTop * zoomScale) / 2);
-                    rct.size.height += ((self.clBleedArea.bleedAreaBottom * zoomScale) / 2);
-                    rct.origin.x -= ((self.clBleedArea.bleedAreaLeft * zoomScale) / 2);
-                    rct.origin.y -= ((self.clBleedArea.bleedAreaTop * zoomScale) / 2);
+                    rct.size.width += ((bleedAreaLeftByPercentage * zoomScale) / 2);
+                    rct.size.width += ((bleedAreaRightByPercentage * zoomScale) / 2);
+                    rct.size.height += ((bleedAreaTopByPercentage * zoomScale) / 2);
+                    rct.size.height += ((bleedAreaBottomByPercentage * zoomScale) / 2);
+                    rct.origin.x -= ((bleedAreaLeftByPercentage * zoomScale) / 2);
+                    rct.origin.y -= ((bleedAreaTopByPercentage * zoomScale) / 2);
 
                 }
                 rct.size.width  /= zoomScale;
@@ -1125,7 +1131,6 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
                 [imageProperty setObject:NSStringFromCGRect(rct) forKey:CROPRECT];
             }
-
 
             [self.delegate imageEditor:self didFinishEditingWithImage:[self buildImage:_originalImage]  withImageOptions:imageProperty];
         }

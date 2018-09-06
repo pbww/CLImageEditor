@@ -223,16 +223,21 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     if (self.editor.isBleedAreaShow) {
         if (!self.editor.isCropingFirstTime) {
 
+            double bleedAreaLeftByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaLeft);
+            double bleedAreaRightByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaRight);
+            double bleedAreaTopByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaTop);
+            double bleedAreaBottomByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaBottom);
+
             // Right
         //    if (self.editor.clBleedArea.bleedAreaRight > 0.0) {
-                rct.size.width += ((self.editor.clBleedArea.bleedAreaLeft * zoomScale) / 2);
-                rct.size.width += ((self.editor.clBleedArea.bleedAreaRight * zoomScale) / 2);
+                rct.size.width += ((bleedAreaLeftByPercentage * zoomScale) / 2);
+                rct.size.width += ((bleedAreaRightByPercentage * zoomScale) / 2);
         //    }
 
             //Bottom Bleed
            // if (self.editor.clBleedArea.bleedAreaBottom > 0.0) {
-                rct.size.height += ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2);
-                rct.size.height += ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) / 2);
+                rct.size.height += ((bleedAreaTopByPercentage * zoomScale) / 2);
+                rct.size.height += ((bleedAreaBottomByPercentage * zoomScale) / 2);
 //            }
 //            else {
 //                 rct.size.height += ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) + ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2));
@@ -240,12 +245,12 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
             // Left
         //    if (self.editor.clBleedArea.bleedAreaLeft > 0.0) {
-                rct.origin.x -= ((self.editor.clBleedArea.bleedAreaLeft * zoomScale) / 2);
+                rct.origin.x -= ((bleedAreaLeftByPercentage * zoomScale) / 2);
         //    }
 
             // Top
         //    if (self.editor.clBleedArea.bleedAreaTop > 0.0) {
-                rct.origin.y -= ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2);
+                rct.origin.y -= ((bleedAreaTopByPercentage * zoomScale) / 2);
           //  }
 
 //            rct.size.width += (self.editor.bleedAreaX * zoomScale);
@@ -257,7 +262,6 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
     [_gridView setClippingRect:rct];
 
-
 }
 
 - (void)executeWithCompletionBlock:(void (^)(UIImage *, NSError *, NSDictionary *))completionBlock
@@ -265,18 +269,25 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     CGFloat zoomScale = self.editor.imageWidth / self.editor.imageView.image.size.width;
     CGRect rct = _gridView.clippingRect;
     if (self.editor.isBleedAreaShow) {
+
+        double bleedAreaLeftByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaLeft);
+        double bleedAreaRightByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaRight);
+        double bleedAreaTopByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaTop);
+        double bleedAreaBottomByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaBottom);
+
+        
         self.editor.isCropingFirstTime = NO;
         //Right Bleed
        // if (self.editor.clBleedArea.bleedAreaRight > 0.0) {
-             rct.size.width -= ((self.editor.clBleedArea.bleedAreaLeft * zoomScale) / 2);
-             rct.size.width -= ((self.editor.clBleedArea.bleedAreaRight * zoomScale) / 2);
+             rct.size.width -= ((bleedAreaLeftByPercentage * zoomScale) / 2);
+             rct.size.width -= ((bleedAreaRightByPercentage * zoomScale) / 2);
 
       //  }
 
         //Bottom Bleed
      //   if (self.editor.clBleedArea.bleedAreaBottom > 0.0) {
-              rct.size.height -= ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2);
-              rct.size.height -= ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) / 2);
+              rct.size.height -= ((bleedAreaTopByPercentage * zoomScale) / 2);
+              rct.size.height -= ((bleedAreaBottomByPercentage * zoomScale) / 2);
       //  }
 //        else {
 //              rct.size.height -= ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) + ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2));
@@ -284,12 +295,12 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
         // Left
      //   if (self.editor.clBleedArea.bleedAreaLeft > 0.0) {
-            rct.origin.x += ((self.editor.clBleedArea.bleedAreaLeft * zoomScale) / 2);
+            rct.origin.x += ((bleedAreaLeftByPercentage * zoomScale) / 2);
      //   }
 
         // Top
       //  if (self.editor.clBleedArea.bleedAreaTop > 0.0) {
-            rct.origin.y += ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2);
+            rct.origin.y += ((bleedAreaTopByPercentage * zoomScale) / 2);
      //   }
 
 
@@ -534,28 +545,35 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
         // For X Bleed Area = LEFT and RIGHT
 
-        CGContextSetLineWidth(context, (self.bleedAreaLeft / 2));
+        double bleedAreaLeftByPercentage = (rct.size.height * self.bleedAreaLeft);
+        double bleedAreaRightByPercentage = (rct.size.height * self.bleedAreaRight);
+
+        //CGContextSetLineWidth(context, (self.bleedAreaLeft / 2));
+        CGContextSetLineWidth(context, (bleedAreaLeftByPercentage / 2));
         CGContextBeginPath(context);
         dW = 0;
         //LEFT
         if (self.bleedAreaLeft > 0.0) {
-            CGContextMoveToPoint(context, rct.origin.x+dW  + (self.bleedAreaLeft/4), rct.origin.y);
-            CGContextAddLineToPoint(context, rct.origin.x+dW  + (self.bleedAreaLeft/4), rct.origin.y+rct.size.height);
+          //  CGContextMoveToPoint(context, rct.origin.x+dW  + (self.bleedAreaLeft/4), rct.origin.y);
+          //  CGContextAddLineToPoint(context, rct.origin.x+dW  + (self.bleedAreaLeft/4), rct.origin.y+rct.size.height);
+
+            CGContextMoveToPoint(context, rct.origin.x+dW  + (bleedAreaLeftByPercentage/4), rct.origin.y);
+            CGContextAddLineToPoint(context, rct.origin.x+dW  + (bleedAreaLeftByPercentage/4), rct.origin.y+rct.size.height);
         }
         CGContextStrokePath(context);
         CGContextClosePath(context);
 
 
          //RIGHT
-        CGContextSetLineWidth(context, (self.bleedAreaRight / 2));
+        CGContextSetLineWidth(context, (bleedAreaRightByPercentage / 2));
         CGContextBeginPath(context);
 
         if (self.bleedAreaRight > 0.0) {
             for(int i=0;i<3;++i){
                 dW += _clippingRect.size.width/3;
             }
-            CGContextMoveToPoint(context, rct.origin.x+dW - (self.bleedAreaRight/4), rct.origin.y);
-            CGContextAddLineToPoint(context, rct.origin.x+dW - (self.bleedAreaRight/4), rct.origin.y+rct.size.height);
+            CGContextMoveToPoint(context, rct.origin.x+dW - (bleedAreaRightByPercentage/4), rct.origin.y);
+            CGContextAddLineToPoint(context, rct.origin.x+dW - (bleedAreaRightByPercentage/4), rct.origin.y+rct.size.height);
         }
 
         CGContextStrokePath(context);
@@ -565,26 +583,34 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         // For Y Bleed Area = TOP and BOTTOM
 
         // TOP
-        CGContextSetLineWidth(context, (self.bleedAreaTop / 2));
+
+        double bleedAreaTopByPercentage = (rct.size.width * self.bleedAreaTop);
+        double bleedAreaBottomByPercentage = (rct.size.width * self.bleedAreaBottom);
+
+         CGContextSetLineWidth(context, (bleedAreaTopByPercentage / 2));
+       // CGContextSetLineWidth(context, (self.bleedAreaTop / 2));
         CGContextBeginPath(context);
         dW = 0;
         if (self.bleedAreaTop > 0.0) {
-            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW + (self.bleedAreaTop/4));
-            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW +(self.bleedAreaTop/4));
+//            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW + (self.bleedAreaTop/4));
+//            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW +(self.bleedAreaTop/4));
+
+            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW + (bleedAreaTopByPercentage/4));
+            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW +(bleedAreaTopByPercentage/4));
         }
         CGContextStrokePath(context);
         CGContextClosePath(context);
 
         // BOTTOM
-        CGContextSetLineWidth(context, (self.bleedAreaBottom / 2));
+        CGContextSetLineWidth(context, (bleedAreaBottomByPercentage / 2));
         CGContextBeginPath(context);
 
         if (self.bleedAreaBottom > 0.0) {
             for(int i=0;i<3;++i){
                 dW += rct.size.height/3;
             }
-            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW - (self.bleedAreaBottom/4));
-            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW - (self.bleedAreaBottom/4));
+            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW - (bleedAreaBottomByPercentage/4));
+            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW - (bleedAreaBottomByPercentage/4));
         }
 
         CGContextStrokePath(context);
