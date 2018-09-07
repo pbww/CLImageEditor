@@ -33,6 +33,11 @@
 @property (nonatomic, assign) double isBleedAreaShow;
 @property (nonatomic, strong) CLBleedArea *clBleedArea;
 
+//BleedCropPercentage
+@property (nonatomic, assign) double bleedAreaLeftByPercentage;
+@property (nonatomic, assign) double bleedAreaRightByPercentage;
+@property (nonatomic, assign) double bleedAreaTopByPercentage;
+@property (nonatomic, assign) double bleedAreaBottomByPercentage;
 
 // font
 @property (nonatomic, strong) UIFont *font;
