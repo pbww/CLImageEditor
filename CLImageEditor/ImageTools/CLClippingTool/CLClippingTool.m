@@ -234,12 +234,18 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         //    if (self.editor.clBleedArea.bleedAreaRight > 0.0) {
                 rct.size.width += ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
                 rct.size.width += ((self.editor.bleedAreaRightByPercentage * zoomScale) / 2);
+
+                rct.size.width += (self.editor.bleedAreaRightByPercentage / 4);
+                rct.size.width += (self.editor.bleedAreaLeftByPercentage / 4);
         //    }
 
             //Bottom Bleed
            // if (self.editor.clBleedArea.bleedAreaBottom > 0.0) {
                 rct.size.height += ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
                 rct.size.height += ((self.editor.bleedAreaBottomByPercentage * zoomScale) / 2);
+
+                rct.size.height += (self.editor.bleedAreaTopByPercentage / 4);
+                rct.size.height += (self.editor.bleedAreaBottomByPercentage / 4);
 //            }
 //            else {
 //                 rct.size.height += ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) + ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2));
@@ -248,11 +254,13 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
             // Left
         //    if (self.editor.clBleedArea.bleedAreaLeft > 0.0) {
                 rct.origin.x -= ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
+                rct.origin.x -= (self.editor.bleedAreaLeftByPercentage / 4);
         //    }
 
             // Top
         //    if (self.editor.clBleedArea.bleedAreaTop > 0.0) {
                 rct.origin.y -= ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
+                rct.origin.y -= (self.editor.bleedAreaTopByPercentage / 4);
           //  }
 
 //            rct.size.width += (self.editor.bleedAreaX * zoomScale);
@@ -284,12 +292,18 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
              rct.size.width -= ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
              rct.size.width -= ((self.editor.bleedAreaRightByPercentage * zoomScale) / 2);
 
+             rct.size.width -= (self.editor.bleedAreaRightByPercentage / 4);
+             rct.size.width -= (self.editor.bleedAreaLeftByPercentage / 4);
+
       //  }
 
         //Bottom Bleed
      //   if (self.editor.clBleedArea.bleedAreaBottom > 0.0) {
               rct.size.height -= ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
               rct.size.height -= ((self.editor.bleedAreaBottomByPercentage * zoomScale) / 2);
+
+              rct.size.height -= (self.editor.bleedAreaTopByPercentage / 4);
+              rct.size.height -= (self.editor.bleedAreaBottomByPercentage / 4);
       //  }
 //        else {
 //              rct.size.height -= ((self.editor.clBleedArea.bleedAreaBottom * zoomScale) + ((self.editor.clBleedArea.bleedAreaTop * zoomScale) / 2));
@@ -298,11 +312,13 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         // Left
      //   if (self.editor.clBleedArea.bleedAreaLeft > 0.0) {
             rct.origin.x += ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
+            rct.origin.x += (self.editor.bleedAreaLeftByPercentage / 4);
      //   }
 
         // Top
       //  if (self.editor.clBleedArea.bleedAreaTop > 0.0) {
             rct.origin.y += ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
+            rct.origin.y += (self.editor.bleedAreaTopByPercentage / 4);
      //   }
 
 
@@ -540,9 +556,9 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
         CGContextClearRect(context, _clippingRect);
 
-        CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:255.0 green:0.0 blue:0.0 alpha:1.0].CGColor);
+        CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:255.0 green:0.0 blue:0.0 alpha:0.5].CGColor);
         CGContextSetBlendMode(context, kCGBlendModeOverlay);
-        CGContextSetGrayStrokeColor(context, 1.0, 0.5);
+       // CGContextSetGrayStrokeColor(context, 1.0, 0.5);
         rct = self.clippingRect;
 
         // For X Bleed Area = LEFT and RIGHT
