@@ -32,7 +32,7 @@ extern NSString * const CONTENTMODE;
 extern NSString * const BLEEDAREAX;
 extern NSString * const BLEEDAREAY;
 extern NSString * const BLEEDCROPRECT;
-
+extern NSString * const MINRECTSIZE;
 
 
 @property (nonatomic, weak) id<CLImageEditorDelegate> delegate;

@@ -52,6 +52,9 @@
 // Save Translucent
 @property (nonatomic, assign) bool isTranslucent;
 
+//Min Rect Size
+@property (nonatomic, assign) CGSize minRectSize;
+
 @property (nonatomic, strong) NSMutableDictionary *imageProperty;
 
 - (IBAction)pushedCloseBtn:(id)sender;

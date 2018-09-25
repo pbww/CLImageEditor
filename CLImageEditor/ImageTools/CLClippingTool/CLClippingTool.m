@@ -37,6 +37,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 @property (nonatomic, assign) CGRect clippingRect;
 @property (nonatomic, weak) _CLImageEditorViewController *editor;
 @property (nonatomic, strong) CLRatio *clippingRatio;
+@property (nonatomic, assign) CGSize minRectSize;
 - (id)initWithSuperview:(UIView*)superview frame:(CGRect)frame;
 - (void)setNewGridFrame:(UIView*)superview frame:(CGRect)frame;
 - (void)setBgColor:(UIColor*)bgColor;
@@ -44,6 +45,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 - (void)clippingRatioDidChange;
 -(void)setAllViewHidden:(BOOL)hidden;
 - (void)setBleedArea:(double)bleedAreaTop withBleedAreaBottom:(double)bleedAreaBottom withBleedAreaLeft:(double)bleedAreaLeft withBleedAreaRight:(double)bleedAreaRight;
+-(void)setMinSize:(CGSize)minSize;
 @end
 
 
@@ -185,6 +187,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
          [_gridView setBleedArea:(self.editor.clBleedArea.bleedAreaTop) withBleedAreaBottom:(self.editor.clBleedArea.bleedAreaBottom) withBleedAreaLeft:(self.editor.clBleedArea.bleedAreaLeft) withBleedAreaRight:(self.editor.clBleedArea.bleedAreaRight)];
     }
+
+    [_gridView setMinSize: CGSizeMake(self.editor.minRectSize.width, self.editor.minRectSize.height)];
 
    // _gridView.hidden = YES;
     [self setCropMenu];
@@ -556,7 +560,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
         CGContextClearRect(context, _clippingRect);
 
-        CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:255.0 green:0.0 blue:0.0 alpha:0.5].CGColor);
+        CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:217.0/255.0 green:83.0/255.0 blue:79.0/255.0 alpha:0.7].CGColor);
         CGContextSetBlendMode(context, kCGBlendModeOverlay);
        // CGContextSetGrayStrokeColor(context, 1.0, 0.5);
         rct = self.clippingRect;
@@ -765,6 +769,11 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     _gridLayer.bleedAreaLeft = bleedAreaLeft;
 }
 
+-(void)setMinSize:(CGSize)minSize
+{
+    _minRectSize = minSize;
+}
+
 - (void)setClippingRect:(CGRect)clippingRect animated:(BOOL)animated
 {
     if(animated){
@@ -954,7 +963,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         default:
             break;
     }
-    self.clippingRect = rct;
+    // Danish: Minimum Rect Size
+    if (rct.size.width > self.minRectSize.width || rct.size.height > self.minRectSize.height) {
+          self.clippingRect = rct;
+    }
 }
 
 - (void)panGridView:(UIPanGestureRecognizer*)sender

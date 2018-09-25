@@ -181,6 +181,14 @@ static const CGFloat kMenuBarHeight = 80.0f;
         else {
             _imageView.contentMode = UIViewContentModeScaleAspectFit;
         }
+
+        if ([imageProperty objectForKey:MINRECTSIZE] != nil) {
+            CGSize minRectSize = CGSizeFromString([imageProperty objectForKey:MINRECTSIZE]);
+            _minRectSize = minRectSize;
+        }
+        else{
+            _minRectSize = CGSizeMake(100.0, 100.0);
+        }
     }
     return self;
 }
@@ -279,6 +287,14 @@ static const CGFloat kMenuBarHeight = 80.0f;
             }
             else {
                 _imageView.contentMode = UIViewContentModeScaleAspectFit;
+            }
+
+            if ([imageProperty objectForKey:MINRECTSIZE] != nil) {
+                CGSize minRectSize = CGSizeFromString([imageProperty objectForKey:MINRECTSIZE]);
+                _minRectSize = minRectSize;
+            }
+            else{
+                _minRectSize = CGSizeMake(100.0, 100.0);
             }
         }
         return self;

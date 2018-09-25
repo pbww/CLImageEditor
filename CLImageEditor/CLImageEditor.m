@@ -29,6 +29,7 @@ NSString * const CONTENTMODE = @"contentMode";
 NSString * const BLEEDAREAX = @"bleedAreaX";
 NSString * const BLEEDAREAY = @"bleedAreaY";
 NSString * const BLEEDCROPRECT = @"bleedCropRect";
+NSString * const MINRECTSIZE = @"minRectSize";
 
 - (id)init
 {

@@ -96,6 +96,9 @@
 
        // [imageProperty setValue:NSStringFromCGSize(CGSizeMake(44.1000001877546, 159.74999576807)) forKey:ASPECTRATIO];
 
+
+        [imageProperty setObject:NSStringFromCGSize(CGSizeMake(200, 200)) forKey:MINRECTSIZE];
+
         CLBleedArea *clBleedArea = [[CLBleedArea alloc] init];
 
 
