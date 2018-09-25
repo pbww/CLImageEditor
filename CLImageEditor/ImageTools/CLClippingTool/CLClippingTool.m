@@ -563,8 +563,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
         // For X Bleed Area = LEFT and RIGHT
 
-        double bleedAreaLeftByPercentage = (rct.size.height * self.bleedAreaLeft);
-        double bleedAreaRightByPercentage = (rct.size.height * self.bleedAreaRight);
+        double bleedAreaLeftByPercentage = (rct.size.width * self.bleedAreaLeft);
+        double bleedAreaRightByPercentage = (rct.size.width * self.bleedAreaRight);
 
         //CGContextSetLineWidth(context, (self.bleedAreaLeft / 2));
         CGContextSetLineWidth(context, (bleedAreaLeftByPercentage / 2));
@@ -602,8 +602,8 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
         // TOP
 
-        double bleedAreaTopByPercentage = (rct.size.width * self.bleedAreaTop);
-        double bleedAreaBottomByPercentage = (rct.size.width * self.bleedAreaBottom);
+        double bleedAreaTopByPercentage = (rct.size.height * self.bleedAreaTop);
+        double bleedAreaBottomByPercentage = (rct.size.height * self.bleedAreaBottom);
 
          CGContextSetLineWidth(context, (bleedAreaTopByPercentage / 2));
        // CGContextSetLineWidth(context, (self.bleedAreaTop / 2));

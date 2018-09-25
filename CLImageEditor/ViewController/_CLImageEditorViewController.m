@@ -861,7 +861,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (void)refreshImageView
 {
-    NSLog(@"refreshImageView");
+   // NSLog(@"refreshImageView");
     _imageView.image = _originalImage;
     
     [self resetImageViewFrame];

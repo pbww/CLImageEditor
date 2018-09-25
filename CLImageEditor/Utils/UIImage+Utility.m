@@ -271,7 +271,7 @@
     free(kernel);
     
     if (error) {
-        NSLog(@"error from convolution %ld", error);
+      //  NSLog(@"error from convolution %ld", error);
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();

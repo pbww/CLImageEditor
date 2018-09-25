@@ -100,9 +100,9 @@
 
 
         clBleedArea.isBleedAreaShow = YES;
-        clBleedArea.bleedAreaTop = 0.0875100202388536;
-        clBleedArea.bleedAreaLeft = 0.0;
-        clBleedArea.bleedAreaRight = 0.12448989010343;
+        clBleedArea.bleedAreaTop = 0.11083855;
+        clBleedArea.bleedAreaLeft = 0.07377057;
+        clBleedArea.bleedAreaRight = 0.0;
         clBleedArea.bleedAreaBottom = 0.0;
 
        //  CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
@@ -250,17 +250,17 @@
 
      if ([imageProperty objectForKey:CROPRECT] != nil) {
          CGRect rect = CGRectFromString([imageProperty objectForKey:CROPRECT]);
-         NSLog(@"%@", NSStringFromCGRect(rect));
+        // NSLog(@"%@", NSStringFromCGRect(rect));
      }
 
     if ([imageProperty objectForKey:ANGLE] != nil) {
         float angle = [[imageProperty objectForKey:ANGLE] floatValue];
-        NSLog(@"%f", angle);
+        //NSLog(@"%f", angle);
     }
 
     if ([imageProperty objectForKey:BLEEDCROPRECT] != nil) {
         CGRect rect = CGRectFromString([imageProperty objectForKey:BLEEDCROPRECT]);
-        NSLog(@"%@", NSStringFromCGRect(rect));
+        //NSLog(@"%@", NSStringFromCGRect(rect));
     }
 
     _imageView.image = image;
