@@ -257,13 +257,13 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
             // Left
         //    if (self.editor.clBleedArea.bleedAreaLeft > 0.0) {
-                rct.origin.x -= ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
+               // rct.origin.x -= ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
                 rct.origin.x -= (self.editor.bleedAreaLeftByPercentage / 2);
         //    }
 
             // Top
         //    if (self.editor.clBleedArea.bleedAreaTop > 0.0) {
-                rct.origin.y -= ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
+              //  rct.origin.y -= ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
                 rct.origin.y -= (self.editor.bleedAreaTopByPercentage / 2);
           //  }
 
@@ -284,10 +284,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     CGRect rct = _gridView.clippingRect;
     if (self.editor.isBleedAreaShow) {
 
-        self.editor.bleedAreaLeftByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaLeft);
-        self.editor.bleedAreaRightByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaRight);
-        self.editor.bleedAreaTopByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaTop);
-        self.editor.bleedAreaBottomByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaBottom);
+        self.editor.bleedAreaLeftByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaLeft);
+        self.editor.bleedAreaRightByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaRight);
+        self.editor.bleedAreaTopByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaTop);
+        self.editor.bleedAreaBottomByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaBottom);
 
         
         self.editor.isCropingFirstTime = NO;
@@ -315,13 +315,13 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
         // Left
      //   if (self.editor.clBleedArea.bleedAreaLeft > 0.0) {
-            rct.origin.x += ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
+           // rct.origin.x += ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
             rct.origin.x += (self.editor.bleedAreaLeftByPercentage / 2);
      //   }
 
         // Top
       //  if (self.editor.clBleedArea.bleedAreaTop > 0.0) {
-            rct.origin.y += ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
+           // rct.origin.y += ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
             rct.origin.y += (self.editor.bleedAreaTopByPercentage / 2);
      //   }
 

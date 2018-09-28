@@ -1140,9 +1140,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
                     rct.size.height += ((self.bleedAreaBottomByPercentage * zoomScale) / 2);
                     rct.size.height += (self.bleedAreaTopByPercentage / 2);
                     rct.size.height += (self.bleedAreaBottomByPercentage / 2);
-                    rct.origin.x -= ((self.bleedAreaLeftByPercentage * zoomScale) / 2);
+                   // rct.origin.x -= ((self.bleedAreaLeftByPercentage * zoomScale) / 2);
                     rct.origin.x -= (self.bleedAreaLeftByPercentage / 2);
-                    rct.origin.y -= ((self.bleedAreaTopByPercentage * zoomScale) / 2);
+                  //  rct.origin.y -= ((self.bleedAreaTopByPercentage * zoomScale) / 2);
                     rct.origin.y -= (self.bleedAreaTopByPercentage / 2);
 
                 }
