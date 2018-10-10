@@ -78,7 +78,8 @@
 
         // (origin = (x = 205.26114521485363, y = 281.47328167454947), size = (width = 825.19875213847229, height = 595.75324544631167))
         NSMutableDictionary *imageProperty = [[NSMutableDictionary alloc]init];
-      //  [imageProperty setObject:NSStringFromCGRect(CGRectMake(0.0, 0.0, 1807.77478027344, 3056.0)) forKey:CROPRECT];
+       // [imageProperty setObject:NSStringFromCGRect(CGRectMake(0.0, 0.0, 1807.77478027344, 3056.0)) forKey:CROPRECT];
+       // [imageProperty setObject:NSStringFromCGRect(CGRectMake(20.0, 10.0, 1807.77478027344, 3056.0)) forKey:TRIMRECT];
 //        [imageProperty setObject:[NSNumber numberWithFloat:180.0] forKey:ANGLE];
 
       //  [imageProperty setObject:[NSNumber numberWithFloat:100.0] forKey:BLEEDAREAX];

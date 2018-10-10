@@ -26,6 +26,8 @@
 @property (nonatomic, assign) CGRect cropRect;
 @property (nonatomic, assign) double angle;
 @property (nonatomic, assign) bool isCropingFirstTime;
+@property (nonatomic, assign) CGRect trimRect;
+
 
 // Bleed Area for X and Y
 @property (nonatomic, assign) double bleedAreaX;

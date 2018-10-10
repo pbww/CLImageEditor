@@ -33,6 +33,7 @@ extern NSString * const BLEEDAREAX;
 extern NSString * const BLEEDAREAY;
 extern NSString * const BLEEDCROPRECT;
 extern NSString * const MINRECTSIZE;
+extern NSString * const TRIMRECT;
 
 
 @property (nonatomic, weak) id<CLImageEditorDelegate> delegate;

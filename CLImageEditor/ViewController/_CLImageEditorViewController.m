@@ -79,6 +79,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
         self.delegate = delegate;
         _angle = 0.0;
         _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height);
+        _trimRect = CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height);
 
         if (_contentMode != NULL){
             UIViewContentMode contentMode = [[NSNumber numberWithInt:UIViewContentModeScaleAspectFit] intValue];
@@ -126,6 +127,14 @@ static const CGFloat kMenuBarHeight = 80.0f;
         }
         else{
             _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height);
+        }
+
+        if ([imageProperty objectForKey:TRIMRECT] != nil) {
+            CGRect cropRectCoordinate = CGRectFromString([imageProperty objectForKey:TRIMRECT]);
+            _trimRect = cropRectCoordinate;
+        }
+        else{
+            _trimRect = _cropRect;
         }
 
         if ([imageProperty objectForKey:ANGLE] != nil) {
@@ -223,6 +232,14 @@ static const CGFloat kMenuBarHeight = 80.0f;
             }
             else{
                 _cropRect = CGRectMake(0, 0, _originalImageReset.size.width,_originalImageReset.size.height);
+            }
+
+            if ([imageProperty objectForKey:TRIMRECT] != nil) {
+                CGRect cropRectCoordinate = CGRectFromString([imageProperty objectForKey:TRIMRECT]);
+                _trimRect = cropRectCoordinate;
+            }
+            else{
+                _trimRect = _cropRect;
             }
 
             if ([imageProperty objectForKey:ANGLE] != nil) {
@@ -1197,7 +1214,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
     else {
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
-    [_imageView.layer setContentsRect:CGRectMake(_cropRect.origin.x/_originalImageReset.size.width, _cropRect.origin.y/_originalImageReset.size.height,_cropRect.size.width/_originalImageReset.size.width, _cropRect.size.height/_originalImageReset.size.height)];
+
+    if (_isCropingFirstTime) {
+        [_imageView.layer setContentsRect:CGRectMake(_trimRect.origin.x/_originalImageReset.size.width, _trimRect.origin.y/_originalImageReset.size.height,_trimRect.size.width/_originalImageReset.size.width, _trimRect.size.height/_originalImageReset.size.height)];
+    }
+    else {
+        [_imageView.layer setContentsRect:CGRectMake(_cropRect.origin.x/_originalImageReset.size.width, _cropRect.origin.y/_originalImageReset.size.height,_cropRect.size.width/_originalImageReset.size.width, _cropRect.size.height/_originalImageReset.size.height)];
+    }
 }
 
 // -- Danish : Set Rotation
