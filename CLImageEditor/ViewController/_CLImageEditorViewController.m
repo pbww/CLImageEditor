@@ -1134,32 +1134,28 @@ static const CGFloat kMenuBarHeight = 80.0f;
                 CGFloat zoomScale = _imageWidth / _imageView.image.size.width;
                 CGRect rct = _cropRect;
 
-//                double bleedAreaLeftByPercentage = (rct.size.height * self.clBleedArea.bleedAreaLeft);
-//                double bleedAreaRightByPercentage = (rct.size.height * self.clBleedArea.bleedAreaRight);
-//                double bleedAreaTopByPercentage = (rct.size.width * self.clBleedArea.bleedAreaTop);
-//                double bleedAreaBottomByPercentage = (rct.size.width * self.clBleedArea.bleedAreaBottom);
-
                 rct.size.width  *= zoomScale;
                 rct.size.height *= zoomScale;
                 rct.origin.x    *= zoomScale;
                 rct.origin.y    *= zoomScale;
                 if (!self.isCropingFirstTime) {
-//                    rct.size.width += (_bleedAreaX);
-//                    rct.size.height += (_bleedAreaY);
-//                    rct.origin.x -= (_bleedAreaX / 2);
-//                    rct.origin.y -= (_bleedAreaY / 2);
 
-                    rct.size.width += ((self.bleedAreaLeftByPercentage * zoomScale) / 2);
-                    rct.size.width += ((self.bleedAreaRightByPercentage * zoomScale) / 2);
+                     if (zoomScale <= 1.0) {
+                         rct.size.width += ((self.bleedAreaLeftByPercentage * zoomScale) / 2);
+                         rct.size.width += ((self.bleedAreaRightByPercentage * zoomScale) / 2);
+                     }
+
                     rct.size.width += (self.bleedAreaRightByPercentage / 2);
                     rct.size.width += (self.bleedAreaLeftByPercentage / 2);
-                    rct.size.height += ((self.bleedAreaTopByPercentage * zoomScale) / 2);
-                    rct.size.height += ((self.bleedAreaBottomByPercentage * zoomScale) / 2);
+
+                    if (zoomScale <= 1.0) {
+                        rct.size.height += ((self.bleedAreaTopByPercentage * zoomScale) / 2);
+                        rct.size.height += ((self.bleedAreaBottomByPercentage * zoomScale) / 2);
+                    }
+                    
                     rct.size.height += (self.bleedAreaTopByPercentage / 2);
                     rct.size.height += (self.bleedAreaBottomByPercentage / 2);
-                   // rct.origin.x -= ((self.bleedAreaLeftByPercentage * zoomScale) / 2);
                     rct.origin.x -= (self.bleedAreaLeftByPercentage / 2);
-                  //  rct.origin.y -= ((self.bleedAreaTopByPercentage * zoomScale) / 2);
                     rct.origin.y -= (self.bleedAreaTopByPercentage / 2);
 
                 }
