@@ -104,10 +104,10 @@
 
 
         clBleedArea.isBleedAreaShow = YES;
-        clBleedArea.bleedAreaTop = 0.11083855;
-        clBleedArea.bleedAreaLeft = 0.07377057;
-        clBleedArea.bleedAreaRight = 0.0;
-        clBleedArea.bleedAreaBottom = 0.0;
+        clBleedArea.bleedAreaTop = 0.10;
+        clBleedArea.bleedAreaLeft = 0.10;
+        clBleedArea.bleedAreaRight = 0.10;
+        clBleedArea.bleedAreaBottom = 0.10;
 
        //  CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self withOptions:imageProperty];
 
