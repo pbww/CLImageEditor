@@ -230,18 +230,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         if (!self.editor.isCropingFirstTime) {
 
             //Right
-            if (zoomScale <= 1.0) {
-                rct.size.width += ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
-                rct.size.width += ((self.editor.bleedAreaRightByPercentage * zoomScale) / 2);
-            }
             rct.size.width += (self.editor.bleedAreaRightByPercentage / 2);
             rct.size.width += (self.editor.bleedAreaLeftByPercentage / 2);
 
             //Bottom
-            if (zoomScale <= 1.0) {
-                rct.size.height += ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
-                rct.size.height += ((self.editor.bleedAreaBottomByPercentage * zoomScale) / 2);
-            }
             rct.size.height += (self.editor.bleedAreaTopByPercentage / 2);
             rct.size.height += (self.editor.bleedAreaBottomByPercentage / 2);
 
@@ -270,18 +262,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         self.editor.bleedAreaBottomByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaBottom);
 
         //Right Bleed
-        if (zoomScale <= 1.0) {
-            rct.size.width -= ((self.editor.bleedAreaLeftByPercentage * zoomScale) / 2);
-            rct.size.width -= ((self.editor.bleedAreaRightByPercentage * zoomScale) / 2);
-        }
         rct.size.width -= (self.editor.bleedAreaRightByPercentage / 2);
         rct.size.width -= (self.editor.bleedAreaLeftByPercentage / 2);
 
         //Bottom Bleed
-        if (zoomScale <= 1.0) {
-            rct.size.height -= ((self.editor.bleedAreaTopByPercentage * zoomScale) / 2);
-            rct.size.height -= ((self.editor.bleedAreaBottomByPercentage * zoomScale) / 2);
-        }
         rct.size.height -= (self.editor.bleedAreaTopByPercentage / 2);
         rct.size.height -= (self.editor.bleedAreaBottomByPercentage / 2);
 
