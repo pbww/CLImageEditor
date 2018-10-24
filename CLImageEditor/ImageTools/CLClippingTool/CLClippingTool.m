@@ -256,10 +256,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     self.editor.isCropingFirstTime = NO;
     if (self.editor.isBleedAreaShow) {
 
-        self.editor.bleedAreaLeftByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaLeft * zoomScale);
-        self.editor.bleedAreaRightByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaRight * zoomScale);
-        self.editor.bleedAreaTopByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaTop * zoomScale);
-        self.editor.bleedAreaBottomByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaBottom * zoomScale);
+        self.editor.bleedAreaLeftByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaLeft);
+        self.editor.bleedAreaRightByPercentage = (rct.size.width * self.editor.clBleedArea.bleedAreaRight);
+        self.editor.bleedAreaTopByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaTop);
+        self.editor.bleedAreaBottomByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaBottom);
 
         //Right Bleed
         rct.size.width -= (self.editor.bleedAreaRightByPercentage / 2);
