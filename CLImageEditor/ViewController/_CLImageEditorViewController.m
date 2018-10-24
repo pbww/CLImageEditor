@@ -1129,7 +1129,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
             if (self.isBleedAreaShow) {
 
-                [imageProperty setObject:NSStringFromCGRect(_cropRect) forKey:BLEEDCROPRECT];
+                [imageProperty setObject:NSStringFromCGRect(_cropRect) forKey:TRIMRECT];
                 
                 CGFloat zoomScale = _imageWidth / _imageView.image.size.width;
                 CGRect rct = _cropRect;

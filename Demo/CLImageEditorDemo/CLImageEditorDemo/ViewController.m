@@ -262,8 +262,8 @@
         //NSLog(@"%f", angle);
     }
 
-    if ([imageProperty objectForKey:BLEEDCROPRECT] != nil) {
-        CGRect rect = CGRectFromString([imageProperty objectForKey:BLEEDCROPRECT]);
+    if ([imageProperty objectForKey:TRIMRECT] != nil) {
+        CGRect rect = CGRectFromString([imageProperty objectForKey:TRIMRECT]);
         //NSLog(@"%@", NSStringFromCGRect(rect));
     }
 

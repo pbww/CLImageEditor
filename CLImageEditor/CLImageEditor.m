@@ -28,7 +28,6 @@ NSString * const ASPECTRATIO = @"aspectRatio";
 NSString * const CONTENTMODE = @"contentMode";
 NSString * const BLEEDAREAX = @"bleedAreaX";
 NSString * const BLEEDAREAY = @"bleedAreaY";
-NSString * const BLEEDCROPRECT = @"bleedCropRect";
 NSString * const MINRECTSIZE = @"minRectSize";
 NSString * const TRIMRECT = @"trimRect";
 
