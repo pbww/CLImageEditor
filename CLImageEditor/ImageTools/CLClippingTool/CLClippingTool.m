@@ -230,18 +230,18 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         if (!self.editor.isCropingFirstTime) {
 
             //Right
-            rct.size.width += (self.editor.bleedAreaRightByPercentage / 2);
-            rct.size.width += (self.editor.bleedAreaLeftByPercentage / 2);
+            rct.size.width += (self.editor.bleedAreaRightByPercentage / 1);
+            rct.size.width += (self.editor.bleedAreaLeftByPercentage / 1);
 
             //Bottom
-            rct.size.height += (self.editor.bleedAreaTopByPercentage / 2);
-            rct.size.height += (self.editor.bleedAreaBottomByPercentage / 2);
+            rct.size.height += (self.editor.bleedAreaTopByPercentage / 1);
+            rct.size.height += (self.editor.bleedAreaBottomByPercentage / 1);
 
             //Left
-            rct.origin.x -= (self.editor.bleedAreaLeftByPercentage / 2);
+            rct.origin.x -= (self.editor.bleedAreaLeftByPercentage / 1);
 
             //Top
-            rct.origin.y -= (self.editor.bleedAreaTopByPercentage / 2);
+            rct.origin.y -= (self.editor.bleedAreaTopByPercentage / 1);
         }
     }
 
@@ -262,18 +262,18 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         self.editor.bleedAreaBottomByPercentage = (rct.size.height * self.editor.clBleedArea.bleedAreaBottom);
 
         //Right Bleed
-        rct.size.width -= (self.editor.bleedAreaRightByPercentage / 2);
-        rct.size.width -= (self.editor.bleedAreaLeftByPercentage / 2);
+        rct.size.width -= (self.editor.bleedAreaRightByPercentage / 1);
+        rct.size.width -= (self.editor.bleedAreaLeftByPercentage / 1);
 
         //Bottom Bleed
-        rct.size.height -= (self.editor.bleedAreaTopByPercentage / 2);
-        rct.size.height -= (self.editor.bleedAreaBottomByPercentage / 2);
+        rct.size.height -= (self.editor.bleedAreaTopByPercentage / 1);
+        rct.size.height -= (self.editor.bleedAreaBottomByPercentage / 1);
 
         //Left
-        rct.origin.x += (self.editor.bleedAreaLeftByPercentage / 2);
+        rct.origin.x += (self.editor.bleedAreaLeftByPercentage / 1);
 
         //Top
-        rct.origin.y += (self.editor.bleedAreaTopByPercentage / 2);
+        rct.origin.y += (self.editor.bleedAreaTopByPercentage / 1);
 
     }
     rct.size.width  /= zoomScale;

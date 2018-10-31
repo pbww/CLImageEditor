@@ -1140,14 +1140,14 @@ static const CGFloat kMenuBarHeight = 80.0f;
                 rct.origin.y    *= zoomScale;
                 if (!self.isCropingFirstTime) {
 
-                    rct.size.width += (self.bleedAreaRightByPercentage / 2);
-                    rct.size.width += (self.bleedAreaLeftByPercentage / 2);
+                    rct.size.width += (self.bleedAreaRightByPercentage / 1);
+                    rct.size.width += (self.bleedAreaLeftByPercentage / 1);
 
-                    rct.size.height += (self.bleedAreaTopByPercentage / 2);
-                    rct.size.height += (self.bleedAreaBottomByPercentage / 2);
+                    rct.size.height += (self.bleedAreaTopByPercentage / 1);
+                    rct.size.height += (self.bleedAreaBottomByPercentage / 1);
                     
-                    rct.origin.x -= (self.bleedAreaLeftByPercentage / 2);
-                    rct.origin.y -= (self.bleedAreaTopByPercentage / 2);
+                    rct.origin.x -= (self.bleedAreaLeftByPercentage / 1);
+                    rct.origin.y -= (self.bleedAreaTopByPercentage / 1);
 
                 }
                 rct.size.width  /= zoomScale;
