@@ -512,7 +512,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         double bleedAreaRightByPercentage = (rct.size.width * self.bleedAreaRight);
 
         //CGContextSetLineWidth(context, (self.bleedAreaLeft / 2));
-        CGContextSetLineWidth(context, (bleedAreaLeftByPercentage / 2));
+        CGContextSetLineWidth(context, (bleedAreaLeftByPercentage / 1));
         CGContextBeginPath(context);
         dW = 0;
         //LEFT
@@ -520,23 +520,23 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
           //  CGContextMoveToPoint(context, rct.origin.x+dW  + (self.bleedAreaLeft/4), rct.origin.y);
           //  CGContextAddLineToPoint(context, rct.origin.x+dW  + (self.bleedAreaLeft/4), rct.origin.y+rct.size.height);
 
-            CGContextMoveToPoint(context, rct.origin.x+dW  + (bleedAreaLeftByPercentage/4), rct.origin.y);
-            CGContextAddLineToPoint(context, rct.origin.x+dW  + (bleedAreaLeftByPercentage/4), rct.origin.y+rct.size.height);
+            CGContextMoveToPoint(context, rct.origin.x+dW  + (bleedAreaLeftByPercentage/2), rct.origin.y);
+            CGContextAddLineToPoint(context, rct.origin.x+dW  + (bleedAreaLeftByPercentage/2), rct.origin.y+rct.size.height);
         }
         CGContextStrokePath(context);
         CGContextClosePath(context);
 
 
          //RIGHT
-        CGContextSetLineWidth(context, (bleedAreaRightByPercentage / 2));
+        CGContextSetLineWidth(context, (bleedAreaRightByPercentage / 1));
         CGContextBeginPath(context);
 
         if (self.bleedAreaRight > 0.0) {
             for(int i=0;i<3;++i){
                 dW += _clippingRect.size.width/3;
             }
-            CGContextMoveToPoint(context, rct.origin.x+dW - (bleedAreaRightByPercentage/4), rct.origin.y);
-            CGContextAddLineToPoint(context, rct.origin.x+dW - (bleedAreaRightByPercentage/4), rct.origin.y+rct.size.height);
+            CGContextMoveToPoint(context, rct.origin.x+dW - (bleedAreaRightByPercentage/2), rct.origin.y);
+            CGContextAddLineToPoint(context, rct.origin.x+dW - (bleedAreaRightByPercentage/2), rct.origin.y+rct.size.height);
         }
 
         CGContextStrokePath(context);
@@ -550,7 +550,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
         double bleedAreaTopByPercentage = (rct.size.height * self.bleedAreaTop);
         double bleedAreaBottomByPercentage = (rct.size.height * self.bleedAreaBottom);
 
-         CGContextSetLineWidth(context, (bleedAreaTopByPercentage / 2));
+         CGContextSetLineWidth(context, (bleedAreaTopByPercentage / 1));
        // CGContextSetLineWidth(context, (self.bleedAreaTop / 2));
         CGContextBeginPath(context);
         dW = 0;
@@ -558,22 +558,22 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 //            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW + (self.bleedAreaTop/4));
 //            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW +(self.bleedAreaTop/4));
 
-            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW + (bleedAreaTopByPercentage/4));
-            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW +(bleedAreaTopByPercentage/4));
+            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW + (bleedAreaTopByPercentage/2));
+            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW +(bleedAreaTopByPercentage/2));
         }
         CGContextStrokePath(context);
         CGContextClosePath(context);
 
         // BOTTOM
-        CGContextSetLineWidth(context, (bleedAreaBottomByPercentage / 2));
+        CGContextSetLineWidth(context, (bleedAreaBottomByPercentage / 1));
         CGContextBeginPath(context);
 
         if (self.bleedAreaBottom > 0.0) {
             for(int i=0;i<3;++i){
                 dW += rct.size.height/3;
             }
-            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW - (bleedAreaBottomByPercentage/4));
-            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW - (bleedAreaBottomByPercentage/4));
+            CGContextMoveToPoint(context, rct.origin.x, rct.origin.y+dW - (bleedAreaBottomByPercentage/2));
+            CGContextAddLineToPoint(context, rct.origin.x+rct.size.width, rct.origin.y+dW - (bleedAreaBottomByPercentage/2));
         }
 
         CGContextStrokePath(context);

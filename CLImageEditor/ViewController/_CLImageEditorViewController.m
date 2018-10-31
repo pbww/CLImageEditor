@@ -1155,6 +1155,13 @@ static const CGFloat kMenuBarHeight = 80.0f;
                 rct.origin.x    /= zoomScale;
                 rct.origin.y    /= zoomScale;
 
+//                float x = (rct.origin.x - (rct.size.width * self.clBleedArea.bleedAreaLeft));
+//                float y = (rct.origin.y - (rct.size.height * self.clBleedArea.bleedAreaTop));
+//                float width = (rct.size.width + ((rct.size.width * self.clBleedArea.bleedAreaRight) + (rct.size.width * self.clBleedArea.bleedAreaLeft)));
+//                float height = (rct.size.height + ((rct.size.height * self.clBleedArea.bleedAreaBottom) + (rct.size.height * self.clBleedArea.bleedAreaTop)));
+//
+//                rct = CGRectMake(x, y,width, height);
+
                 [imageProperty setObject:NSStringFromCGRect(rct) forKey:CROPRECT];
             }
 
@@ -1203,9 +1210,34 @@ static const CGFloat kMenuBarHeight = 80.0f;
     }
 
     if (_isCropingFirstTime) {
-        [_imageView.layer setContentsRect:CGRectMake(_trimRect.origin.x/_originalImageReset.size.width, _trimRect.origin.y/_originalImageReset.size.height,_trimRect.size.width/_originalImageReset.size.width, _trimRect.size.height/_originalImageReset.size.height)];
+
+//        let x = CGFloat(imageRect.x + (imageRect.width * Float(bleedArea?.bleedAreaLeft ?? 0.0)))
+//        let y = CGFloat(imageRect.y + (imageRect.height * Float(bleedArea?.bleedAreaTop ?? 0.0)))
+//        let width = CGFloat(imageRect.width - ((imageRect.width * Float(bleedArea?.bleedAreaRight ?? 0.0)) + (imageRect.width * Float(bleedArea?.bleedAreaLeft ?? 0.0))))
+//        let height = CGFloat(imageRect.height - ((imageRect.height * Float(bleedArea?.bleedAreaBottom ?? 0.0)) + (imageRect.height * Float(bleedArea?.bleedAreaTop ?? 0.0))))
+
+//        float x = (_trimRect.origin.x + (_trimRect.size.width * self.clBleedArea.bleedAreaLeft));
+//        float y = (_trimRect.origin.y + (_trimRect.size.height * self.clBleedArea.bleedAreaTop));
+//        float width = (_trimRect.size.width - ((_trimRect.size.width * self.clBleedArea.bleedAreaRight) + (_trimRect.size.width * self.clBleedArea.bleedAreaLeft)));
+//        float height = (_trimRect.size.height - ((_trimRect.size.height * self.clBleedArea.bleedAreaBottom) + (_trimRect.size.height * self.clBleedArea.bleedAreaTop)));
+
+        float x = (_cropRect.origin.x + (_cropRect.size.width * self.clBleedArea.bleedAreaLeft));
+        float y = (_cropRect.origin.y + (_cropRect.size.height * self.clBleedArea.bleedAreaTop));
+        float width = (_cropRect.size.width - ((_cropRect.size.width * self.clBleedArea.bleedAreaRight) + (_cropRect.size.width * self.clBleedArea.bleedAreaLeft)));
+        float height = (_cropRect.size.height - ((_cropRect.size.height * self.clBleedArea.bleedAreaBottom) + (_cropRect.size.height * self.clBleedArea.bleedAreaTop)));
+
+         [_imageView.layer setContentsRect:CGRectMake(x/_originalImageReset.size.width, y/_originalImageReset.size.height,width/_originalImageReset.size.width, height/_originalImageReset.size.height)];
+
+      //  [_imageView.layer setContentsRect:CGRectMake(_trimRect.origin.x/_originalImageReset.size.width, _trimRect.origin.y/_originalImageReset.size.height,_trimRect.size.width/_originalImageReset.size.width, _trimRect.size.height/_originalImageReset.size.height)];
     }
     else {
+//        float x = (_cropRect.origin.x + (_cropRect.size.width * self.clBleedArea.bleedAreaLeft));
+//        float y = (_cropRect.origin.y + (_cropRect.size.height * self.clBleedArea.bleedAreaTop));
+//        float width = (_cropRect.size.width - ((_cropRect.size.width * self.clBleedArea.bleedAreaRight) + (_cropRect.size.width * self.clBleedArea.bleedAreaLeft)));
+//        float height = (_cropRect.size.height - ((_cropRect.size.height * self.clBleedArea.bleedAreaBottom) + (_cropRect.size.height * self.clBleedArea.bleedAreaTop)));
+//
+//        [_imageView.layer setContentsRect:CGRectMake(x/_originalImageReset.size.width, y/_originalImageReset.size.height,width/_originalImageReset.size.width, height/_originalImageReset.size.height)];
+
         [_imageView.layer setContentsRect:CGRectMake(_cropRect.origin.x/_originalImageReset.size.width, _cropRect.origin.y/_originalImageReset.size.height,_cropRect.size.width/_originalImageReset.size.width, _cropRect.size.height/_originalImageReset.size.height)];
     }
 }
